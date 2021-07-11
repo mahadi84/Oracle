@@ -1,0 +1,20 @@
+LISTENER (cd $ORACLE_HOMe/network/admin/listener.ora and tnsnames.ora)
+
+$lsnrctl start
+$lsnrctl status
+$lsnrctl stop
+
+
+FORCE TO START LISTENER BEFORE 1 MINUTE
+SQL>alter system register;
+
+
+TO START A DATABASE 
+$sqlplus
+Username: sys as sysdba
+Password: ********
+SQL>startup;
+
+TO CHANGE PASSWORD
+SQL> alter user NAME identified by PASSWORD;
+
