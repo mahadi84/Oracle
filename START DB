@@ -1,8 +1,15 @@
 TO START A DATABASE 
-$sqlplus
+$ sqlplus
 Username: sys as sysdba
 Password: ********
 SQL>startup;
+
+CONNECT/DISCONNECT
+SQL> connect;
+SQL> disconnect;
+
+SHUTDOWN
+SQL>shutdown  abort| immediate | transactional
 
 TO CHANGE PASSWORD
 SQL> alter user NAME identified by PASSWORD;
