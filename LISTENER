@@ -1,0 +1,15 @@
+LISTENER (cd $ORACLE_HOMe/network/admin/listener.ora and tnsnames.ora)
+
+$lsnrctl start
+$lsnrctl status
+$lsnrctl stop
+$lsnrctl reload
+
+
+
+FORCE TO START LISTENER BEFORE 1 MINUTE
+SQL>alter system register;
+
+TOOLS
+tnsping tnsname
+netmrg  and netca / tools to config oracle net listerner
