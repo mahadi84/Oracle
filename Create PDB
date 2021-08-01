@@ -10,9 +10,17 @@ CREATE PLUGGABLE DATABASE pdb1
     DATAFILE '/u01/app/oracle/oradata/ORCL/pdb1/users01.dbf' SIZE 250M AUTOEXTEND ON
   FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ORCL/pdbseed/',
                        '/u01/app/oracle/oradata/ORCL/pdb1/')
- /*
- file_name_convert
 
+
+
+DROP PLUGGABLE DATABASE testpdb KEEP DATAFILES;
+DROP PLUGGABLE DATABASE testpdb INCLUDING DATAFILES;
+
+
+
+
+/*
+ file_name_convert
 Use this clause to determine how the database generates the names of files 
 (such as data files and wallet files) for the PDB.
 
