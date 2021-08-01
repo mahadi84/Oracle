@@ -1,4 +1,4 @@
---Example: NOW LET US CLONE ORCLPDB TO pdb5
+--Example: NOW LET US CLONE ORCLPDB TO pdb5 (ORCLPDB needs to be open mode)
 --go to vbox
 --login as oracle user
 --  mkdir /u01/app/oracle/oradata/ORCL/pdb5
