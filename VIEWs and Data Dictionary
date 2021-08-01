@@ -1,0 +1,12 @@
+VIEWs LIST
+--------------------------------
+v$pdbs, v$tablespace, v$database,
+v$containers, v$controlfile, v$logfiles, 
+v$datafile, v$instance, v$version, 
+v$parameter, v$diag_info, v$locked_objects
+
+
+DATA DICTIONARY (cdb_, dba_, all_, user_) 
+-------------------
+cdb_tables, cdb_users,
+cdb_data_files, cdb_tablespaces
