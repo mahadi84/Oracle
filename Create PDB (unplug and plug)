@@ -1,0 +1,34 @@
+--step 01 (Close the PDB that want to move)
+alter pluggable database pdbtest close immediate;
+
+--step 2 (Convert PDB to xml file)
+alter pluggable database pdbtest  unplug into '/u01/app/oracle/oradata/pdbtest.xml'
+
+--step3
+drop pluggable database pdbtest keep datafiles; --you should keep it.
+
+
+--step 4 -- but this not work in 18c
+/*
+DECLARE
+  l_result BOOLEAN;
+BEGIN
+  l_result := DBMS_PDB.check_plug_compatibility(
+                pdb_descr_file => '/u01/app/oracle/oradata/pdbtest.xml',
+                pdb_name => 'pdbtest');
+
+  IF l_result THEN
+    DBMS_OUTPUT.PUT_LINE('compatible');
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('incompatible');
+  END IF;
+END;
+
+*/
+
+--step 5
+create pluggable database pdbtest1
+using '/u01/app/oracle/oradata/pdbtest.xml'
+NOCOPY TEMPFILE REUSE; (if you want to use old datafile)
+--FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb5/',
+--            '/u01/app/oracle/oradata/ORCL/pdbtest/')
