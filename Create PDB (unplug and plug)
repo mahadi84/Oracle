@@ -30,7 +30,7 @@ END;
 */
 
 --step 5
-create pluggable database pdbtest1
+create pluggable database pdbtest
 using '/u01/app/oracle/oradata/pdbtest.xml'
 NOCOPY TEMPFILE REUSE; (if you want to use old datafile)
 --FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb5/',
