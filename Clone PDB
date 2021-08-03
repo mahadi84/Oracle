@@ -1,19 +1,22 @@
---Example: NOW LET US CLONE ORCLPDB TO pdb5 (ORCLPDB needs to be open mode)
---go to vbox
---login as oracle user
---  mkdir /u01/app/oracle/oradata/ORCL/pdb5
---login to orclpdb and do some uncommited tans.
+LETS CLONE orclpdb TO pdb5 (orclpdb needs to be opened)
+
+--login as oracle user and create folder
+--mkdir /u01/app/oracle/oradata/ORCL/pdb5
+
+--Alter into to orclpdb and do some uncommited tansactions.
 --update hr.employees set salary=salary +1 where employee_id=100;
 --select salary from hr.employees where employee_id=100; 
 
 alter session set container=cdb$root;
 
-
 CREATE PLUGGABLE DATABASE pdb5 from orclpdb
-FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ORCL/orclpdb/',
-                       '/u01/app/oracle/oradata/ORCL/pdb5/')
+FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ORCL/orclpdb/','/u01/app/oracle/oradata/ORCL/pdb5/');
+
 /*
 you can do this if you need oracle managed files to names the files
 CREATE PLUGGABLE DATABASE pdb5 from orclpdb
 create_file_dest '/u01/app/oracle/oradata/ORCL/pdb5'
 */
+
+
+
