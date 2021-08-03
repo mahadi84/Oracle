@@ -1,5 +1,5 @@
---Step 00 (Create a folder)
-/u01/app/oracle/oradata/ORCL/pdbtest/
+--step 00 (Create a folder)
+mkdir /u01/app/oracle/oradata/ORCL/pdbtest/
 
 --step 01 (Close the PDB that want to move)
 alter pluggable database pdb01 close immediate;
@@ -9,7 +9,6 @@ alter pluggable database pdb01  unplug into '/u01/app/oracle/oradata/pdbtest.xml
 
 --step3
 drop pluggable database pdb01 keep datafiles; --you should keep it.
-
 
 --step 4 -- but this not work in 18c
 /*
@@ -26,12 +25,12 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('incompatible');
   END IF;
 END;
-
 */
 
 --step 5
-create pluggable database pdbtest
-using '/u01/app/oracle/oradata/pdbtest.xml'
+create pluggable database pdbtest using '/u01/app/oracle/oradata/pdbtest.xml'
 NOCOPY TEMPFILE REUSE; (if you want to use old datafile)
---FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb01/', '/u01/app/oracle/oradata/ORCL/pdbtest/')
+--FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb01/','/u01/app/oracle/oradata/ORCL/pdbtest/');
+
+
 
