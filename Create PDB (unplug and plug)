@@ -2,13 +2,13 @@
 /u01/app/oracle/oradata/ORCL/pdbtest/
 
 --step 01 (Close the PDB that want to move)
-alter pluggable database pdbtest close immediate;
+alter pluggable database pdb01 close immediate;
 
 --step 2 (Convert PDB to xml file)
 alter pluggable database pdb01  unplug into '/u01/app/oracle/oradata/pdbtest.xml'
 
 --step3
-drop pluggable database pdbtest keep datafiles; --you should keep it.
+drop pluggable database pdb01 keep datafiles; --you should keep it.
 
 
 --step 4 -- but this not work in 18c
