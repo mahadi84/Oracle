@@ -8,7 +8,7 @@ CREATE PLUGGABLE DATABASE pdb1
   ROLES = (dba)
   DEFAULT TABLESPACE users
   DATAFILE '/u01/app/oracle/oradata/ORCL/pdb1/users01.dbf' SIZE 250M AUTOEXTEND ON
-  FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ORCL/pdbseed/', '/u01/app/oracle/oradata/ORCL/pdb1/');
+  FILE_NAME_CONVERT = ('/u01/app/oracle/oradata/ORCL/pdbseed/','/u01/app/oracle/oradata/ORCL/pdb1/');
 
 DROP PLUGGABLE DATABASE testpdb KEEP DATAFILES;
 DROP PLUGGABLE DATABASE testpdb INCLUDING DATAFILES;
