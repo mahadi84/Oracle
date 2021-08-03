@@ -5,7 +5,7 @@
 alter pluggable database pdbtest close immediate;
 
 --step 2 (Convert PDB to xml file)
-alter pluggable database pdbtest  unplug into '/u01/app/oracle/oradata/pdbtest.xml'
+alter pluggable database pdb01  unplug into '/u01/app/oracle/oradata/pdbtest.xml'
 
 --step3
 drop pluggable database pdbtest keep datafiles; --you should keep it.
