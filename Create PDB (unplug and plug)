@@ -33,5 +33,5 @@ END;
 create pluggable database pdbtest
 using '/u01/app/oracle/oradata/pdbtest.xml'
 NOCOPY TEMPFILE REUSE; (if you want to use old datafile)
---FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb01/',
---            '/u01/app/oracle/oradata/ORCL/pdbtest/')
+--FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb01/', '/u01/app/oracle/oradata/ORCL/pdbtest/')
+
