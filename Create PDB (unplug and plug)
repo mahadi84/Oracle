@@ -1,3 +1,6 @@
+--Step 00 (Create folder)
+/u01/app/oracle/oradata/ORCL/pdbtest/
+
 --step 01 (Close the PDB that want to move)
 alter pluggable database pdbtest close immediate;
 
