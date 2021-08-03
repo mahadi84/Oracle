@@ -1,4 +1,4 @@
---Step 00 (Create folder)
+--Step 00 (Create a folder)
 /u01/app/oracle/oradata/ORCL/pdbtest/
 
 --step 01 (Close the PDB that want to move)
