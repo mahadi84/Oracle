@@ -10,3 +10,7 @@ DATA DICTIONARY (cdb_, dba_, all_, user_)
 -------------------
 cdb_tables, cdb_users,
 cdb_data_files, cdb_tablespaces
+
+
+
+
