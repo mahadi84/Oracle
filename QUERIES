@@ -1,3 +1,6 @@
+
+
+
 PASSWORD CHANGE:
 alter user USERNAME identified by PASSWORD;
 
