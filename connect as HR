@@ -1,2 +1,6 @@
+
+
 $sqlplus / as sysdba
 SQL>connect hr/hr@pubalipdb
+
+
