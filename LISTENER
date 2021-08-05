@@ -7,8 +7,6 @@ $lsnrctl status
 $lsnrctl stop
 $lsnrctl reload
 
-
-
 FORCE TO START LISTENER BEFORE 1 MINUTE
 SQL>alter system register;
 
