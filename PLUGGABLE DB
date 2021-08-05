@@ -1,4 +1,6 @@
-
+ 
+ 
+ 
 SQL> show pdbs;  / to check pluggable database list
 SQL>alter pluggable database PDBname open; / open one pdb
 SQL>alter pluggable database all open; / open all pdb
@@ -14,4 +16,8 @@ SQL> alter session set container=cbd$root;  / to change pluggable to container d
 -- if you want your pluggable database to open automatically, you need to run below command 
 
 alter pluggable database <pluggable_database_name> save state;
+
+
+
+
 
