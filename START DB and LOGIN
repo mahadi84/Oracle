@@ -16,3 +16,11 @@ SQL>shutdown  abort| immediate | transactional
 TO CHANGE PASSWORD
 SQL> alter user NAME identified by PASSWORD;
 
+
+CONNECT AS OTHER (HR) USER
+---------------------
+$sqlplus / as sysdba
+SQL>connect hr/hr@pubalipdb
+
+
+
