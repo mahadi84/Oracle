@@ -22,5 +22,5 @@ CONNECT AS OTHER (HR) USER
 $sqlplus / as sysdba
 SQL>connect hr/hr@pubalipdb
 
-
+SQL>connect system/system@hostname:1521/servicename;
 
