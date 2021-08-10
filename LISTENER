@@ -15,5 +15,27 @@ tnsping tnsname
 netmrg  and netca / tools to config oracle net listerner
 
 
+01: CREAT A NEW LISTENER:
+---------------------------
+step:A(Add line to listener.ora)
+L2 = (DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1560)))
+
+step:B (Add line to tnsnames.ora)
+L2 =  (ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1560))
+
+02: LOGIN AND CHANGE PARAMETER AND START LISTENER JUST CREATED
+----------------------------------------------------------
+sqlplus / as sysdba
+
+SQL> show parameter local
+SQL> alter system set local_listener= "LISTENER_ORCL , L2";
+
+[] lsnrctl
+lsnrctl>start L2
+
+SQL> connect system/system@test.com:1560/orcl.com;
+
+ 
+
 
 
