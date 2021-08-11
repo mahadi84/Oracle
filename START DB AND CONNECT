@@ -1,29 +1,26 @@
 
 
-TO START A DATABASE 
+TO START A DATABASE
+---------------------
 $ sqlplus
 Username: sys as sysdba
 Password: ********
 SQL>startup;
 
-CONNECT/DISCONNECT
-SQL> connect;
-SQL> disconnect;
+CONNECT DATABASE:
+-------------------------------------
+$sqlplus / as sysdba
+SQL> connect pdb1admin/welcome@pdb1
+SQL>connect hr/hr@pubalipdb
+SQL>connect username/password@hostname:PORT/servicename;
+SQL>connect system/system@test.com:1521/orcl.com;
+
 
 SHUTDOWN
 SQL>shutdown  abort| immediate | transactional
 
-TO CHANGE PASSWORD
-SQL> alter user NAME identified by PASSWORD;
 
 
-CONNECT AS OTHER (HR) USER
----------------------
-$sqlplus / as sysdba
-SQL>connect hr/hr@pubalipdb
-
-SQL>connect username/password@hostname:PORT/servicename;
-SQL>connect system/system@test.com:1521/orcl.com;
 
 
 
