@@ -3,6 +3,7 @@
 
 Requirement: 
 both user id must have DBA privilege
+Ex: GRANT DBA to username;
 
 Syntex:
 CREATE DATABASE LINK <name-anything-you-want>
