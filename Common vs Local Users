@@ -1,0 +1,13 @@
+
+
+--ALL users in root are common
+select * from dba_users;
+
+COMMON USERS:
+create user c##jane identified by jane container=all; -- he can not login yet
+
+
+LOCAL USERS:
+create user demo identified by demo1234; -- he can not login yet
+
+
