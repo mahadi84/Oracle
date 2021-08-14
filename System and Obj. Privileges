@@ -1,0 +1,28 @@
+
+
+--TO SEE HOW MANY ORACLE PRIVILEGEs ARE AVAILABLE
+select * from SYSTEM_PRIVILEGE_MAP
+
+TO CHECK PRIVILEGES
+-------------------
+select * from ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
+
+--SYSTEM Privilege Direct to USER 
+GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo;
+
+--SYSTEM Privilege Direct to ROLE
+GRANT create session,create table, unlimited tablespace, create sequence, create view TO role_manager;
+
+
+--OBJECT PRIVILEGES
+GRANT update (salary)  
+ON hr.employees to demo;
+
+GRANT all on hr.locations to demo;
+
+GRANT select, insert 
+ON hr.jobs to demo;
+
+GRANT select 
+ON hr.countries
+TO public;
