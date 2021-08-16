@@ -1,10 +1,12 @@
 
 
---TO SEE HOW MANY ORACLE PRIVILEGEs ARE AVAILABLE
-select * from SYSTEM_PRIVILEGE_MAP
+ORACLE AVAIABLE PRIVILEGEs
+---------------------------
+select * from SYSTEM_PRIVILEGE_MAP;
 
-TO CHECK PRIVILEGES
--------------------
+
+TO CHECK USER ROLE/PRIVILEGES
+-----------------------------
 select * from SESSION_PRIVS, ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
 where role= upper('master_role');
 
@@ -12,14 +14,13 @@ select * from DBA_role_PRIVS
 where GRANTEE=upper('master_role');
 
 
---SYSTEM Privilege Direct to USER 
-GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo;
-
---SYSTEM Privilege Direct to ROLE
-GRANT create session,create table, unlimited tablespace, create sequence, create view TO role_manager;
+SYSTEM Privilege Direct to USER/ROLE
+------------------------------------
+GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo / role_manager;
 
 
---OBJECT PRIVILEGES
+OBJECT PRIVILEGES GRANTEE
+-------------------------
 GRANT update (salary)  
 ON hr.employees to demo;
 
@@ -34,7 +35,7 @@ TO public;
 
 
 COMMON Vs LOCAL PRIVILEGE:
---------------------------
+==========================
 COMMON PRIVILEGE: (creats loginto CBD$ROOT, with container=ALL)
 alter session set container=cdb$root;
 grant create session to c##jane container=all ;
@@ -49,9 +50,17 @@ alter session set container=PluggableDatabseName;
 ===============================================================
 There are two type of profile. COMMON and LOCAL RPOFILE.
 
+TO CHECK USER/DEFAULT PROFILE
+-----------------------------
+select * from DBA_PROFILES
+where PROFILE= upper('orclpdbprofile');
+
 select * from dba_PROFILES
 where PROFILE='DEFAULT';
 
+
+CREATE PROFILE
+--------------
 create profile orclpdbprofile
 limit
 SESSIONS_PER_USER UNLIMITED
@@ -65,12 +74,6 @@ ERROR MEANING OF ORACLE
 ------------------------
 --go to vm and do this: 
 [oracle@test.com]$  ! oerr ora 2377
-
-
-TO CHECK USER PROFILE
-----------------------
-select * from DBA_PROFILES
-where PROFILE= upper('orclpdbprofile');
 
 
 ADD PROFILE TO USER:
