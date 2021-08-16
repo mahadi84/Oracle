@@ -67,8 +67,11 @@ ERROR MEANING OF ORACLE
 [oracle@test.com]$  ! oerr ora 2377
 
 
+TO CHECK USER PROFILE
+----------------------
 select * from DBA_PROFILES
 where PROFILE= upper('orclpdbprofile');
+
 
 ADD PROFILE TO USER:
 ------------------------
