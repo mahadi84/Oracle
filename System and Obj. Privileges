@@ -5,7 +5,8 @@ select * from SYSTEM_PRIVILEGE_MAP
 
 TO CHECK PRIVILEGES
 -------------------
-select * from ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
+select * from SESSION_PRIVS, ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
+WHERE ROLE='MANAGER';
 
 --SYSTEM Privilege Direct to USER 
 GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo;
@@ -26,3 +27,21 @@ ON hr.jobs to demo;
 GRANT select 
 ON hr.countries
 TO public;
+
+
+COMMON Vs LOCAL PRIVILEGE:
+--------------------------
+COMMON PRIVILEGE: (creats loginto CBD$ROOT, with container=ALL)
+alter session set container=cdb$root;
+grant create session to c##jane container=all ;
+create role c##test_role container=all;
+
+LOCAL PRIVILEGE: (creats loginto pluggable databse)
+alter session set container=PluggableDatabseName;
+
+
+
+
+
+
+
