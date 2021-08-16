@@ -44,6 +44,40 @@ LOCAL PRIVILEGE: (creats loginto pluggable databse)
 alter session set container=PluggableDatabseName;
 
 
+===============================================================
+   -----------------  P R O F I L E  ------------------------
+===============================================================
+There are two type of profile. COMMON and LOCAL RPOFILE.
+
+select * from dba_PROFILES
+where PROFILE='DEFAULT';
+
+create profile orclpdbprofile
+limit
+SESSIONS_PER_USER UNLIMITED
+IDLE_TIME UNLIMITED
+FAILED_LOGIN_ATTEMPTS 10
+PASSWORD_LIFE_TIME 180
+INACTIVE_ACCOUNT_TIME 10
+
+
+ERROR MEANING OF ORACLE
+------------------------
+--go to vm and do this: 
+[oracle@test.com]$  ! oerr ora 2377
+
+
+select * from DBA_PROFILES
+where PROFILE= upper('orclpdbprofile');
+
+ADD PROFILE TO USER:
+------------------------
+create user sara identified by sara profile orclpdbprofile;
+
+
+
+
+
 
 
 
