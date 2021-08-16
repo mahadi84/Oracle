@@ -6,7 +6,11 @@ select * from SYSTEM_PRIVILEGE_MAP
 TO CHECK PRIVILEGES
 -------------------
 select * from SESSION_PRIVS, ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
-WHERE ROLE='MANAGER';
+where role= upper('master_role');
+
+select * from DBA_role_PRIVS
+where GRANTEE=upper('master_role');
+
 
 --SYSTEM Privilege Direct to USER 
 GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo;
@@ -38,7 +42,6 @@ create role c##test_role container=all;
 
 LOCAL PRIVILEGE: (creats loginto pluggable databse)
 alter session set container=PluggableDatabseName;
-
 
 
 
