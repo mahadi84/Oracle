@@ -1,4 +1,6 @@
-
+===============================================================
+   -----------------  P R I V I L E G E s--------------------
+===============================================================
 
 ORACLE AVAIABLE PRIVILEGEs
 ---------------------------
@@ -16,7 +18,7 @@ where GRANTEE=upper('master_role');
 
 SYSTEM Privilege Direct to USER/ROLE
 ------------------------------------
-GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_demo / role_manager;
+GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_name / role_name;
 
 
 OBJECT PRIVILEGES GRANTEE
