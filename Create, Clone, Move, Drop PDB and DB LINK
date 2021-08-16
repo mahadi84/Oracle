@@ -1,5 +1,7 @@
+
+==========================================
 01. CREATE PLUGGABLE DATABASE
-==============================================================================
+==========================================
 alter session set container=cdb$root;
 
 --go to vbox
@@ -21,8 +23,10 @@ Use this clause to determine how the database generates the names of files
 (such as data files and wallet files) for the PDB.
 */
 
+=======================================================
 02. CLONE PLUGGABLE DATABASE
-============================================================================
+=======================================================
+
 LETS CLONE orclpdb TO pdb5 (orclpdb needs to be opened)
 
 --login as oracle user and create folder
@@ -44,8 +48,9 @@ create_file_dest '/u01/app/oracle/oradata/ORCL/pdb5'
 */
 
 
+===========================================================
 03. MOVE PLUGGABLE DATABASE
-==============================
+===========================================================
 --step 00 (Create a folder)
 mkdir /u01/app/oracle/oradata/ORCL/pdbtest/
 
@@ -79,6 +84,33 @@ END;
 create pluggable database pdbtest using '/u01/app/oracle/oradata/pdbtest.xml'
 NOCOPY TEMPFILE REUSE; (if you want to use old datafile)
 --FILE_NAME_CONVERT=('/u01/app/oracle/oradata/ORCL/pdb01/','/u01/app/oracle/oradata/ORCL/pdbtest/');
+
+
+=============================
+---CREATE DATABASE LINK -----
+=============================
+
+Requirement: 
+both user id must have DBA privilege
+Ex: GRANT DBA to username;
+
+Syntex:
+CREATE DATABASE LINK <name-anything-you-want>
+CONNECT TO <user-id-of-other-db-with-dba-privilege> IDENTIFIED BY <password>
+USING '<tns-entry-title-for-other-db>';
+
+
+CREATE DATABASE LINK read_pdb2
+CONNECT TO pdb2admin IDENTIFIED BY welcome
+USING 'pdb2';
+
+SELECT * from employees@read_pdb2;
+
+DROP DATABASE LINK read_pdb2;
+
+**Don't forget to commit
+
+
 
 
 
