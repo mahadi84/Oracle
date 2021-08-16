@@ -1,3 +1,8 @@
+
+
+**There are two type of PRIVILEGE and PROFILE (COMMON and LOCAL).
+
+
 ===============================================================
    -----------------  P R I V I L E G E s--------------------
 ===============================================================
@@ -50,7 +55,7 @@ alter session set container=PluggableDatabseName;
 ===============================================================
    -----------------  P R O F I L E  ------------------------
 ===============================================================
-There are two type of profile. COMMON and LOCAL RPOFILE.
+
 
 TO CHECK USER/DEFAULT PROFILE
 -----------------------------
