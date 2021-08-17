@@ -2,10 +2,10 @@
 
 VIEWs LIST
 --------------------------------
-v$database, v$pdbs, v$version, v$containers,
-v$locked_objects, v$tablespace,v$parameter, 
+v$database, v$pdbs, v$containers, v$locked_objects, v$version, 
+v$tablespace, v$parameter, v$instance, v$diag_info,
 v$datafile, v$controlfile, v$logfiles, 
-v$instance, v$diag_info,
+
 
 
 DATA DICTIONARY (cdb_, dba_, all_, user_) 
