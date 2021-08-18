@@ -68,13 +68,20 @@ where PROFILE='DEFAULT';
 
 CREATE PROFILE
 --------------
+
+create profile test_pass
+       limit
+       password_verify_function ORA12C_VERIFY_FUNCTION;
+
+
+
 create profile orclpdbprofile
-limit
-SESSIONS_PER_USER UNLIMITED
-IDLE_TIME UNLIMITED
-FAILED_LOGIN_ATTEMPTS 10
-PASSWORD_LIFE_TIME 180
-INACTIVE_ACCOUNT_TIME 10
+       limit
+       SESSIONS_PER_USER UNLIMITED
+       IDLE_TIME UNLIMITED
+       FAILED_LOGIN_ATTEMPTS 10
+       PASSWORD_LIFE_TIME 180
+       INACTIVE_ACCOUNT_TIME 10
 
 
 ERROR MEANING OF ORACLE
@@ -83,9 +90,6 @@ ERROR MEANING OF ORACLE
 [oracle@test.com]$  ! oerr ora 2377
 
 
-ADD PROFILE TO USER:
-------------------------
-create user sara identified by sara profile orclpdbprofile;
 
 
 
