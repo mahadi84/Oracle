@@ -1,5 +1,10 @@
 
 
+
+
+DATA DICTIONARY
+consists of the Base Table and View,  with Objects(user,table etc) information.
+
 VIEWs LIST
 --------------------------------
 v$database, v$pdbs, v$containers, v$locked_objects, v$version, 
@@ -8,10 +13,10 @@ v$datafile, v$controlfile, v$logfiles,
 
 
 
-DATA DICTIONARY (cdb_, dba_, all_, user_) 
+cdb_, dba_, all_, user_
 -------------------
-cdb_tables, cdb_users,
-cdb_data_files, cdb_tablespaces
+dba_tables, dba_users, dba_sys_privs, 
+dba_data_files, dba_tablespaces
 
 
 
