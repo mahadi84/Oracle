@@ -1,10 +1,13 @@
 
 
-LISTENER LOCATION:
+LISTENER LOCATION and TOOL:
+---------------------------
 cd $ORACLE_HOMe/network/admin/listener.ora and tnsnames.ora
 netmrg  and netca / tools to config oracle net listerner
 
 
+SQL STATEMENTs:
+-------------
 [oracle@test] lsnrctl start/status/stop/reload
 OR
 [oracle@test] lsnrctl
@@ -13,18 +16,15 @@ tnsping tnsname / To check whether listener is ready
 SQL>alter system register; /FORCE TO START LISTENER BEFORE 1 MINUTE
 
 
-01: CREAT(NEW)/EDIT A LISTENER:
+CREAT(NEW)/EDIT A LISTENER:
 ---------------------------
-step:A(Add line to listener.ora)
+STEP:01 (Add line to listener.ora)
 L2 = (DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1560)))
 
-step:B (Add line to tnsnames.ora)
+STEP:02 (Add line to tnsnames.ora)
 L2 =  (ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1560))
 
-
-02: LOGIN AND CHANGE PARAMETER AND START LISTENER JUST CREATED
-----------------------------------------------------------
-[oracle@test] sqlplus / as sysdba
+STEP:03 (Login:sqlplus / as sysdba)
 SQL> show parameter local
 SQL> alter system set local_listener= "LISTENER_ORCL , L2";
 
