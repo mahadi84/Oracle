@@ -61,8 +61,8 @@ alter session set container=PluggableDatabseName;
 
 FILE LOCATION: $ORACLE_HOME/rdbms/admin/utlpwdmg.sql and catpvf.sql
 
-TO CHECK USER/DEFAULT PROFILE
------------------------------
+TO CHECK USER/DEFAULT(DBA) PROFILE
+---------------------------------
 select * from DBA_PROFILES
 where PROFILE= upper('orclpdbprofile');
 
@@ -72,7 +72,6 @@ where PROFILE='DEFAULT';
 
 CREATE/ALTER PROFILE
 --------------------
-
 
 CREATE/ALTER PROFILE orclpdbprofile LIMIT
    password_life_time 60
