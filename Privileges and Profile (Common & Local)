@@ -56,6 +56,7 @@ alter session set container=PluggableDatabseName;
    -----------------  P R O F I L E  ------------------------
 ===============================================================
 
+FILE LOCATION: $ORACLE_HOME/rdbms/admin/utlpwdmg.sql and catpvf.sql
 
 TO CHECK USER/DEFAULT PROFILE
 -----------------------------
