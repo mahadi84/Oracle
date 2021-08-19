@@ -66,12 +66,13 @@ alter session set container=PluggableDatabseName;
 FILE LOCATION: $ORACLE_HOME/rdbms/admin/utlpwdmg.sql and catpvf.sql
 
 TO CHECK USER/DEFAULT(DBA) PROFILE
----------------------------------
-select * from DBA_PROFILES
-where PROFILE= upper('orclpdbprofile');
+----------------------------------
 
-select * from dba_PROFILES
-where PROFILE='DEFAULT';
+SELECT username, profile FROM dba_users;
+
+select * from DBA_PROFILES where PROFILE= upper('orclpdbprofile');
+
+select * from dba_PROFILES where PROFILE='DEFAULT';
 
 
 CREATE/ALTER PROFILE
