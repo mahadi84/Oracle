@@ -17,7 +17,7 @@ TO CHECK USER ROLE/PRIVILEGES
 select * from SESSION_PRIVS, ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
 where role= upper('master_role');
 
-select * from DBA_role_PRIVS where GRANTEE=upper('master_role');  /To check applied privilege to a user/role.
+select * from DBA_role_PRIVS where GRANTEE=upper('user_name/role_name');  /To check applied privilege to a user/role.
 
 
 SYSTEM Privilege Direct to USER/ROLE
