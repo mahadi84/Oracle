@@ -14,8 +14,8 @@ select * from SYSTEM_PRIVILEGE_MAP;
 
 TO CHECK USER ROLE/PRIVILEGES
 -----------------------------
-select grantee, privilege, admin_option FROM dba_sys_privs WHERE grantee = upper('user_name/role_name'); //To check applied privilege to a user/role.
-SELECT granted_role, admin_option FROM dba_role_privs WHERE grantee = 'PUBALI';  //To check applied ROLE to a user
+select privilege, admin_option FROM dba_sys_privs WHERE grantee = upper('user_name/role_name'); //To check applied privilege to a user/role.
+select granted_role, admin_option FROM dba_role_privs WHERE grantee = upper('user_name');  //To check applied ROLE to a user
 
 select * from SESSION_PRIVS, ROLE_SYS_PRIVS, ROLE_TAB_PRIVS, USER_ROLE_PRIVS, USER_SYS_PRIVS, USER_TAB_PRIVS_MADE, USER_TAB_PRIVS_RECD, USER_COL_PRIVS_MADE, USER_COL_PRIVS_RECD
 where role= upper('master_role');
