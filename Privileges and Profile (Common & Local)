@@ -25,6 +25,9 @@ SYSTEM Privilege Direct to USER/ROLE
 ------------------------------------
 GRANT create session,create table, unlimited tablespace, create sequence, create view TO user_name / role_name;
 
+ADMIN_OPTION
+------------
+GRANT create session TO user_name with ADMIN OPTION. (This privilege is transferable to user)
 
 OBJECT PRIVILEGES GRANTEE
 -------------------------
