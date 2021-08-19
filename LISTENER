@@ -4,14 +4,11 @@ LISTENER LOCATION:
 cd $ORACLE_HOMe/network/admin/listener.ora and tnsnames.ora
 
 
-lsnrctl start/status/stop/reload
+[oracle@test] lsnrctl start/status/stop/reload
 OR
-[] lsnrctl
-lsnrctl>start L2
-
-FORCE TO START LISTENER BEFORE 1 MINUTE
----------------------------------------
-SQL>alter system register;
+[oracle@test] lsnrctl
+lsnrctl>start L2   / For edited or newly created listener
+SQL>alter system register; /FORCE TO START LISTENER BEFORE 1 MINUTE
 
 TOOLS
 -----
