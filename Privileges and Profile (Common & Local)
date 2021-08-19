@@ -40,6 +40,9 @@ GRANT select
 ON hr.countries
 TO public;
 
+REVOKE PRIVILEGE:
+----------------
+REVOKE ALL/create session ON dept FROM role_name/user_name; // An object privilege cannot be selectively(one or more) revoked.
 
 COMMON Vs LOCAL PRIVILEGE:
 ==========================
