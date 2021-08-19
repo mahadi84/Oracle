@@ -7,7 +7,7 @@
    -----------------  P R I V I L E G E s--------------------
 ===============================================================
 
-ORACLE AVAIABLE PRIVILEGEs
+ORACLE AVAILBLE PRIVILEGEs
 ---------------------------
 select * from SYSTEM_PRIVILEGE_MAP;
 
