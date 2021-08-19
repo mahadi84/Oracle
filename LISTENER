@@ -3,7 +3,7 @@
 LISTENER FILEs LOCATION and TOOLs:
 ---------------------------------
 cd $ORACLE_HOMe/network/admin/listener.ora and tnsnames.ora
-netmrg  and netca / tools to config oracle net listerner
+netmgr  and netca / tools to config oracle net listerner
 
 
 SQL STATEMENTs:
