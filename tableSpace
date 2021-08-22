@@ -13,26 +13,26 @@ FROM dba_free_space
 WHERE tablespace_name = 'TBS4';    
 
 
-CREATE TABLESPACE tbs3
-    DATAFILE 'path_to_datafile/tbs3_data.dbf'
+CREATE TABLESPACE tbs-parmanent-3
+    DATAFILE 'tbs-parmanent-4_data.dbf'
     SIZE 5m;
 
-CREATE TABLESPACE tbs4
-    DATAFILE 'path_to_datafile/tbs4_data.dbf'
+CREATE TABLESPACE tbs-parmanent-4
+    DATAFILE 'tbs-parmanent-4_data.dbf'
     SIZE 5m
     AUTOEXTEND ON;
     
-CREATE TABLE t3(c1 INT PRIMARY KEY) TABLESPACE tbs3;
-CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3(c1)) TABLESPACE tbs4;
+CREATE TABLE t3(c1 INT PRIMARY KEY) TABLESPACE tbs-parmanent-3;
+CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3(c1)) TABLESPACE tbs-parmanent-4;
 
 
-DROP TABLESPACE tbs3  // if only try with this line will show error.
+DROP TABLESPACE tbs-parmanent-3  // if only try with this line will show error.
 INCLUDING CONTENTS AND DATAFILES
 CASCADE CONSTRAINTS;
 
 
 ALTER DATABASE 
-    DATAFILE 'path_to_datafile/tbs4_data.dbf' 
+    DATAFILE 'tbs-parmanent-4_data.dbf' 
     RESIZE 25m;
 
 TEMP TABLESPACE
