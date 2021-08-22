@@ -90,10 +90,6 @@ CREATE/ALTER PROFILE orclpdbprofile LIMIT
    password_verify_function ora12c_stig_verify_function;
 
 
-ERROR MEANING OF ORACLE
-------------------------
---go to vm and do this: 
-[oracle@test.com]$  ! oerr ora 2377
 
 
 
