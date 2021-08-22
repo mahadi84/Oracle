@@ -16,7 +16,7 @@ v$datafile, v$controlfile, v$logfiles,
 cdb_, dba_, all_, user_
 -------------------
 dba_tables, dba_users, dba_sys_privs, 
-dba_data_files, dba_tablespaces
+dba_tablespaces, DBA_DATA_FILES, DBA_TEMP_FILES
 
 
 
