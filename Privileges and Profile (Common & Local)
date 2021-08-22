@@ -76,7 +76,6 @@ SELECT username/profile FROM dba_users WHERE username=('user_name');
 select * from DBA_PROFILES where PROFILE= upper('profile_name/default');
 
 
-
 CREATE/ALTER PROFILE
 --------------------
 CREATE/ALTER PROFILE orclpdbprofile LIMIT
@@ -89,7 +88,6 @@ CREATE/ALTER PROFILE orclpdbprofile LIMIT
    inactive_account_time unlimited
    idle_time 15
    password_verify_function ora12c_stig_verify_function;
-
 
 
 ERROR MEANING OF ORACLE
