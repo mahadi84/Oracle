@@ -5,7 +5,10 @@ QUERY, CREATE, DROP and EDIT TABLESPACE
 ----------------------------------------
 
 SELECT tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
-SELECT tablespace_name, bytes / 1024 / 1024 MB FROM dba_free_space WHERE tablespace_name = 'TBS4';    
+
+SELECT tablespace_name, bytes / 1024 / 1024 MB 
+FROM dba_free_space 
+WHERE tablespace_name = 'TBS4';    
 
 
 CREATE TABLESPACE tbs3
@@ -30,6 +33,20 @@ ALTER DATABASE
     DATAFILE 'path_to_datafile/tbs4_data.dbf' 
     RESIZE 25m;
 
+TEMP TABLESPACE
+---------------
+CREATE TEMPORARY TABLESPACE tbs_temp_01
+  TEMPFILE 'tbs_temp_01.dbf'
+    SIZE 5M
+    AUTOEXTEND ON;
+
+UNDO TABLESPACE
+---------------
+CREATE UNDO TABLESPACE tbs_undo_01
+  DATAFILE 'tbs_undo_01.f'
+    SIZE 5M 
+    AUTOEXTEND ON
+  RETENTION GUARANTEE;
 
 
 --------------------------
