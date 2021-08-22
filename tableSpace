@@ -1,7 +1,11 @@
 
 
-CREATE, DROP,EDIT and QUERY TABLESPACE
---------------------------
+QUERY, CREATE, DROP and EDIT TABLESPACE
+----------------------------------------
+
+SELECT tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
+SELECT tablespace_name, bytes / 1024 / 1024 MB FROM dba_free_space WHERE tablespace_name = 'TBS4';    
+
 
 CREATE TABLESPACE tbs3
     DATAFILE 'path_to_datafile/tbs3_data.dbf'
@@ -9,10 +13,12 @@ CREATE TABLESPACE tbs3
 
 CREATE TABLESPACE tbs4
     DATAFILE 'path_to_datafile/tbs4_data.dbf'
-    SIZE 5m;
+    SIZE 5m
+    AUTOEXTEND 20m;
     
 CREATE TABLE t3(c1 INT PRIMARY KEY) TABLESPACE tbs3;
 CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3(c1)) TABLESPACE tbs4;
+
 
 DROP TABLESPACE tbs3  // if only try with this line will show error.
 INCLUDING CONTENTS AND DATAFILES
@@ -21,16 +27,8 @@ CASCADE CONSTRAINTS;
 
 ALTER DATABASE 
     DATAFILE 'path_to_datafile/tbs4_data.dbf' 
-    RESIZE 15m;
+    RESIZE 25m;
 
-
-SELECT 
-    tablespace_name, 
-    bytes / 1024 / 1024 MB
-FROM 
-    dba_free_space
-WHERE 
-    tablespace_name = 'TBS4';
 
 
 --------------------------
