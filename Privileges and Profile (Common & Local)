@@ -45,9 +45,11 @@ GRANT select
 ON hr.countries
 TO public;
 
+
 REVOKE PRIVILEGE:
 ----------------
 REVOKE ALL/create session ON dept FROM role_name/user_name; // An object privilege cannot be selectively(one or more) revoked.
+
 
 COMMON Vs LOCAL PRIVILEGE:
 ==========================
@@ -64,11 +66,12 @@ alter session set container=PluggableDatabseName;
    -----------------  P R O F I L E  ------------------------
 ===============================================================
 
+
 FILE LOCATION: $ORACLE_HOME/rdbms/admin/utlpwdmg.sql and catpvf.sql
+
 
 TO CHECK USER/DEFAULT(DBA) PROFILE
 ----------------------------------
-
 SELECT username/profile FROM dba_users WHERE username=('user_name');
 select * from DBA_PROFILES where PROFILE= upper('profile_name/default');
 
@@ -76,7 +79,6 @@ select * from DBA_PROFILES where PROFILE= upper('profile_name/default');
 
 CREATE/ALTER PROFILE
 --------------------
-
 CREATE/ALTER PROFILE orclpdbprofile LIMIT
    password_life_time 60
    password_grace_time 5
