@@ -6,18 +6,17 @@ $ sqlplus
 Username: sys as sysdba
 Password: ********
 SQL>startup;
+
 -------------------
 CONNECT DATABASE:
 -------------------
 $sqlplus / as sysdba
 SQL> connect pdb1admin/welcome@pdb1
-SQL>connect hr/hr@pubalipdb
-SQL>connect username/password@hostname:PORT/servicename;
 SQL>connect system/system@test.com:1521/orcl.com;
 
 
 SHUTDOWN
-SQL>shutdown  abort| immediate | transactional
+SQL>shutdown  abort | immediate | transactional
 
 
 ==========================================
@@ -117,8 +116,8 @@ Ex: GRANT DBA to username;
 
 Syntex:
 CREATE DATABASE LINK <name-anything-you-want>
-CONNECT TO <user-id-of-other-db-with-dba-privilege> IDENTIFIED BY <password>
-USING '<tns-entry-title-for-other-db>';
+CONNECT TO <user-id-to-connect-with> IDENTIFIED BY <password>
+USING '<tns-entry-of-other-db>';
 
 
 CREATE DATABASE LINK read_pdb2
