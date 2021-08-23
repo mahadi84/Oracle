@@ -60,3 +60,8 @@ CREATE TEMPORARY TABLESPACE tablespace_name
     TEMPFILE 'path_to_file'
     SIZE 50M
     TABLESPACE GROUP group_name;
+    
+    
+    
+    
+    
