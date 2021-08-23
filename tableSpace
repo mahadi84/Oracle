@@ -5,20 +5,22 @@ $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
 
 QUERY, CREATE, DROP and EDIT TABLESPACE
 ----------------------------------------
+select * / TABLESPACE_NAME,BLOCK_SIZE from dba_tablespaces;
+select * from v$tablespace;
 
-SELECT tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
+SELECT * / tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
 
 SELECT tablespace_name, bytes / 1024 / 1024 MB 
 FROM dba_free_space 
 WHERE tablespace_name = 'TBS4';    
 
 
-CREATE TABLESPACE tbs-parmanent-3
-    DATAFILE 'tbs-parmanent-4_data.dbf'
+CREATE TABLESPACE tbs_parmanent_3
+    DATAFILE 'tbs_3_data.dbf'
     SIZE 5m;
 
-CREATE TABLESPACE tbs-parmanent-4
-    DATAFILE 'tbs-parmanent-4_data.dbf'
+CREATE TABLESPACE tbs_parmanent_4
+    DATAFILE 'tbs_4_data.dbf'
     SIZE 5m
     AUTOEXTEND ON;
     
@@ -26,13 +28,13 @@ CREATE TABLE t3(c1 INT PRIMARY KEY) TABLESPACE tbs-parmanent-3;
 CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3(c1)) TABLESPACE tbs-parmanent-4;
 
 
-DROP TABLESPACE tbs-parmanent-3  // if only try with this line will show error.
+DROP TABLESPACE tbs_parmanent_3  // if only try with this line will show error.
 INCLUDING CONTENTS AND DATAFILES
 CASCADE CONSTRAINTS;
 
 
 ALTER DATABASE 
-    DATAFILE 'tbs-parmanent-4_data.dbf' 
+    DATAFILE 'tbs_parmanent_4_data.dbf' 
     RESIZE 25m;
 
 TEMP TABLESPACE
