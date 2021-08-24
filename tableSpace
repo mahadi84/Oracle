@@ -6,10 +6,12 @@ $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
 
 TO CHECK TOTAL TABLESPACE in a PDB
 ----------------------------------
-select * / TABLESPACE_NAME,BLOCK_SIZE from dba_tablespaces;
-select * from v$tablespace;
-SELECT * / tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
-select * from v$data_files;
+SELECT * / TABLESPACE_NAME,BLOCK_SIZE FROM dba_tablespaces;
+SELECT * from v$tablespace;
+SELECT * / tablespace_name, file_name, user_bytes / 1024/ 1024 USER_BYTES_MB FROM dba_data_files;
+SELECT * from v$datafile;
+SELECT * from dba_temp_files
+SELECT * from v$tempfile
 
 TO CHECK ANY USERS's TABLESPACE
 -------------------------------
