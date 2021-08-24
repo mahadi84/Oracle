@@ -3,18 +3,27 @@ FILEs LOCATION:
 $ORACLE_HOME/oradata/DB_NAME/        ---- DEFAULT 
 $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
 
-QUERY, CREATE, DROP and EDIT TABLESPACE
-----------------------------------------
+
+TO CHECK TOTAL TABLESPACE in a PDB
+----------------------------------
 select * / TABLESPACE_NAME,BLOCK_SIZE from dba_tablespaces;
 select * from v$tablespace;
-
 SELECT * / tablespace_name, file_name, bytes / 1024/ 1024 MB FROM dba_data_files;
+select * from v$data_files;
 
-SELECT tablespace_name, bytes / 1024 / 1024 MB 
+TO CHECK ANY USERS's TABLESPACE
+-------------------------------
+select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS from dba_tables where owner='HRMS'; 
+
+
+TO CHECK SPECIFICE TABLESPACE's INFORMATION
+-------------------------------------------
+SELECT * / tablespace_name, bytes / 1024 / 1024 MB 
 FROM dba_free_space 
 WHERE tablespace_name = 'TBS4';    
 
-
+CREATE TABLESPACE
+==================
 CREATE TABLESPACE tbs_parmanent_3
     DATAFILE 'tbs_3_data.dbf'
     SIZE 5m;
