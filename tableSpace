@@ -27,9 +27,9 @@ SELECT * from dba_temp_files
 SELECT * from v$tempfile
 
 
-=============================================
+===================================================
 -------------- CREATE/ASSIGN TABLESPACE  ----------
-=============================================
+===================================================
 CREATE (TEMPORARY/UNDO) TABLESPACE  tbs_3
     DATAFILE 'tbs_3_data.dbf'
     SIZE 5m;
