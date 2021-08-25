@@ -1,0 +1,71 @@
+
+
+
+10.2
+==============
+create unique index dept_inx on DEPT(deptno);
+
+select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
+from   v$session a,
+       v$transaction b
+where  a.saddr = b.ses_addr
+order by b.used_ublk desc;
+--USED_UBLK = Number of undo blocks used 
+--USED_UREC = Number of undo records used
+
+ROLLBACK;
+
+10.3
+============
+show parameter DEFERRED_SEGMENT_CREATION
+alter session set DEFERRED_SEGMENT_CREATION=true/false;
+
+CREATE table test ( n number )
+SEGMENT CREATION IMMEDIATE/DEFERRED;
+
+SELECT * from user_segments
+where segment_name= upper('test');
+
+10.4
+=========
+
+SELECT * FROM USER_INDEXES
+create index lname_index on EMPLOYEES(lname) UNUSABLE ;
+create index fname_index on EMPLOYEES(fname) ;
+
+select * from user_segments
+where segment_name IN ( 'EMPLOYEES','EMPLOYEES_PK' ,'FNAME_INDEX','LNAME_INDEX');
+
+alter index LNAME_INDEX REBUILD
+
+select * from user_segments
+where segment_name IN ( 'EMPLOYEES','EMPLOYEES_PK' ,'FNAME_INDEX','LNAME_INDEX'
+
+10.5
+==========
+--basic compression 
+--With basic compression, the Oracle Database server compresses data at the time of performing bulk load using
+--operations such as direct loads or CREATE TABLE AS SELECT
+--Is recommended for bulk loading data warehouses
+
+show user;
+show con_name;
+
+select * from dba_objects
+where rownum<10000;
+
+--case 1
+--no compression
+create table test_01
+as
+select * from dba_objects where rownum <= 10000;
+
+SELECT DBMS_METADATA.GET_DDL('TABLE','TEST_01') FROM dual;
+
+ANALYZE TABLE TEST_01 COMPUTE statistics
+
+select  blocks, pct_free , compression, compress_for
+from    user_tables
+where   table_name = 'TEST_01';
+
+
