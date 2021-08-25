@@ -80,7 +80,7 @@ from    user_tables
 where   table_name = 'TEST_01';
 
 
-10.7 (SERVER-SPACE-FULL-ALERT-SET)
+10.7 (TABLESPACE-FULL-ALERT-SET)
 ==================================
 SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
 fs.bytes*100/ df.bytes PCT_FREE
