@@ -3,7 +3,6 @@
 
 10.2 (INDEXING)
 ===============
-
 begin
  for i in 1..1000000
  loop
@@ -25,6 +24,7 @@ order by b.used_ublk desc;
 
 ROLLBACK;
 
+
 10.3 (SEGMENT_CREATION)
 =======================
 show parameter DEFERRED_SEGMENT_CREATION
@@ -35,6 +35,7 @@ SEGMENT CREATION IMMEDIATE/DEFERRED;
 
 SELECT * from user_segments
 where segment_name= upper('test');
+
 
 10.4 (ADV. INDEXING)
 ====================
@@ -77,6 +78,7 @@ ANALYZE TABLE TEST_01 COMPUTE statistics
 select  blocks, pct_free , compression, compress_for
 from    user_tables
 where   table_name = 'TEST_01';
+
 
 10.7 (SERVER-SPACE-FULL-ALERT-SET)
 ==================================
