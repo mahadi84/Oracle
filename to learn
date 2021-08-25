@@ -1,8 +1,18 @@
 
 
 
-10.2
-==============
+10.2 (INDEXING)
+===============
+
+begin
+ for i in 1..1000000
+ loop
+ insert into test100 values ( i, 'any dummy name' );
+ end loop;
+ commit;
+ end;
+
+
 create unique index dept_inx on DEPT(deptno);
 
 select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
@@ -15,8 +25,8 @@ order by b.used_ublk desc;
 
 ROLLBACK;
 
-10.3
-============
+10.3 (SEGMENT_CREATION)
+=======================
 show parameter DEFERRED_SEGMENT_CREATION
 alter session set DEFERRED_SEGMENT_CREATION=true/false;
 
@@ -26,8 +36,8 @@ SEGMENT CREATION IMMEDIATE/DEFERRED;
 SELECT * from user_segments
 where segment_name= upper('test');
 
-10.4
-=========
+10.4 (ADV. INDEXING)
+====================
 
 SELECT * FROM USER_INDEXES
 create index lname_index on EMPLOYEES(lname) UNUSABLE ;
@@ -41,8 +51,8 @@ alter index LNAME_INDEX REBUILD
 select * from user_segments
 where segment_name IN ( 'EMPLOYEES','EMPLOYEES_PK' ,'FNAME_INDEX','LNAME_INDEX'
 
-10.5
-==========
+10.5/ 10.6 (Basic and Adv. Compression)
+==================================
 --basic compression 
 --With basic compression, the Oracle Database server compresses data at the time of performing bulk load using
 --operations such as direct loads or CREATE TABLE AS SELECT
@@ -67,5 +77,32 @@ ANALYZE TABLE TEST_01 COMPUTE statistics
 select  blocks, pct_free , compression, compress_for
 from    user_tables
 where   table_name = 'TEST_01';
+
+10.7 (SERVER-SPACE-FULL-ALERT-SET)
+==================================
+SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
+fs.bytes*100/ df.bytes PCT_FREE
+FROM dba_data_files df ,dba_free_space fs
+WHERE df.tablespace_name = fs.tablespace_name
+AND df.tablespace_name = 'TBSALERT';
+
+begin
+DBMS_SERVER_ALERT.SET_THRESHOLD( 
+metrics_id => dbms_server_alert.tablespace_pct_full,    
+warning_operator =>DBMS_SERVER_ALERT.OPERATOR_GE, 
+warning_value => '55', 
+critical_operator =>DBMS_SERVER_ALERT.OPERATOR_GE, 
+critical_value => '70', 
+observation_period => 1,
+consecutive_occurrences => 1, 
+instance_name => 'orcl', 
+object_type =>DBMS_SERVER_ALERT.OBJECT_TYPE_TABLESPACE, 
+object_name => 'TBSALERT');
+end;
+
+SELECT warning_value, critical_value
+FROM dba_thresholds 
+WHERE object_name='TBSALERT';
+
 
 
