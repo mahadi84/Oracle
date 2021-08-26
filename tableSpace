@@ -4,9 +4,10 @@ $ORACLE_HOME/oradata/DB_NAME/        ---- DEFAULT
 $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
 
 
-TO CHECK ANY USERS's TABLESPACE
+TO CHECK ANY USERS's/TABLE's TABLESPACE
 -------------------------------
-select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS from dba_tables where owner='HRMS'; 
+select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS FROM dba_tables where owner='HRMS2';
+select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS WHERE owner='HRMS2' AND table_name='EMP';
 
 TO CHECK SPECIFIC TABLESPACE's INFORMATION
 -------------------------------------------
