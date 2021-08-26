@@ -104,7 +104,24 @@ CREATE TEMPORARY TABLESPACE tablespace_name
     SIZE 50M
     TABLESPACE GROUP group_name;
     
-    
-    
+
+=========================================================================
+==  ---------------   ALL ABOUT SEGMENTS and EXTENTS   --------------- ==
+=========================================================================
+SELECT * FROM DBA_SEGMENTS
+WHERE OWNER='HRMS2'
+AND SEGMENT_NAME='EMP';  -- ORACLE DOES NOT CREATE SEGMENT, UNTIL ROW INSERTED INTO THE TABLE
+
+SELECT * FROM DBA_EXTENTS
+WHERE OWNER='HRMS2'
+AND SEGMENT_NAME='EMP';
+
+begin
+ for i in 1..1000000
+ loop
+ insert into ALEX.EMP values (i,'just test name', 'just test comments');
+ end loop;
+ commit;
+end;
     
     
