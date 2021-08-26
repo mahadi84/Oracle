@@ -1,8 +1,8 @@
 
 
 
-10.2 (INDEXING)
-===============
+10.2 (CREATE INDEX / UNDO TABLESPACE)
+=====================================
 
 select * from dba_indexes where table_name='EMP';
 create unique index dept_inx on DEPT(deptno);
