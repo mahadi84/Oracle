@@ -3,6 +3,11 @@
 
 10.2 (INDEXING)
 ===============
+
+select * from dba_indexes where table_name='EMP';
+create unique index dept_inx on DEPT(deptno);
+
+
 begin
  for i in 1..1000000
  loop
@@ -12,7 +17,6 @@ begin
  end;
 
 
-create unique index dept_inx on DEPT(deptno);
 
 select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
 from   v$session a,
