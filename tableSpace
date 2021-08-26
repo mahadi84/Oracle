@@ -6,8 +6,8 @@ $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
 
 TO CHECK ANY USERS's/TABLE's TABLESPACE
 -------------------------------
-select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS FROM dba_tables where owner='HRMS2';
-select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS WHERE owner='HRMS2' AND table_name='EMP';
+select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS, MAX_EXTENTS, SEGMENT_CREATED FROM dba_tables where owner='HRMS2';
+select * / TABLE_NAME, TABLESPACE_NAME, NUM_ROWS, BLOCKS, MAX_EXTENTS, SEGMENT_CREATED WHERE owner='HRMS2' AND table_name='EMP';
 
 TO CHECK SPECIFIC TABLESPACE's INFORMATION
 -------------------------------------------
