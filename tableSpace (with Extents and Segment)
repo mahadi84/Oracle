@@ -1,9 +1,7 @@
 
-
 FILEs LOCATION:
 $ORACLE_HOME/oradata/DB_NAME/        ---- DEFAULT 
 $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
-
 
 
 
@@ -35,7 +33,6 @@ SELECT * from v$tempfile
 -----------   CREATE/ASSIGN/RENAME/RESIZE/DELETE/MOVE TABLESPACE   ------------
 ===============================================================================
 
-
 CREATE (TEMPORARY/UNDO) TABLESPACE  tbs_3
     DATAFILE 'tbs_3_data.dbf'
     SIZE 5m;
@@ -62,6 +59,15 @@ CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3
 
 
 
+RENAME/MOVE (THE TABLESPACE DATAFILE) FILE (t4_01.dbf TO t4_001.dbf)
+-------------------------------------------------------------
+ALTER DATABASE MOVE DATAFILE
+'/u01/app/oracle/oradata/ORCL/pdbts/t4_01.dbf'
+TO
+'/u01/app/oracle/oradata/ORCL/pdbts/t4_001.dbf'
+
+
+
 RESIZE/DROP  TABLESPACE DATAFILE
 ---------------------------
 ALTER DATABASE 
@@ -71,25 +77,6 @@ ALTER DATABASE
 DROP TABLESPACE tbs_parmanent_3  // if only try with this line will show error.
 INCLUDING CONTENTS AND DATAFILES
 CASCADE CONSTRAINTS;
-
-
-RENAME (THE TABLESPACE DATAFILE) FILE (t4_01.dbf TO t4_001.dbf)
--------------------------------------------------------------
-ALTER DATABASE MOVE DATAFILE
-'/u01/app/oracle/oradata/ORCL/pdbts/t4_01.dbf'
-TO
-'/u01/app/oracle/oradata/ORCL/pdbts/t4_001.dbf'
-
-
-
-MOVE  TABLESPACE DATAFILE  FILE (t4_001.dbf TO )ANOTHER LOCATION
-----------------------------------------------------------------
---CREATE FOLDER TEST IN /u01/app/oracle/oradata/ORCL/pdbts/
-
-ALTER DATABASE MOVE DATAFILE
-'/u01/app/oracle/oradata/ORCL/pdbts/t4_001.dbf'
-TO
-'/u01/app/oracle/oradata/ORCL/pdbts/test/t4_001.dbf'
 
 
 
