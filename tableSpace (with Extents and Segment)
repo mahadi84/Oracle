@@ -1,7 +1,10 @@
 
+
 FILEs LOCATION:
 $ORACLE_HOME/oradata/DB_NAME/        ---- DEFAULT 
 $ORACLE_HOME/product/19/db_1/dbs/    ---- USER CREATED TABLESPACE
+
+
 
 
 TO CHECK ANY USERS's/TABLE's TABLESPACE
@@ -28,9 +31,11 @@ SELECT * from dba_temp_files
 SELECT * from v$tempfile
 
 
-===================================================
--------------- CREATE/ASSIGN TABLESPACE  ----------
-===================================================
+===============================================================================
+-----------   CREATE/ASSIGN/RENAME/RESIZE/DELETE/MOVE TABLESPACE   ------------
+===============================================================================
+
+
 CREATE (TEMPORARY/UNDO) TABLESPACE  tbs_3
     DATAFILE 'tbs_3_data.dbf'
     SIZE 5m;
@@ -40,6 +45,14 @@ CREATE TABLESPACE tbst_4
     SIZE 5m
     AUTOEXTEND ON;
     
+
+CREATE TABLESPACE WITHOUT MENTIONING DATAFILE LOCATION
+------------------------------------------------------
+show parameter DB_CREATE_FILE_DEST
+alter system set DB_CREATE_FILE_DEST='/u01/app/oracle/oradata/ORCL/pdbts';
+show parameter DB_CREATE_FILE_DEST
+    
+
 ASSIGN TABLESPACE to USER/TABLE
 -------------------------------
 CREATE USER khaled identified by khaled default tablespace tbs_3 
@@ -48,24 +61,29 @@ CREATE TABLE t3(c1 INT PRIMARY KEY) TABLESPACE tbs_3;
 CREATE TABLE t4(c1 INT PRIMARY KEY,c2 INT NOT NULL,FOREIGN KEY(c2) REFERENCES t3(c1)) TABLESPACE tbs_4;
 
 
+
+RESIZE/DROP  TABLESPACE DATAFILE
+---------------------------
+ALTER DATABASE 
+    DATAFILE 'tbs_parmanent_4_data.dbf' 
+    RESIZE 25m;
+    
 DROP TABLESPACE tbs_parmanent_3  // if only try with this line will show error.
 INCLUDING CONTENTS AND DATAFILES
 CASCADE CONSTRAINTS;
 
 
-ALTER DATABASE 
-    DATAFILE 'tbs_parmanent_4_data.dbf' 
-    RESIZE 25m;
-
-
---NOW LET US RENAME THE  FIE t4_01.dbf TO t4_001.dbf
-
+RENAME (THE TABLESPACE DATAFILE) FILE (t4_01.dbf TO t4_001.dbf)
+-------------------------------------------------------------
 ALTER DATABASE MOVE DATAFILE
 '/u01/app/oracle/oradata/ORCL/pdbts/t4_01.dbf'
 TO
 '/u01/app/oracle/oradata/ORCL/pdbts/t4_001.dbf'
 
---NOW LET MOVE t4_001.dbf TO ANOTHER LOCATION
+
+
+MOVE  TABLESPACE DATAFILE  FILE (t4_001.dbf TO )ANOTHER LOCATION
+----------------------------------------------------------------
 --CREATE FOLDER TEST IN /u01/app/oracle/oradata/ORCL/pdbts/
 
 ALTER DATABASE MOVE DATAFILE
@@ -73,6 +91,14 @@ ALTER DATABASE MOVE DATAFILE
 TO
 '/u01/app/oracle/oradata/ORCL/pdbts/test/t4_001.dbf'
 
+
+
+CREATING TABLESPACE GROUP
+-------------------------
+CREATE TEMPORARY TABLESPACE tablespace_name 
+    TEMPFILE 'path_to_file'
+    SIZE 50M
+    TABLESPACE GROUP group_name;
 
 /*
 please read this
@@ -95,19 +121,12 @@ if the source file is an Oracle-managed file.
 */
 
 
-
---------------------------
-CREATING TABLESPACE GROUP
--------------------------
-CREATE TEMPORARY TABLESPACE tablespace_name 
-    TEMPFILE 'path_to_file'
-    SIZE 50M
-    TABLESPACE GROUP group_name;
     
 
 =========================================================================
 ==  ---------------   ALL ABOUT SEGMENTS and EXTENTS   --------------- ==
 =========================================================================
+
 SELECT * FROM DBA_SEGMENTS
 WHERE OWNER='HRMS2'
 AND SEGMENT_NAME='EMP';  -- ORACLE DOES NOT CREATE SEGMENT, UNTIL ROW INSERTED INTO THE TABLE
@@ -124,4 +143,7 @@ begin
  commit;
 end;
     
-    
+  
+  
+  
+  
