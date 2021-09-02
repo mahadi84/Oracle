@@ -1,46 +1,5 @@
 
 
-
-10.2 (CREATE INDEX / UNDO TABLESPACE)
-=====================================
-
-select * from dba_indexes where table_name='EMP';
-create unique index dept_inx on DEPT(deptno);
-
-
-begin
- for i in 1..1000000
- loop
- insert into test100 values ( i, 'any dummy name' );
- end loop;
- commit;
- end;
-
-
-
-select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
-from   v$session a,
-       v$transaction b
-where  a.saddr = b.ses_addr
-order by b.used_ublk desc;
---USED_UBLK = Number of undo blocks used 
---USED_UREC = Number of undo records used
-
-ROLLBACK;
-
-
-10.3 (SEGMENT_CREATION)
-=======================
-show parameter DEFERRED_SEGMENT_CREATION
-alter session set DEFERRED_SEGMENT_CREATION=true/false;
-
-CREATE table test ( n number )
-SEGMENT CREATION IMMEDIATE/DEFERRED;
-
-SELECT * from user_segments
-where segment_name= upper('test');
-
-
 10.4 (ADV. INDEXING)
 ====================
 
