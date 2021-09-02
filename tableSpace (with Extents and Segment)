@@ -114,9 +114,26 @@ if the source file is an Oracle-managed file.
 ==  ---------------   ALL ABOUT SEGMENTS and EXTENTS   --------------- ==
 =========================================================================
 
+SEGMENT:----------
+
 SELECT * FROM DBA_SEGMENTS
 WHERE OWNER='HRMS2'
-AND SEGMENT_NAME='EMP';  -- ORACLE DOES NOT CREATE SEGMENT, UNTIL ROW INSERTED INTO THE TABLE
+AND SEGMENT_NAME='EMP';  
+
+
+Here's the solution (ORACLE DOES NOT CREATE SEGMENT, UNTIL ROW INSERTED INTO THE TABLE)
+---------------------------------------------------------------------------------------
+show parameter DEFERRED_SEGMENT_CREATION
+alter session set DEFERRED_SEGMENT_CREATION=true/false;
+
+CREATE table test ( n number )
+SEGMENT CREATION IMMEDIATE/DEFERRED;
+
+SELECT * from user_segments
+where segment_name= upper('test');
+
+
+EXTENTS:-----------------
 
 SELECT * FROM DBA_EXTENTS
 WHERE OWNER='HRMS2'
