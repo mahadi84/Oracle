@@ -1,20 +1,5 @@
 
 
-10.4 (ADV. INDEXING)
-====================
-
-SELECT * FROM USER_INDEXES
-create index lname_index on EMPLOYEES(lname) UNUSABLE ;
-create index fname_index on EMPLOYEES(fname) ;
-
-select * from user_segments
-where segment_name IN ( 'EMPLOYEES','EMPLOYEES_PK' ,'FNAME_INDEX','LNAME_INDEX');
-
-alter index LNAME_INDEX REBUILD
-
-select * from user_segments
-where segment_name IN ( 'EMPLOYEES','EMPLOYEES_PK' ,'FNAME_INDEX','LNAME_INDEX'
-
 10.5/ 10.6 (Basic and Adv. Compression)
 ==================================
 --basic compression 
