@@ -1,0 +1,19 @@
+
+INDEX (in TABLE) CHECK and CREATE
+----------------------------------
+select * from dba_indexes where table_name='EMP';
+create unique index dept_inx on DEPT(deptno);
+
+
+Un-Commited DATA CHECK
+---------------------
+select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
+from   v$session a,
+       v$transaction b
+where  a.saddr = b.ses_addr
+order by b.used_ublk desc;
+--USED_UBLK = Number of undo blocks used 
+--USED_UREC = Number of undo records used
+
+ROLLBACK;
+
