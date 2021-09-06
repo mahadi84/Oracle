@@ -139,14 +139,6 @@ SELECT * FROM DBA_EXTENTS
 WHERE OWNER='HRMS2'
 AND SEGMENT_NAME='EMP';
 
-begin
- for i in 1..1000000
- loop
- insert into ALEX.EMP values (i,'just test name', 'just test comments');
- end loop;
- commit;
-end;
-    
   
   
   
