@@ -1,7 +1,7 @@
 
 
 =============================================
----- Monitoring Tablespace Space Usage  ----
+---------- MONITOR - SPACE USAGE    ----------
 =============================================
 
 
@@ -71,7 +71,7 @@ WHERE object_name='TBSALERT';
 
 
 =======================================================
--------- MANAGING RESUMABLE SPACE ALLOCATION  ---------
+-------- MANAGING - RESUMABLE SPACE ALLOCATION  -------
 =======================================================
 
 /*
