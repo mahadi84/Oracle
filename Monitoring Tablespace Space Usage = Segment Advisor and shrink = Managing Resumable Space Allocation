@@ -1,4 +1,7 @@
 
+=============================================
+---- Monitoring Tablespace Space Usage  ----
+=============================================
 
 
 CREATE TABLESPACE tbsalert
