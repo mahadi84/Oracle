@@ -1,4 +1,5 @@
 
+
 =============================================
 ---- Monitoring Tablespace Space Usage  ----
 =============================================
@@ -66,61 +67,7 @@ SELECT reason, message_type , message_level
 FROM dba_outstanding_alerts
 WHERE object_name='TBSALERT';
 
-========================================================
---------- SEGMENT ADVISOR AND SHRINK -------------------
-========================================================
 
-
-delete from test100;
-commit;
-
-SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
-fs.bytes*100/ df.bytes PCT_FREE
-FROM dba_data_files df ,dba_free_space fs
-WHERE df.tablespace_name = fs.tablespace_name
-AND df.tablespace_name = 'TBSALERT';
-
-
---Create a Segment Advisor Task
- DECLARE
- tname VARCHAR2(128) := 'my_seg_task3';
- tname_desc VARCHAR2(128) := 'Get shrink advice for segments in TBSALERT';
- task_id NUMBER;
- object_id NUMBER;
- objectname VARCHAR2(100);
- objecttype VARCHAR2(100);
- BEGIN
- dbms_advisor.create_task('Segment Advisor', task_id,tname,tname_desc,NULL);---select * from DBA_ADVISOR_DEFINITIONS
- dbms_advisor.create_object(tname,'TABLESPACE','TBSALERT',' ',' ',NULL, ' ',object_id) ;
- dbms_advisor.set_task_parameter(tname,'RECOMMEND_ALL','TRUE');
- END;
-
---Execute the task.
-DECLARE
-tname VARCHAR2(128) := 'my_seg_task3';
-BEGIN
-dbms_advisor.EXECUTE_TASK(tname);
-END;
-
-SELECT DESCRIPTION FROM dba_advisor_tasks WHERE TASK_NAME='my_seg_task3';
-
-
-SELECT attr1, attr2, message
-FROM dba_advisor_findings f, dba_advisor_objects o
- WHERE f.task_name = o.task_name 
- AND f.object_id = o.object_id 
- AND f.task_name = 'my_seg_task3';
-
-
-alter table test100 enable row movement;
-
-ALTER TABLE test100 SHRINK SPACE;
-
-SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
-fs.bytes*100/ df.bytes PCT_FREE
-FROM dba_data_files df ,dba_free_space fs
-WHERE df.tablespace_name = fs.tablespace_name
-AND df.tablespace_name = 'TBSALERT';
 
 
 =======================================================
@@ -134,14 +81,13 @@ A resumable statement:
 2- Gives you a chance to fix the problem while the operation is suspended, rather
 than starting over
 3-Is suspended for the following conditions:
->>Out of space
->>Maximum extents reached
->>Space quota exceeded
+------>>Out of space
+------>>Maximum extents reached
+------>>Space quota exceeded
 4-Can be suspended and resumed multiple times
 */
 
 
-drop TABLESPACE tbsalert INCLUDING CONTENTS and DATAFILES;
 
 CREATE TABLESPACE tbsalert
 DATAFILE '/u01/app/oracle/oradata/ORCL/pdbts/tbsalert.dbf'
@@ -202,6 +148,65 @@ select * from dba_resumable;
 
 select count(1) from test100;
 */
+
+
+
+========================================================
+--------- SEGMENT ADVISOR AND SHRINK -------------------
+========================================================
+
+delete from test100;
+commit;
+
+SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
+fs.bytes*100/ df.bytes PCT_FREE
+FROM dba_data_files df ,dba_free_space fs
+WHERE df.tablespace_name = fs.tablespace_name
+AND df.tablespace_name = 'TBSALERT';
+
+
+--Create a Segment Advisor Task
+ DECLARE
+ tname VARCHAR2(128) := 'my_seg_task3';
+ tname_desc VARCHAR2(128) := 'Get shrink advice for segments in TBSALERT';
+ task_id NUMBER;
+ object_id NUMBER;
+ objectname VARCHAR2(100);
+ objecttype VARCHAR2(100);
+ BEGIN
+ dbms_advisor.create_task('Segment Advisor', task_id,tname,tname_desc,NULL);---select * from DBA_ADVISOR_DEFINITIONS
+ dbms_advisor.create_object(tname,'TABLESPACE','TBSALERT',' ',' ',NULL, ' ',object_id) ;
+ dbms_advisor.set_task_parameter(tname,'RECOMMEND_ALL','TRUE');
+ END;
+
+--Execute the task.
+DECLARE
+tname VARCHAR2(128) := 'my_seg_task3';
+BEGIN
+dbms_advisor.EXECUTE_TASK(tname);
+END;
+
+SELECT DESCRIPTION FROM dba_advisor_tasks WHERE TASK_NAME='my_seg_task3';
+
+
+SELECT attr1, attr2, message
+FROM dba_advisor_findings f, dba_advisor_objects o
+ WHERE f.task_name = o.task_name 
+ AND f.object_id = o.object_id 
+ AND f.task_name = 'my_seg_task3';
+
+
+alter table test100 enable row movement;
+
+ALTER TABLE test100 SHRINK SPACE;
+
+SELECT df.tablespace_name tablespace, fs.bytes free, df.bytes, 
+fs.bytes*100/ df.bytes PCT_FREE
+FROM dba_data_files df ,dba_free_space fs
+WHERE df.tablespace_name = fs.tablespace_name
+AND df.tablespace_name = 'TBSALERT';
+
+
 
 
 
