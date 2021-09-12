@@ -1,19 +1,4 @@
 
-=========================================
-=   INDEX (in TABLE) CHECK and CREATE   =
-=========================================
-select * from dba_indexes where table_name='EMP';
-create unique index dept_inx on DEPT(deptno);
-
-create table employees
-( emp_id number,
-  fname varchar2(100),
-  lname varchar2(100),
- constraint employees_pk primary key (emp_id)
- );
- 
-create index lname_index on EMPLOYEES(lname) UNUSABLE ;
-alter index LNAME_INDEX REBUILD;  // To use UNUSABLE INDEX; 
 
 ==================================
 ==   Un-Commited DATA CHECK     ==
@@ -90,5 +75,20 @@ where id=3;
 --3-	Retention Guarantee
 
 
+=========================================
+=   INDEX (in TABLE) CHECK and CREATE   =
+=========================================
+select * from dba_indexes where table_name='EMP';
+create unique index dept_inx on DEPT(deptno);
+
+create table employees
+( emp_id number,
+  fname varchar2(100),
+  lname varchar2(100),
+ constraint employees_pk primary key (emp_id)
+ );
+ 
+create index lname_index on EMPLOYEES(lname) UNUSABLE ;
+alter index LNAME_INDEX REBUILD;  // To use UNUSABLE INDEX; 
 
 
