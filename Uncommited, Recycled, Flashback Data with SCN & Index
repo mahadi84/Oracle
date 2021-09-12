@@ -33,7 +33,7 @@ flashback  table emp_copy3 to before drop;
 select * from emp_copy3;
 select * from recyclebin;
 
---you can do this command( purge recyclebin) to make the recyclebin empty;
+purge TABLE emp_copy3; --you can do this command( purge recyclebin) to make the recyclebin empty;
 ---------------------------------------------------------------------------------------------------------------
 /*Using Oracle Flashback Version Query
 Use Oracle Flashback Version Query to retrieve the different versions of specific rows 
