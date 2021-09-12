@@ -1,1 +1,43 @@
-abcd
+
+
+--SQL*Loader Loading Methods
+/*
+1- Conventional Load
+2- Direct Path Load (faster  )
+3- Express mode
+*/
+
+/*--Conventional Load
+Uses COMMIT
+Always generates redo entries
+Enforces all constraints
+Fires INSERT triggers
+Can load into clustered tables
+Allows other users to modify tables during load operation
+The insertion of an array ofrecords is followed by a COMMIT operation. 
+Each data load may involve several transactions.
+*/
+
+/* --Direct Path Load (DIRECT=TRUE)
+Uses data saves (faster operation)
+Generates redo only under specific conditions
+Enforces only PRIMARY KEY, UNIQUE, and NOT NULL
+Does not fire INSERT triggers
+Does not load into clusters
+Prevents other users from making changes to tables during load operation
+*/
+
+
+--Express mode
+/*
+The main benefit of SQL*Loader express mode is the savings for time and effort that
+results from not needing to write and test a SQL*Loader control file. Instead, you specify
+a single SQL*Loader command with a few parameters and the load starts. 
+
+Another benefit of express mode is that it will try to use the fastest mechanism for loading
+data files: external tables using parallel inserts with the append hint. The append hint on
+an insert statement tells the database to use direct path for loading table data. Executing
+the insert in parallel means that multiple processes can load data from the data file at
+once, reducing the elapsed time for the load. 
+
+*/
