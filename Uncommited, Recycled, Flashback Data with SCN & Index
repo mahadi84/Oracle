@@ -22,7 +22,7 @@ Create/Drop table emp_copy3.
 select * from recyclebin;
 
 /*
-The SCN is an internal number maintained by the database management system 
+The SCN (system change number) is an internal number maintained by the database management system 
 to log changes made to a database
 Whenever an application commits a transaction, the log writer process (LGWR)
 writes records from the redo log buffers in the (SGA) to the online redo logs on disk. 
