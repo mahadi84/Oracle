@@ -43,7 +43,7 @@ A row version is created whenever a COMMIT statement is executed.
 
 
 ====================================================
-== ----CHECK UPDATED (HOW MANY TIMES) A ROW----  ===
+== ----CHECK (HOW MANY TIMES UPDATED) A ROW----  ===
 ====================================================
 
 select name from 
