@@ -1,1 +1,94 @@
-Uncommited, Recycled, Flashback Data SCN & Index
+
+=========================================
+=   INDEX (in TABLE) CHECK and CREATE   =
+=========================================
+select * from dba_indexes where table_name='EMP';
+create unique index dept_inx on DEPT(deptno);
+
+create table employees
+( emp_id number,
+  fname varchar2(100),
+  lname varchar2(100),
+ constraint employees_pk primary key (emp_id)
+ );
+ 
+create index lname_index on EMPLOYEES(lname) UNUSABLE ;
+alter index LNAME_INDEX REBUILD;  // To use UNUSABLE INDEX; 
+
+==================================
+==   Un-Commited DATA CHECK     ==
+==================================
+select a.sid, a.serial#, a.username, b.used_urec, b.used_ublk
+from   v$session a,
+       v$transaction b
+where  a.saddr = b.ses_addr
+order by b.used_ublk desc;
+--USED_UBLK = Number of undo blocks used 
+--USED_UREC = Number of undo records used
+
+ROLLBACK;
+
+
+===============================================
+== ----DELETED/RECYLED DATA CHECK/RESTORE--- ==
+===============================================
+
+Create/Drop table emp_copy3.
+select * from recyclebin;
+
+/*
+The SCN is an internal number maintained by the database management system 
+to log changes made to a database
+Whenever an application commits a transaction, the log writer process (LGWR)
+writes records from the redo log buffers in the (SGA) to the online redo logs on disk. 
+LGWR also writes the transaction’s SCN to the online redo log file. 
+*/
+
+flashback  table emp_copy3 to before drop;
+select * from emp_copy3;
+select * from recyclebin;
+
+--you can do this command( purge recyclebin) to make the recyclebin empty;
+---------------------------------------------------------------------------------------------------------------
+/*Using Oracle Flashback Version Query
+Use Oracle Flashback Version Query to retrieve the different versions of specific rows 
+that existed during a given time interval. 
+A row version is created whenever a COMMIT statement is executed.
+*/
+
+
+====================================================
+== ----CHECK UPDATED (HOW MANY TIMES) A ROW----  ===
+====================================================
+
+select name from 
+employees
+where id=1;
+
+update
+employees
+set name='Biplob'
+where id=3;
+
+commit; -- thi will make new scn
+
+select salary from 
+employees
+where id=3;
+
+
+select versions_starttime,versions_endtime, name from 
+employees
+versions between scn minvalue and maxvalue
+where id=3;
+
+
+--q: until when i can see these records ???
+--This depend on many factors
+--1-	Tablespace type (fixed or auto extend )
+--2-	The retention period  UNDO_RETENTION
+--3-	Retention Guarantee
+
+
+
+
