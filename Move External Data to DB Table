@@ -3,29 +3,9 @@
 --SQL*Loader Loading Methods
 /*
 --MOVE THE FILE datafile.dat TO /u01/app/oracle
-1- Conventional Load  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
-2- Direct Path Load (faster) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
-3- Express mode --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
-*/
-
-/*--Conventional Load
-Uses COMMIT
-Always generates redo entries
-Enforces all constraints
-Fires INSERT triggers
-Can load into clustered tables
-Allows other users to modify tables during load operation
-The insertion of an array ofrecords is followed by a COMMIT operation. 
-Each data load may involve several transactions.
-*/
-
-/* --Direct Path Load (DIRECT=TRUE)
-Uses data saves (faster operation)
-Generates redo only under specific conditions
-Enforces only PRIMARY KEY, UNIQUE, and NOT NULL
-Does not fire INSERT triggers
-Does not load into clusters
-Prevents other users from making changes to tables during load operation
+1- Express mode --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
+2- Conventional Load  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
+3- Direct Path Load (faster) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
 */
 
 
@@ -42,6 +22,29 @@ the insert in parallel means that multiple processes can load data from the data
 once, reducing the elapsed time for the load. 
 
 */
+
+
+--Conventional Load (Enforces all constraints)
+/*
+Uses COMMIT
+Always generates redo entries
+Fires INSERT triggers
+Can load into clustered tables
+Allows other users to modify tables during load operation
+The insertion of an array ofrecords is followed by a COMMIT operation. 
+Each data load may involve several transactions.
+*/
+
+
+--Direct Path Load (DIRECT=TRUE) (Enforces only PRIMARY KEY, UNIQUE, and NOT NULL)
+/* 
+Uses data saves (faster operation)
+Generates redo only under specific conditions
+Does not fire INSERT triggers
+Does not load into clusters
+Prevents other users from making changes to tables during load operation
+*/
+
 
 WITH CREATING control file in SERVER
 ====================================
