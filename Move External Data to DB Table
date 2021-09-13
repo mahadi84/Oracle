@@ -2,9 +2,9 @@
 
 --SQL*Loader Loading Methods
 /*
-1- Conventional Load  --sqlldr hr/hr@orclpdb TABLE=emp_x DIRECT=YES
-2- Direct Path Load (faster) --sqlldr hr/hr@orclpdb TABLE=emp_x DIRECT=NO
-3- Express mode --sqlldr hr/hr@orclpdb TABLE=emp_x
+1- Conventional Load  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
+2- Direct Path Load (faster) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
+3- Express mode --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
 */
 
 /*--Conventional Load
@@ -31,7 +31,7 @@ Prevents other users from making changes to tables during load operation
 --Express mode
 /*
 The main benefit of SQL*Loader express mode is the savings for time and effort that
-results from not needing to write and test a SQL*Loader control file. Instead, you specify
+results from NOT NEDDING to write and test a SQL*Loader CONTROL FILE. Instead, you specify
 a single SQL*Loader command with a few parameters and the load starts. 
 
 Another benefit of express mode is that it will try to use the fastest mechanism for loading
