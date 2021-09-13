@@ -2,9 +2,9 @@
 
 --SQL*Loader Loading Methods
 /*
-1- Conventional Load
-2- Direct Path Load (faster  )
-3- Express mode
+1- Conventional Load  --sqlldr hr/hr@orclpdb TABLE=emp_x DIRECT=YES
+2- Direct Path Load (faster) --sqlldr hr/hr@orclpdb TABLE=emp_x DIRECT=NO
+3- Express mode --sqlldr hr/hr@orclpdb TABLE=emp_x
 */
 
 /*--Conventional Load
