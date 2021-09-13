@@ -2,6 +2,7 @@
 
 --SQL*Loader Loading Methods
 /*
+--MOVE THE FILE datafile.dat TO /u01/app/oracle
 1- Conventional Load  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
 2- Direct Path Load (faster) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
 3- Express mode --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
