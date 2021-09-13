@@ -4,8 +4,8 @@
 /*
 --MOVE THE FILE datafile.dat TO /u01/app/oracle
 1- Express mode --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
-2- Conventional Load  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
-3- Direct Path Load (faster) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
+2- Conventional Load (Enforces all constraints)  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
+3- Direct Path Load (faster) (Enforces only PRIMARY KEY, UNIQUE, and NOT NULL) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
 */
 
 
