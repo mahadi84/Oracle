@@ -9,7 +9,7 @@
 */
 
 
---Express mode
+--EXPRESS mode
 /*
 The main benefit of SQL*Loader express mode is the savings for time and effort that
 results from NOT NEDDING to write and test a SQL*Loader CONTROL FILE. Instead, you specify
