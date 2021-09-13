@@ -3,8 +3,8 @@
 --SQL*Loader Loading Methods
 /*
 --MOVE THE FILE datafile.dat TO /u01/app/oracle
-1- Express mode(NO single data insert, if constraints fail) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
-2- Conventional Load (Rest of data insert, if constraints fail)  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
+1- Express mode(NO single data insert, if all constraints fail) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x
+2- Conventional Load (Rest of data insert, if all constraints fail)  --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=YES
 3- Direct Path Load (faster) (Rest of data insert, if PRIMARY KEY, UNIQUE, and NOT NULL found ) --sqlldr pdb1_admin/mahadi123@pdb1 TABLE=emp_x DIRECT=NO
 */
 
