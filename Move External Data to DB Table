@@ -41,3 +41,30 @@ the insert in parallel means that multiple processes can load data from the data
 once, reducing the elapsed time for the load. 
 
 */
+
+WITH CREATING control file in SERVER
+====================================
+
+--MOVE THE FILE EMPLOYEES.csv TO /u01/app/oracle
+--we need to create a file called control file .ctl ( example EMPLOYEES.ctl )
+--write the below commant into EMPLOYEES.ctl.
+/*
+Load Data
+INFILE '/u01/app/oracle/EMPLOYEES.csv'
+APPEND
+INTO Table emp_x
+FIELDS TERMINATED BY ',' 
+(empid,
+name,
+gender,
+deptno,
+address
+)
+*/
+
+--create a table (ex: emp_x)
+--sqlldr control=/u01/app/oracle/EMPLOYEES.ctl log=/u01/app/oracle/EMPLOYEES.log
+select * from emp_x
+
+
+
