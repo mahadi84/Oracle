@@ -22,19 +22,22 @@ show parameter db_recovery_file_dest;
 
 START BACKUP:
 -------------
-1-	Make sure that DB is up and running
-2-	Login to RMAN
+1-Make sure that DB is up and running
+2-Login to RMAN without ORACLE
 rman target=/
 list backup of database; --In order to see any available backup, do this
 list archivelog all; --To list the any archived logs files, NOTE: if you did not find any files this mean no redo logs switch happened, the redo logs still no filled yet.
-backup database plus archivelog; --Now we will do this command
+
+backup database plus archivelog; --to do full backup for the a container database.
+backup database orclpdb plus archivelog; -- to do full backup for the a specific pluggable.
+
 list backup of database; --Make sure from the backup NOTE: the backup contains backup sets each set contains pieces 
 list backup of controlfile;	--Use this to list the control file
 list backup of spfile;	--Use this to list the spfile
 
 ***Let us do some transactions in pluggable database orclpdb Then we restore that backup
 
---Restore the backup
+----Restore (CONTAINER DB) the backup-----
 RUN
 {
 SHUTDOWN IMMEDIATE; 
@@ -44,9 +47,62 @@ RECOVER DATABASE;
 ALTER DATABASE OPEN;
 }
 
+----Restore (PLUGGABLE DATABASE) the backup----
+RUN 
+{
+RESTORE PLUGGABLE DATABASE orclpdb;
+RECOVER PLUGGABLE DATABASE orclpdb;
+ALTER PLUGGABLE DATABASE orclpdb open;
+}
+
+
+--POINT-IN-TIME recovery of CONTAINER database
+
+select TO_CHAR(sysdate,'DD-MON-YYYY HH24:MI:SS') from dual;
+
+RUN 
+{
+SHUTDOWN IMMEDIATE; 
+STARTUP MOUNT;
+SET UNTIL TIME "TO_DATE(' 29-JUN-2019 14:00:26','DD-MON-YYYY HH24:MI:SS')";
+RESTORE DATABASE;
+RECOVER DATABASE;
+ALTER DATABASE OPEN RESETLOGS;
+}
+
+
+--POINT-IN-TIME recovery of pluggable database
+
+RUN 
+{
+ALTER PLUGGABLE DATABASE orclpdb CLOSE;
+SET UNTIL TIME "TO_DATE(' 29-JUN-2019 17:54:38','DD-MON-YYYY HH24:MI:SS')";
+RESTORE PLUGGABLE DATABASE orclpdb;
+RECOVER PLUGGABLE DATABASE orclpdb;
+ALTER PLUGGABLE DATABASE orclpdb OPEN RESETLOGS;
+}
+
+
 --Make sure that all changes that you did has been restored
 Yes: this mean the restoring will get the archived log that has been generated after the backup time.
 
+
+
+
+DELETE BACKUP DATABASE
+========================
+
+1-	To delete all backups
+
+Delete backup;
+Or
+DELETE NOPROMPT BACKUP; --No Confirmation is asked
+Or
+DELETE BACKUP TAG 'tag_name';
+
+2-	To delete specific backup with ID NAME
+List backup of database orclpdb
+DELETE BACKUPSET 42
 
 
 
