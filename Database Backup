@@ -1,0 +1,54 @@
+
+CONNECT:
+--------
+sys as sysdba
+-Make sure you are in the root (cdb$root)
+-Check this: ARCHIVE LOG LIST (if disable)
+--If not then:
+Shutdown immediate;
+STARTUP MOUNT;
+alter database archivelog;
+ALTER DATABASE OPEN 
+ALTER PLUGGABLE DATABASE ALL OPEN;
+
+SET VALUE and CHECK:
+--------------------
+-db_recovery_file_dest
+-db_recovery_file_dest_size
+Alter system set DB_RECOVERY_FILE_DEST_SIZE = 20G;
+Alter system set DB_RECOVERY_FILE_DEST = 'u01/app/oracle/fast_recovery_area';
+show parameter db_recovery_file_dest;
+
+
+START BACKUP:
+-------------
+1-	Make sure that DB is up and running
+2-	Login to RMAN
+rman target=/
+list backup of database; --In order to see any available backup, do this
+list archivelog all; --To list the any archived logs files, NOTE: if you did not find any files this mean no redo logs switch happened, the redo logs still no filled yet.
+backup database plus archivelog; --Now we will do this command
+list backup of database; --Make sure from the backup NOTE: the backup contains backup sets each set contains pieces 
+list backup of controlfile;	--Use this to list the control file
+list backup of spfile;	--Use this to list the spfile
+
+***Let us do some transactions in pluggable database orclpdb Then we restore that backup
+
+--Restore the backup
+RUN
+{
+SHUTDOWN IMMEDIATE; 
+STARTUP MOUNT;
+RESTORE DATABASE;
+RECOVER DATABASE;
+ALTER DATABASE OPEN;
+}
+
+--Make sure that all changes that you did has been restored
+Yes: this mean the restoring will get the archived log that has been generated after the backup time.
+
+
+
+
+
+
