@@ -4,7 +4,7 @@ CONNECT:
 sys as sysdba
 -Make sure you are in the root (cdb$root)
 -Check this: ARCHIVE LOG LIST (if disable)
---If not then:
+--Then:
 Shutdown immediate;
 STARTUP MOUNT;
 alter database archivelog;
@@ -99,10 +99,9 @@ Or
 DELETE NOPROMPT BACKUP; --No Confirmation is asked
 Or
 DELETE BACKUP TAG 'tag_name';
-
-2-	To delete specific backup with ID NAME
-List backup of database orclpdb
-DELETE BACKUPSET 42
+Or
+List backup of database pdb1 
+DELETE BACKUPSET 42  -To delete specific backup with ID NAME
 
 
 
