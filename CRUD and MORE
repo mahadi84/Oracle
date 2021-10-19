@@ -1,0 +1,123 @@
+
+
+SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
+-----------------------------------------------------------------------------
+select * from user_constraints where table_name='EMP_X';
+
+create table emp_x
+( empid number,
+  name varchar2(10) not null,
+  gender varchar(1),
+  deptno number,
+  address varchar2(100),
+constraint emp_x_pk primary key (empid),
+constraint emp_x_uk1 unique  (name),
+constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
+constraint emp_x_chq1  check ( gender in ('M','F') )
+);
+
+
+
+SQL LOOP
+-----------
+
+begin
+ for i in 1..1000000
+ loop
+ insert into ALEX.EMP values (i,'just test name', 'just test comments');
+ end loop;
+ commit;
+end;
+
+select * from database_properties
+--see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
+
+
+ERROR MEANING OF ORACLE
+------------------------
+--go to vm and do this: 
+[oracle@test.com]$  ! oerr ora 2377
+
+ADMIN TO CHECK USER INFO.
+-------------------------
+SELECT * FROM dba_users WHERE username=upper('pubali');
+select privilege, admin_option FROM dba_sys_privs WHERE grantee = upper('user_name/role_name');
+select * from dba_profiles where profile='PDBPROFILE';
+select * from dba_tablespaces where tablespace_name=upper('TS1');
+
+
+USER Related
+-------------
+SHOW user;
+CREATE user scott identified by scott1234# profile orclpdbprofile;
+ALTER user scott PROFILE test_pass; / To add extra profile
+CREATE user c##jane identified by jane container=all; /To create common user
+ALTER user USERNAME account unlock;
+SELECT * username from all_users/dba_users;
+
+
+PDB Queries
+-----------
+show pdbs;
+alter pluggable database PDBname/all open/close;
+alter pluggable database <pluggable_database_name> save state; --pluggable database to open automatically
+
+
+COMMON to LOCAL(Vice-Versa) DB CHANGE-OPTIONS:
+-------------------------------
+show con_name; 
+alter session set container=pdbName/cdb$root; 
+
+
+QUERIS:
+-------
+To list all tables in a PDB created by user:
+SELECT p.PDB_ID, p.PDB_NAME, t.OWNER, t.TABLE_NAME FROM DBA_PDBS p, CDB_TABLES t WHERE p.PDB_ID = 5 AND t.OWNER IN('TEST') AND p.PDB_ID = t.CON_ID ORDER BY p.PDB_ID;
+
+To list all PDB user-list:
+select USERNAME,a.CON_ID,PDB_NAME,CREATED from CDB_USERS a ,dba_pdbs b where 1=1 and a.CON_ID = 5;
+
+
+DISPLAY FORMATE:
+----------------
+COLUMN/col COL_NAME FORMAT A15
+
+
+SAVE QUERY as CODE:
+SQL>save filename.sql / USE: $/SQL> system/system@pubali @filename.sql
+
+
+
+======================
+    CRUD(OBJECTs):
+======================
+
+select rowid,id,name,comments 
+from HRMS2.TEST
+where id=10;
+
+--example
+--rowid OOOOOOFFFBBBBBBRRR
+--OOOOOO object number
+--FFF Relative File Number
+--BBBBBB The data block number
+--RRR The row number
+
+delete from ALEX.EMP;
+commit;
+
+truncate table ALEX.EMP;
+
+
+CREATE TABLE HRMS.EMP ( EMP_ID NUMBER, ENAME VARCHAR2(100) );
+INSERT INTO   HRMS.EMP VALUES (1,'ford');
+SELECT * from HRMS.emp;
+
+alter table hrms.emp
+add (salary number);
+
+update hrms.employees
+set salary =500
+where employee_id=1;
+
+
