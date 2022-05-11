@@ -5,8 +5,8 @@
 DATA DICTIONARY
 consists of the Base Table and View,  with Objects(user,table etc) information.
 
-VIEWs LIST
---------------------------------
+VIEWs LIST (Ex: SELECT */NAME FROM v$database;)
+---------------------------------------------
 v$database, v$pdbs, v$containers, v$locked_objects, v$version, 
 v$tablespace, v$parameter, v$instance, v$diag_info,
 v$datafile, v$controlfile, v$logfiles, 
