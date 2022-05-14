@@ -1,6 +1,6 @@
 
-USER Related 
--------------
+========================= USER RELATED =======================
+
 SHOW user;
 CREATE user scott identified by scott1234# profile orclpdbprofile;
 ALTER user scott PROFILE test_pass;                             (To add extra profile)
@@ -17,6 +17,7 @@ select * from dba_profiles where profile='PDBPROFILE';
 select * from dba_tablespaces where tablespace_name=upper('TS1');
 
 
+====================== DATABASE RELATED ======================
 
 PDB Queries
 -----------
@@ -26,13 +27,13 @@ alter pluggable database <pluggable_database_name> save state; --pluggable datab
 
 
 COMMON to LOCAL(Vice-Versa) DB CHANGE-OPTIONS:
--------------------------------
+----------------------------------------------
 show con_name; 
 alter session set container=pdbName/cdb$root; 
 
 
-QUERIS:
--------
+====================== TABLE RELATED =============================
+
 To list all tables in a PDB created by user:
 SELECT p.PDB_ID, p.PDB_NAME, t.OWNER, t.TABLE_NAME FROM DBA_PDBS p, CDB_TABLES t WHERE p.PDB_ID = 5 AND t.OWNER IN('TEST') AND p.PDB_ID = t.CON_ID ORDER BY p.PDB_ID;
 
@@ -50,9 +51,9 @@ SQL>save filename.sql / USE: $/SQL> system/system@pubali @filename.sql
 
 
 
-======================
-    CRUD(OBJECTs):
-======================
+==============================================================
+                         CRUD(OBJECTs):
+==============================================================
 
 select rowid,id,name,comments 
 from HRMS2.TEST
@@ -84,7 +85,7 @@ where employee_id=1;
 
 
 SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
------------------------------------------------------------------------------
+==============================================================================
 select * from user_constraints where table_name='EMP_X';
 
 create table emp_x
@@ -120,5 +121,9 @@ ERROR MEANING OF ORACLE
 ------------------------
 --go to vm and do this: 
 [oracle@test.com]$  ! oerr ora 2377
+
+
+
+
 
 
