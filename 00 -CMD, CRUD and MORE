@@ -1,9 +1,12 @@
 
-
-
-
-
-
+USER Related 
+-------------
+SHOW user;
+CREATE user scott identified by scott1234# profile orclpdbprofile;
+ALTER user scott PROFILE test_pass; / To add extra profile
+CREATE user c##jane identified by jane container=all; /To create common user
+ALTER user USERNAME account unlock;
+SELECT * username from all_users/dba_users;
 
 
 ADMIN TO CHECK USER INFO.
@@ -13,15 +16,6 @@ select privilege, admin_option FROM dba_sys_privs WHERE grantee = upper('user_na
 select * from dba_profiles where profile='PDBPROFILE';
 select * from dba_tablespaces where tablespace_name=upper('TS1');
 
-
-USER Related
--------------
-SHOW user;
-CREATE user scott identified by scott1234# profile orclpdbprofile;
-ALTER user scott PROFILE test_pass; / To add extra profile
-CREATE user c##jane identified by jane container=all; /To create common user
-ALTER user USERNAME account unlock;
-SELECT * username from all_users/dba_users;
 
 
 PDB Queries
