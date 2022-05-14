@@ -15,8 +15,13 @@ SQL> connect pdb1admin/welcome@pdb1
 SQL>connect system/system@test.com:1521/orcl.com;
 
 
+
+--------------GENERAL COMMAND --------------------
 SHUTDOWN
 SQL>shutdown  abort | immediate | transactional
+
+
+
 
 
 ==========================================
