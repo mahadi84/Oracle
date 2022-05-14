@@ -18,10 +18,8 @@ SQL> connect pdb1admin/welcome@pdb1
 SQL> sqlplus pdb1admin/welcome@pdb1           ( If DB is already running)
 SQL>connect system/system@test.com:1521/orcl.com;
 
- ------------------------
+------------------------
  
-
-
 show con_name;                                                 (Check DB Where I'm in, now)
 show pdbs;                                                     (Check how many pluggable database exist)
 alter session set container=pdbName/cdb$root;                  (Change connection to CDB/PDB)
@@ -45,7 +43,6 @@ set pagesize 200
 col USERNAME format a25  
 col PDB_NAME format a15
 SELECT USERNAME,a.CON_ID,PDB_NAME,CREATED from CDB_USERS a ,dba_pdbs b where 1=1 and a.CON_ID = 5;
-
 
 
 ADMIN TO CHECK USER INFO.
