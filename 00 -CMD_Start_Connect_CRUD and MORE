@@ -35,7 +35,7 @@ CREATE user c##jane identified by jane container=all;           (To create commo
 ALTER user USERNAME account unlock;
 SELECT * username from all_users/dba_users;
 
-*To list all PDB user-list:
+**To list all PDB users:
 SELECT USERNAME,a.CON_ID,PDB_NAME,CREATED from CDB_USERS a ,dba_pdbs b where 1=1 and a.CON_ID = 5;
 
 
