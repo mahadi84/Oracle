@@ -1,0 +1,66 @@
+
+=========== MACHINE/ORACLE DB RELATED==========================
+COMMAND	                        PURPOSE
+--------                        -----------
+ifconfig                       Check IP address
+hostname                       
+echo $ORACLE_HOME
+echo $ORACLE_SID
+
+========================= USER RELATED ======================================
+
+useradd  username               Add user
+userdel  username               Delete user
+
+cat /etc/passwd;                Show user List
+su username                     Switch/Change user
+passwd username                 Reset password for user
+
+
+=========================FOLDER & FILE RELATED======================================
+clear                                clear the screen
+pwd                                  Present working directory
+cd                                   Go straight to the home folder (Ex: cd $ORACLE_BASE;)
+cd..                                 Move one directory up
+cd-                                  Move to your previous directory
+------------------
+ls OR ls -all                        SHOW All FILEs IN A FOLDER
+ls -l filename                       SHOW 1 FILE IN A FOLDER
+-------------------
+cp file/folder_name Destination      Copy file to other location
+------------------
+$ vi folder/<filename>               Open or edit a file.
+i                                    Switch to Insert mode.
+A                                    To add a new line
+shift+: than :wq                                  Save and Quit.                                 
+Esc and :q!                          Quit without saving
+Esc                                  Switch to Command mode.
+-----------------
+touch file_name                      Create file
+mkdir folder_name                    Create Folder
+-----------------
+rm file_name                         Delete file
+rmdir folder_name                    Delete folder
+rm  -r folder_name                   Delete Non-Empty folder
+\rm -rf ./*                          (Special Delete CMD)
+-----------------
+mv file/folder_name destination      Move file
+mv oldname.ext newname.ext           Rename file
+
+
+========================= FILE PERMISSION RELATED ======================================
+
+
+CHANGE or TRANSFER THE OWNERSHIP OF A FILE to the specified USERNAME
+--------------------------------------------------------------------
+chown linuxuser2 file.ext
+
+PERMISSIONs(change mod)
+-----------------------
+chmod UserGroupEveryone filename
+chmod 754 filename
+
+4 stands for "read",
+2 stands for "write",
+1 stands for "execute", 
+0 stands for "no permission."
