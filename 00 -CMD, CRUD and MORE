@@ -3,8 +3,8 @@ USER Related
 -------------
 SHOW user;
 CREATE user scott identified by scott1234# profile orclpdbprofile;
-ALTER user scott PROFILE test_pass; / To add extra profile
-CREATE user c##jane identified by jane container=all; /To create common user
+ALTER user scott PROFILE test_pass;                             (To add extra profile)
+CREATE user c##jane identified by jane container=all;           (To create common user)
 ALTER user USERNAME account unlock;
 SELECT * username from all_users/dba_users;
 
