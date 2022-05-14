@@ -1,16 +1,15 @@
 
 ====================== DATABASE RELATED ======================
 
-COMMON to LOCAL(Vice-Versa) DB CHANGE-OPTIONS:
-----------------------------------------------
-show con_name; 
-alter session set container=pdbName/cdb$root; 
+SQL>startup;
+SQL>SQL>shutdown  abort | immediate | transactional
 
-PDB Queries
------------
-show pdbs;
-alter pluggable database PDBname/all open/close;
+show con_name;                                                 (Check DB Where I'm in, now)
+show pdbs;                                                     (Check how many pluggable database exist)
+alter session set container=pdbName/cdb$root;                  (Change connection to CDB/PDB)
+alter pluggable database PDBname/all open/close;               (Open/Close pluggable DB)
 alter pluggable database <pluggable_database_name> save state; --pluggable database to open automatically
+
 
 
 ========================= USER RELATED =======================
@@ -18,7 +17,7 @@ alter pluggable database <pluggable_database_name> save state; --pluggable datab
 SHOW user;
 CREATE user scott identified by scott1234# profile orclpdbprofile;
 ALTER user scott PROFILE test_pass;                             (To add extra profile)
-CREATE user c##jane identified by jane container=all;           (To create common user)
+CREATE user c##jane identified by jane container=all;           (To create common user who can access both CDB and PDB)
 ALTER user USERNAME account unlock;
 SELECT * username from all_users/dba_users;
 
