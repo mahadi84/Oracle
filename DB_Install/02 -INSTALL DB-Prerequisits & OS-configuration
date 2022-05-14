@@ -1,0 +1,71 @@
+
+
+
+
+================== PREREQUISITES FOR INSTALLING ORACLE DB===========================
+
+
+EDIT HOST FILE(AS ROOT USER) :
+-----------------------------  
+You must login as root
+[root@test.com mahadi]vi /etc/hosts    (an operating system file that maps hostnames to IP addresses)
+<IP-address>	<fully-qualified-machine-name>	<machine-name>  
+Ex: 192.168.0.101 test.com test
+
+
+INSTALL PACKEGES:
+-------------------
+[root@test.com mahadi]: yum install -y oracle-database-preinstall-19c   (Create neccesary Env. User(ORACLE) and its GROUP CMD only Ora-Linux)
+
+
+CREATE DIRECTORY (AS ROOT USER)
+-------------------------------
+[root@test.com mahadi]:mkdir -p /u01/app/oracle/product/19/db_1
+[root@test.com mahadi]:chown -R oracle:oinstall /u01          (change the ownership of the folder for user ORACLE and group OINSTALL)
+[root@test.com mahadi]:chmod -R 775 /u01                      (Folder Permission of 7(RWE)= File owner, 7(RWE)=Group owener 5(R-X)=Other user)
+
+[root@test.com mahadi]systemctl stop firewalld        (Stop firewall, ONLY FOR Development ENVIRONMENT)
+[root@test.com mahadi]systemctl disable firewalld     (Disable firewall, ONLY FOR Development ENVIRONMENT)
+[root@test.com mahadi]passwd oracle                   (Change Password for oracle user [ORACLE USER is created automaticaly])
+
+======================== OS CONFIGURATION ==============================
+
+There are some environment variables we have to set up inside the operating system 
+so that the ORACEL USER can function properly
+
+[oracle@test.com]# vi /home/oracle/.bash_profile     (go to this file and add below lines)
+
+export TMP=/tmp
+export TMPDIR=$TMP
+export ORACLE_HOSTNAME=test.com
+export ORACLE_UNQNAME=orcl   
+export ORACLE_BASE=/u01/app/oracle
+export ORACLE_HOME=$ORACLE_BASE/product/19/db_1
+export ORACLE_SID=orcl
+export PATH=/usr/sbin:$PATH          
+export PATH=$ORACLE_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib   
+export CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib
+------------
+
+[oracle@test.com]# echo $ORACLE_HOME (will see blank path)
+LOGOUT and RELOGIN AS ORAACLE USER (to check the change)
+[oracle@test.com]# echo $ORACLE_HOME (will see path /u01/..../91/db_1)
+[oracle@test.com]# echo $ORACLE_SID (orcl)
+
+
+====================== SETUP COMMAND =====================
+
+DOWNLOAD and COPY ORACLE SETUP ZIP FILE and UNZIP FILE to [oracle@test.com db_1] Folder:
+----------------------------------------------------------------------------------------
+[oracle@test.com]$ cp LINUX.X64_193000_db_home.zip /u01/app/oracle/product/19/db_1
+[oracle@test.com db_1]$ unzip -oq LINUX.X64_193000_db_home.zip
+
+[oracle@test.com db_1]$ export CV_ASSUME_DISTID=OEL8.4
+
+[oracle@test.com db_1]$ ./runInstaller
+[oracle@test.com db_1]$ sqlplus (to test if software is installed)
+
+
+
+
