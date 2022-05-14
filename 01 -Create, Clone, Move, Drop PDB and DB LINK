@@ -1,24 +1,4 @@
 
-----------------------
-TO START A DATABASE
----------------------
-$ sqlplus
-Username: sys as sysdba
-Password: ********
-SQL>startup;
-
--------------------
-CONNECT DATABASE:
--------------------
-$sqlplus / as sysdba
-SQL> connect pdb1admin/welcome@pdb1
-SQL>connect system/system@test.com:1521/orcl.com;
-
-
-SHUTDOWN
-SQL>shutdown  abort | immediate | transactional
-
-
 
 
 
