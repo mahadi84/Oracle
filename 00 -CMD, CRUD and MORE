@@ -1,42 +1,10 @@
 
 
-SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
------------------------------------------------------------------------------
-select * from user_constraints where table_name='EMP_X';
-
-create table emp_x
-( empid number,
-  name varchar2(10) not null,
-  gender varchar(1),
-  deptno number,
-  address varchar2(100),
-constraint emp_x_pk primary key (empid),
-constraint emp_x_uk1 unique  (name),
-constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
-constraint emp_x_chq1  check ( gender in ('M','F') )
-);
 
 
 
-SQL LOOP
------------
-
-begin
- for i in 1..1000000
- loop
- insert into ALEX.EMP values (i,'just test name', 'just test comments');
- end loop;
- commit;
-end;
-
-select * from database_properties
---see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
 
 
-ERROR MEANING OF ORACLE
-------------------------
---go to vm and do this: 
-[oracle@test.com]$  ! oerr ora 2377
 
 ADMIN TO CHECK USER INFO.
 -------------------------
@@ -119,5 +87,44 @@ add (salary number);
 update hrms.employees
 set salary =500
 where employee_id=1;
+
+
+SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
+-----------------------------------------------------------------------------
+select * from user_constraints where table_name='EMP_X';
+
+create table emp_x
+( empid number,
+  name varchar2(10) not null,
+  gender varchar(1),
+  deptno number,
+  address varchar2(100),
+constraint emp_x_pk primary key (empid),
+constraint emp_x_uk1 unique  (name),
+constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
+constraint emp_x_chq1  check ( gender in ('M','F') )
+);
+
+
+
+SQL LOOP
+-----------
+
+begin
+ for i in 1..1000000
+ loop
+ insert into ALEX.EMP values (i,'just test name', 'just test comments');
+ end loop;
+ commit;
+end;
+
+select * from database_properties
+--see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
+
+
+ERROR MEANING OF ORACLE
+------------------------
+--go to vm and do this: 
+[oracle@test.com]$  ! oerr ora 2377
 
 
