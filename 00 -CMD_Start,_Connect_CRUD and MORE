@@ -1,8 +1,22 @@
 
+
+
 ====================== DATABASE RELATED ======================
 
+Start/shutdown a database as admin
+ ----------------------------
+$ sqlplus                 
+Username: sys as sysdba     
+Password: ********
 SQL>startup;
-SQL>SQL>shutdown  abort | immediate | transactional
+SQL>shutdown  abort | immediate | transactional
+
+Connect to database
+-------------------
+$sqlplus / as sysdba
+SQL> connect pdb1admin/welcome@pdb1
+SQL>connect system/system@test.com:1521/orcl.com;
+
 
 show con_name;                                                 (Check DB Where I'm in, now)
 show pdbs;                                                     (Check how many pluggable database exist)
