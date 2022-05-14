@@ -15,7 +15,11 @@ Connect to database
 -------------------
 $sqlplus / as sysdba
 SQL> connect pdb1admin/welcome@pdb1
+SQL> sqlplus pdb1admin/welcome@pdb1           ( If DB is already running)
 SQL>connect system/system@test.com:1521/orcl.com;
+
+ ------------------------
+ 
 
 
 show con_name;                                                 (Check DB Where I'm in, now)
