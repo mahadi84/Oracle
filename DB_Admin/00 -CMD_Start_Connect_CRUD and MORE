@@ -71,6 +71,8 @@ SELECT p.PDB_NAME, t.OWNER, t.TABLE_NAME FROM DBA_PDBS p, CDB_TABLES t WHERE p.P
 
 select rowid,id,name,comments from HRMS2.TEST where id=10;   (Here HRMS2 is table and TEST is an User)
 
+SELECT table_name FROM user_tables ORDER BY table_name;   (Logged in as a user ID)
+
 --example
 --rowid OOOOOOFFFBBBBBBRRR
 --OOOOOO object number
