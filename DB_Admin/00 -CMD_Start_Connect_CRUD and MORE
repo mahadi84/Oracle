@@ -27,6 +27,11 @@ alter pluggable database PDBname/all open/close;               (Open/Close plugg
 alter pluggable database <pluggable_database_name> save state; --pluggable database to open automatically
 
 
+SELECT NAME FROM V$DATABASE;
+SELECT DB_NAME, INSTANCE_NAME, STATUS, DATABASE_STATUS FROM V$INSTANCE;
+
+
+
 
 ========================= USER RELATED =======================
 
@@ -34,6 +39,7 @@ SHOW user;
 CREATE user scott identified by scott1234# profile orclpdbprofile;
 ALTER user scott PROFILE test_pass;                             (To add extra profile)
 CREATE user c##jane identified by jane container=all;           (To create common user who can access both CDB and PDB)
+GRANT DBA TO User_Name;                                         (makes the user a DB Administrator)
 ALTER user USERNAME account unlock;
 SELECT * username from all_users/dba_users;
 
