@@ -6,7 +6,7 @@ cd $ORACLE_HOME/network/admin/       listener.ora and tnsnames.ora
 netmgr  and netca / tools to config oracle net listerner
 
 
-SQL STATEMENTs:
+START LISTENER:
 --------------
 [oracle@test] lsnrctl start/status/stop/reload OR [oracle@test] lsnrctl
 lsnrctl>start L2              / For edited or newly created listener
