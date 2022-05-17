@@ -1,5 +1,6 @@
 
 
+
 LISTENER FILEs LOCATION and TOOLs:
 ---------------------------------
 cd $ORACLE_HOME/network/admin/       listener.ora and tnsnames.ora
@@ -28,6 +29,28 @@ L2 =  (ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1560))
 STEP:03 (Login:sqlplus / as sysdba)
 SQL> show parameter local
 SQL> alter system set local_listener= "LISTENER_ORCL , L2";
+
+
+
+=======================================================================
+Tutorial-link: 
+https://www.support.dbagenesis.com/post/listener-and-tnsnames#:~:text=ora%20file%20helps%20you%20connect,ORACLE_HOME%2Fnetwork%2Fadmin%20location.&text=want%20to%20connect-,tnsnames.,that%20you%20want%20to%20connect.
+
+listerner.ora:
+--------------
+file contains server side network configuration parameters.
+In multi-tenant architecture, each PDB can be considered as an individual databases. 
+You can either configure one listener that accepts connections for all PDBs or you can create separate listener for each PDB.
+
+**N.B:- Whenever you make changes to the listener.ora file, restart listener
+        lsnrctl stop
+        lsnrctl start
+
+tnsnames.ora:
+-------------
+file contains the connection details of the remote database that you want to connect. 
+First the request is sent to listener running on the target database and then the connection is established. 
+On target server (that you want to connect), both listener and database must be up and running. Else, connection will not establish.
 
 
 
