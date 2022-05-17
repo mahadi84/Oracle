@@ -8,11 +8,11 @@ netmgr  and netca                   / tools to config oracle net listerner
 
 START/STOP/RELOAD LISTENER:
 --------------------------
-[oracle@test] lsnrctl start/status/stop/reload   /Start default listener
+[oracle@test]$ lsnrctl start/status/stop/reload   /Start default listener
 OR 
-[oracle@test] lsnrctl      / Start Modified listener
+[oracle@test]$ lsnrctl      / Start Modified listener
 lsnrctl>start L2           / Modified listener 
-tnsping tnsname            / To check whether listener is ready
+[oracle@test]$ tnsping tnsname            / To check whether listener is ready
 
 SQL>alter system register;  /FORCE TO START LISTENER BEFORE 1 MINUTE
 
