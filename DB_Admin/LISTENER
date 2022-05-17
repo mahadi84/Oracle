@@ -3,12 +3,12 @@
 LISTENER FILEs LOCATION and TOOLs:
 ---------------------------------
 cd $ORACLE_HOME/network/admin/       listener.ora and tnsnames.ora
-netmgr  and netca / tools to config oracle net listerner
+netmgr  and netca                   / tools to config oracle net listerner
 
 
 START/STOP/RELOAD LISTENER:
 --------------------------
-[oracle@test] lsnrctl start/status/stop/reload   /Start defaul listener
+[oracle@test] lsnrctl start/status/stop/reload   /Start default listener
 OR 
 [oracle@test] lsnrctl      / Start Modified listener
 lsnrctl>start L2           / Modified listener 
