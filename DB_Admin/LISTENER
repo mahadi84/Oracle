@@ -9,12 +9,9 @@ cd $ORACLE_HOME/network/admin/       listener.ora and tnsnames.ora
 START/STOP/RELOAD LISTENER:
 --------------------------
 [oracle@test]$ lsnrctl start/status/stop/reload    /Start default listener
-OR 
-[oracle@test]$ lsnrctl start L2                  / Modified/New listener 
-        
-[oracle@test]$ tnsping tnsname                 / To check whether listener is ready
-
-SQL>alter system register;                   /FORCE TO START LISTENER BEFORE 1 MINUTE
+[oracle@test]$ lsnrctl start New_Listener_Name    / Modified/New listener 
+[oracle@test]$ tnsping tnsname                   / To check whether listener is ready
+SQL>alter system register;                      /FORCE TO START LISTENER BEFORE 1 MINUTE
 
 
 CREATE(NEW)/EDIT A LISTENER:
@@ -22,23 +19,17 @@ CREATE(NEW)/EDIT A LISTENER:
 **By default (with port: 1521) LISTENER in LISTENER.ORA and LISTENER_ORCL entry in TNSNAMES.ORA works fine with NO change.
 
 [oracle@test]$netmgr/netca                   / both tools to create/config oracle net listerner and tns entry
-
 **We can change port no. manually as well but Tools is good practice.
+
 **N.B:- Whenever you make changes to the listener.ora file, restart listener
         lsnrctl stop
         lsnrctl start
-
 
 UPDATE New Listener Entry to Database:
 ---------------------------------
 STEP:03 (Login:sqlplus / as sysdba)
 SQL> show parameter local                    /Default value is LISTENER_ORCL;
 SQL> alter system set local_listener= "L2";  /add the new listener'S name from TNSNAMES.ORA
-
-
-**N.B:- Whenever you make changes to the listener.ora file, restart listener
-        lsnrctl stop
-        lsnrctl start
 
 
 =======================================================================
