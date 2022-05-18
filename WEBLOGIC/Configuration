@@ -1,3 +1,6 @@
+
+
+
 Everytime we open the Admin, Form and Hosting server as for Password
 How to solve these problems?
 
@@ -29,3 +32,6 @@ WLS_FORMS:
 MKDIR C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security
 echo username=weblogic_Username> C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security\boot.properties
 echo password=weblogic_Password>> C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security\boot.properties
+
+
+
