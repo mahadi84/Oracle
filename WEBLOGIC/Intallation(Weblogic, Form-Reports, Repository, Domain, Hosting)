@@ -1,0 +1,46 @@
+
+
+01. WEBLOGIC SERVER INSTALLTION PROCESS:
+----------------------------------------
+> Firstly, Install "Oracle WebLogic Server 12.2.1.4.0"
+> Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
+> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
+            
+
+02. FORM and REPORT DEVELOPER INSTALLATION:
+-------------------------------------------
+> On the 'C:\Oracle\Middleware\Oracle_Home' folder 
+> Install "Oracle Forms and Reports 12.2.1.4.0"
+
+
+03. REPOSITORY INSTALLATION:
+----------------------------
+> Go to below file:
+  C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
+> Click On: rcu.bat
+
+04. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
+---------------------------------------------------------
+> Go tho below link:
+  C:\Oracle\Middleware\Oracle_Home\oracle_common\common\bin
+> Click On: config.cmd
+
+> Create Domain_Name 
+> Select on Next page:
+  [+]Oracle Forms [forms]
+  [+]Oracle Reports Application[reports]
+  [+]Oracle Enterprise Manager [em]
+  [+]Oracle Server (colloceted [ohs])
+  [+]Oracle Reports Tools [ReportReportComponents]
+  [+]Oracle Server [ReportServerComponents]
+  [+]Oracle Bridge [ReportBridgeComponents]
+  [+]Oracle JRF [oracle_common]
+  [+]WebLogic Coherence Cluster Extension[wlserver]
+
+> Set Loging info: User:weblogic password: weblogic123
+> Select "Production"
+> Select [+]Node Manager [+]Topology [+]System Components
+> Assing Server to Machine: Move "AdminServer" Left to right 
+> System Components Section: Add OHS(Oracel Hosting Server)
+> OHS Server: Add Listen Address+Port: localhost+8888 
+> Move ohs1 left to Right
