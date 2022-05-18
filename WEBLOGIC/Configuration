@@ -1,0 +1,31 @@
+Everytime we open the Admin, Form and Hosting server as for Password
+How to solve these problems?
+
+
+CMD TO START WEBLOGIC:
+----------------------
+C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
+startWebLogic.cmd
+startNodeManager.cmd
+cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
+stopManagedWebLogic.cmd WLS_FORMS
+
+
+
+CONFIGURATION-PART-01(Admin, Form, Hosting Server and Form:
+===========================================================
+
+Create files with weblogic username and password
+So that NO NEED CREDENTIALs everytime we start the server:
+
+DOMAIN SERVER:
+--------------------
+MKDIR C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\AdminServer\security
+echo username=weblogic_User_Name>  C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\AdminServer\security\boot.properties
+echo password=weblogic_Password>>  C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\AdminServer\security\boot.properties
+
+WLS_FORMS:
+----------
+MKDIR C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security
+echo username=weblogic_Username> C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security\boot.properties
+echo password=weblogic_Password>> C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security\boot.properties
