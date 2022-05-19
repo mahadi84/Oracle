@@ -11,7 +11,7 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
 startWebLogic.cmd
 startNodeManager.cmd
 cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
-stopManagedWebLogic.cmd WLS_FORMS
+startManagedWebLogic.cmd WLS_FORMS
 
 
 
