@@ -15,7 +15,8 @@
             startManagedWebLogic.cmd WLS_FORMS
   -> C:\Oracle\Middleware\Oracle_Home\bin
             Click On: frmbld.exe
-
+To check:
+       Go to : http://localhost:7001/em
 
 
 02. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
