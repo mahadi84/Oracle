@@ -17,6 +17,8 @@
             Click On: frmbld.exe
 To check:
        Go to : http://localhost:7001/em
+       User: Domain user name(Usually weblogic and password weblogic123)
+       Pass: Domain password (Usually password weblogic123)
 
 
 02. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
