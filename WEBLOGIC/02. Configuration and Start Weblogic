@@ -21,7 +21,8 @@ To check:
        Pass: Domain password (Usually password weblogic123)
 
 
-
+TO RUN OHS(Oracle Hosting Server)
+--------------------------------
 -->Go to  C:\Oracle\Middleware\Oracle_Home\forms\templates\config
 -->Add below line to: forms.conf
 <Location /forms>
