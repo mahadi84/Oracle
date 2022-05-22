@@ -6,13 +6,15 @@
     How to solve these problems?
 
 
-01. CMD TO START WEBLOGIC:
-----------------------
+01. CMD TO START Admin Server, Forms and Reports server and Form:
+----------------------------------------------------------------
   -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
             Click On: startWebLogic.cmd
             Click On: startNodeManager.cmd
   -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin  (Run command mode with Admin priv.)
             startManagedWebLogic.cmd WLS_FORMS
+  -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin  (Run command mode with Admin priv.)
+            startManagedWebLogic.cmd WLS_REPORTS
   -> C:\Oracle\Middleware\Oracle_Home\bin
             Click On: frmbld.exe
 To check:
