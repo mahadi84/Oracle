@@ -4,7 +4,7 @@
 ----------------------------------------
 > Firstly, Install "Oracle WebLogic Server 12.2.1.4.0"
 > Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
-> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
+            >> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
             
 
 02. FORM and REPORT DEVELOPER INSTALLATION:
