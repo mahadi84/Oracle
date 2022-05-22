@@ -21,6 +21,19 @@ To check:
        Pass: Domain password (Usually password weblogic123)
 
 
+
+-->Go to  C:\Oracle\Middleware\Oracle_Home\forms\templates\config
+-->Add below line to: forms.conf
+<Location /forms>
+      SetHandler weblogic-handler 
+      WebLogicHost localhost
+      WeblogicPort 9001
+</Location>
+
+-->Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
+
+
+
 02. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 ===================================================================================================
 
