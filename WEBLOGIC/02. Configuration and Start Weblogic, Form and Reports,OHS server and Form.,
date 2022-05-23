@@ -21,12 +21,10 @@ To check:
        Go to : http://localhost:7001/em
        User: Domain user name(Usually weblogic and password weblogic123)
        Pass: Domain password (Usually password weblogic123)
-
-
-BEFORE START OHS(Oracle Hosting Server)
-----------------------------------------
 **OHS located in  HTTPS server
 
+If everything is OK.
+Change below information:
 -->Go to  C:\Oracle\Middleware\Oracle_Home\forms\templates\config
 -->Add below line to: forms.conf
 <Location /forms>
@@ -36,7 +34,7 @@ BEFORE START OHS(Oracle Hosting Server)
 </Location>
 
 -->Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
-
+Restart the OHS server.
 
 
 02. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
