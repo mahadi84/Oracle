@@ -1,0 +1,181 @@
+
+
+
+
+DATABASE vs DATABASE INSTANCE
+DATABASE OBJECTS (বস্তু/সামগ্রী), SCHEMA (পরিকল্পনা),
+TABLESPACE, USER TABLESPACE.
+
+
+Question #01
+-----------------
+A.  Managed TABLESPACE
+B.  AUTOEXTEND TABLESPACE
+C.  BIGFILE vs SMALLFILE tablespace
+
+
+Question #03 & #07
+------------------
+A.   RAC, DATA GUARD, SPFILE vs PFILE
+B.   SERVICE NAME, SID, DISPATCHER
+C.   LISTENER.ORA vs TNSNAMES.ORA   
+D.   Static VS Dynamic Service Registration, LREG 
+E.   Connect Time Failover VS Transparent Application Failover (TAF)
+F.   Load Balancing, Source Routing, Connection Manager (CMAN)
+
+
+Question #04
+------------------
+NLS_DATE_FORMAT DD-MON-YYYY HH24:MI:SS?
+A.CURRENT_TIMESTAMP /SYSTIMESTAMP
+B.SYSDATE / CURRENT_DATE
+C.TO_CHAR/DATE function
+
+Question #06
+------------------
+Automatic undo management with temporary undo enabled.
+A. SGA, PGA
+B. SERVER PROCESS, BACKGROUND PROCESS
+C. OBJECTIVS of SGA, PGA, SP and BP.
+
+
+Question #08 & #17
+------------------
+A. LOGICAL vs PHYSICAL database structures
+B. SPACE MANAGEMENT (SEGMENT, EXTENTS, DATA BLOCK) 
+C. Tablespaces with no. of data files
+D. The extents of a segment reside
+E. A segment can span, A segment's blocks size
+F. A segment ( No. of extents)
+
+ASSM Why.
+UPDATE and INSERT Operations, how manage free space
+
+
+Question #09
+------------------
+A.  TRANSACTION
+B.  ROLLBACK vs COMMIT vs SAVEPOINT vs FLASHBACK
+C.  WHY INDEX and CREATE INDEX statement
+D.  DROP vs DELETE vs TRUNCATE statement
+  	 
+
+Question #11
+------------------
+A. SET VERIFY ON
+B. SQL Developer vs SQL*Plus
+C. DEFINE command
+
+
+Question #15
+--------------------
+A. DDL vs DML vs DCL vs TRANSACTION CONTROL
+B. Oracle Managed Files (OMF) ,DB_CREATE_FILE_DEST.
+
+
+Question #16
+------------------
+CASCADE, CONSTRAINTS, UNUSED column's space
+
+
+Question #19
+------------------
+One database, Two or more databases on the same server, Two or more databases on separate servers.
+
+
+Question #21
+------------------
+A. ACCOUNT MANAGEMENT
+B. PROFILE, what?
+
+Question #23
+------------------
+A. BULK DATA LOAD vs CONVENTIONAL DML (INSERT/UPDATE/DELETE) OPERATION
+B. DATABASE vs DATA WAREHOUSE vs DATA MINING
+C. OLAP vs OLTP 
+D. COMPRESSION, what, where, how/algorithom compress?
+
+Question #24
+------------------
+A.Private Temporary Tables (PTTS)
+B.UNUSABLE INDEX
+
+Question #25
+-----------------
+PMON 
+
+Question #28
+------------------
+SQL> ALTER SYSTEM SET DB_CACHE_SIZE=1024M;
+
+Question #29
+------------------
+Space-saving features:
+A. Online table segment shrink (What/Why/Benefits, Where/How?) 
+B. Automatic data file extension (AUTOEXTEND)
+C. Automatic Workload Repository(ভাণ্ডার)(AWR), how does it work?
+
+Question #30
+------------------
+STOP_JOB=immediate, 
+Why, How, Risk of DataLose?
+
+Question #31
+------------------
+GRANT CREATE SESSION TO hr WITH (ADMIN OPTION);
+
+
+Question #33
+------------------
+UNDO and REDO
+
+
+Question #34
+------------------
+CREATE DATABASE LINK
+
+
+Question #38
+------------------
+Types of segments
+
+
+Question #40
+------------------
+Single row functions:
+MOD, FLOOR, TRUNC, CONCAT, CEIL 
+
+
+Question #42
+------------------
+RESUMABLE__TIMEOUT = 7200  DEFERRED_SEGMENT_CREATION = FALSE
+
+
+Question #43
+------------------
+Oracle Data Dictionary (V$TABLESPACE vs CDB, DBA, ALL and USER_ TABLESPACE)
+
+Question #44
+------------------
+Listener listens on port 1531 by using this statement: CONNECT pdb2
+CONNECT HR/HRMGR@orcl -
+
+Question #47
+-----------------
+UNDO_RETENTION, RETENTION GUARANTEE
+
+Question #51
+------------------
+GLOBAL TEMPORARY TABLES
+
+Question #52
+------------------
+TRACE FILE
+A.Server VS Background processes
+B.Fast Recovery Area (FRA)
+C.Automatic Diagnostic Repository (ADR)
+
+
+
+
+
