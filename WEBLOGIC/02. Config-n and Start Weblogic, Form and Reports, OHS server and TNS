@@ -2,7 +2,9 @@
 
 01. How to start Weblogic server?
 
-02. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
+02. How/Where to update/TNS information?
+
+03. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
     How to solve these problems?
 
 
@@ -37,7 +39,19 @@ Change below information:
 Restart the OHS server.
 
 
-02. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
+02. How/Where to update/TNS information?
+=========================================
+
+
+
+
+
+
+
+
+
+
+03. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 ===================================================================================================
 
 Create files with weblogic username and password
