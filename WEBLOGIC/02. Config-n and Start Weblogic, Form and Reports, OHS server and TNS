@@ -41,8 +41,10 @@ Restart the OHS server.
 
 02. How/Where to update/TNS information?
 =========================================
+-> COPY tnsnames.ora from ORACLE DATABASE and PAST to below location
+C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
 
-
+Try to connect form.
 
 
 
