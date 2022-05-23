@@ -13,9 +13,9 @@
   -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
             Click On: startWebLogic.cmd
             Click On: startNodeManager.cmd
-  -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin  (Run command mode with Admin priv.)
+  -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin  (Run command mode with Admin priv.)
             startManagedWebLogic.cmd WLS_FORMS
-  -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin  (Run command mode with Admin priv.)
+  -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin  (Run command mode with Admin priv.)
             startManagedWebLogic.cmd WLS_REPORTS
   -> C:\Oracle\Middleware\Oracle_Home\bin
             Click On: frmbld.exe
