@@ -1,0 +1,978 @@
+
+
+============================================== DATABASE ================================================================================
+
+* Database:  (9 Files)
+  A database is just a collection of files {
+  -data files, control files, redo log files, 
+  -parameter file, password file, alert log file, trace file,
+  -database backup files(includes data files, control files, redo log files), archived redo log files(group of redo log file)}
+   stored in disk storage(pahysical).
+
+
+Datafiles
+contains the actual users data, applications data, metadata.  ( Tables, Rows, indexes ,procedures, views…)
+Note: If you lose Datafiles, you lose your database.  The extension for datafiles is	.dbf
+
+Control files
+Stores metadata about the datafiles and online redo log files ( like names ,locations	and statuses ) and  this info is required by the database instance to open the database.
+Note: If you lose control files, you lose your database.  The extension for Control files is	.ctl
+
+Redo log files
+stores changes to the database as they occur and are used for data recovery.  Note: If you lose Redo log files, you lose your database.
+The extension for redo log file is	.log
+
+Database backups files
+include any backups of your database that you have taken and placed somewhere safe
+Note: it should include the datafiles, control files, redo log files
+Archived redo log files (groups of redo log files)
+Contains ongoing history of the data changes .
+Using these files + backups files you can recover your database
+
+
+Parameter file ( spfile, pfile )
+This file defines how the database instance is configured when it starts up.
+Example: the PGA size PGA_AGGREGATE_TARGET
+Note: spfile is binary file, you can not edit directly, it should by oracle commands.  If you lose the spfile no issue, you can recreate it again
+
+Password file
+stores passwords for users with administrative privileges (sys user) in order to connect remotely.
+Note: DBA password cannot be stored in the database, because Oracle cannot access the database before  the instance is started	, Therefore, the authentication of the DBA must happen outside of the database
+
+Alert Log File
+is a chronological log of messages and errors written out by an Oracle Database.
+so this is your go-to file in case you're trying to troubleshoot a problem with your database.  Example: You can see when the database was started and stopped.
+Trace File
+Each server and background process writes to a trace file.
+
+When a process detects an internal error, it writes information about the error to its trace file.
+
+============================================== DATABASE INSTANCE ====================================================================================
+
+* Instance:  A set of processes (Background, Server)  and memory (SGA,PGA)  structures that manage database files. 
+  -an instance exists in memory
+
+BUFFER:                                              CACHE:
+It is always implemented in the main memory (RAM).   It is implemented in RAM as well as in Disk.
+It stores the original copy of data.	             It stores the copy of original data.
+moves data from one place to another.                Frequently accessed data for rapid access.
+
+MEMORY POOL: A logical division of main memory or storage that is reserved for processing a job or group of jobs. 
+
+
+--SGA--
+Shared Pool
+------------
+The most important component of SGA
+Cache non user Data like Data dictionary (metadata: data about data	ex: DBA_tables)
+Shared Pool contains sub components like Data dictionary cache, library cache ,server result cache  and many others
+Store the cached information about each SQL statement that is executed, like execution plan
+
+Database buffer cache
+---------------------
+responsible for caching database user data.
+The buffer cache caches frequently accessed database data into memory.
+Note: The buffer cache caches blocks of data instead of individual rows ( 1 block=8 kB by default )
+All users who are concurrently connected to the database share and access a single database buffer  cache
+The buffer cache including the keep pool, recycle pool, and others
+
+Redo Log Buffer
+-----------------
+circular buffer that hold information about changes made to the database
+designed to store redo entries (small records that reflect any changes made to the database as part  of transactions or database structure changes)
+Note: Redo entries are used for database recovery when and if needed.
+the Redo Log entries in the RedoLog buffer are also written on a periodic basis to a set of files in our  Oracle database storage known as Redo logs files
+
+*LARGE POOL, FIXED SGA, JAVA POOL, STREAMS POOL.
+
+Database Writer processes(DBWn)
+-------------------------------
+responsible for writing contents of the database buffers to data files on disk
+
+Log writer(LGWR)
+-----------------
+responsible for writing redo records from the redo log buffering memory into a physical disk
+
+checkpoint process(CKPT)
+-------------------------
+This process handles database checkpoints.
+An Oracle checkpoint is a database event which synchronizes modified data blocks  in memory from the buffer cache with the data files on disk
+
+System Monitor process(SMON)
+-----------------------------
+performs recovery during the startup sequence of the Oracle Instance if required.  responsible for cleaning up any unused temporary segments.
+
+Process Monitor( PMON)
+----------------------
+performs process recovery when a user process or a session fails.
+responsible for cleaning up any changes made to blocks in the database buffer cache,  and releasing resources that were previously used by a failed user session.
+
+
+Recover Process (RECO)
+-----------------------
+used as part of distributed database transactions.
+Distributed transactions are transactions that involve multiple databases, and should either  commit a rollback on both databases at once.
+
+Listener registration process (LREG)
+------------------------------------
+It is responsible for registering the Oracle instance with the Oracle network listener.  The listener accepting remote incoming user connections
+
+Archiver process (ARCn)
+------------------------
+It is responsible to copy the Oracle redo log files to a remote storage device after a redo log  switch has occurred
+Note: Copying the database relogs to another storage system is very important from a backup and  recovery perspective
+
+=========================================================== END of DATABASE and INTANCE ================================================================
+
+
+ORACLE DATABASE OBJECTS:
+-----------------------
+Tables. Oracle stores information in the form of tables.
+Indexes. Indexing is a concept of listing of keywords accompanied by the location of information of the subject.Like: Book indexing
+Views, Clusters, Synonyms, Sequences, Partitions, Stored procedures and packages.
+
+SCHEMA(পরিকল্পনা):
+----------------
+A schema is a collection of database objects, created and owned (logical structures) by a database user and named as same user.
+DATABASE SCHEMA: Model or Plan or a Graphical representation of a Database.
+
+TABLESPACE:
+-----------
+is a logical storage structure store all of the database's data(DATABASE OBJECTS).
+Each tablespace consists of one or more files called datafiles (physical structures),
+
+USERS TABLESPACE:
+----------------
+is used to store permanent user objects and data. 
+Every database should have a tablespace for permanent user data that is assigned to users. 
+Otherwise, user objects will be created in the SYSTEM tablespace, which is not good practice.
+
+===================================================== QUESTIONs START ================================================================
+
+QUESTION:-01
+============
+
+DICTIONARY MANAGED TABLESPACES (DMT) VS LOCALLY MANAGED TABLESPACES (LMT):
+-------------------------------------------------------------------------
+Dictionary Managed Tablespaces (DMT)
+------------------------------------
+Oracle use the data dictionary (tables in the SYS schema) to track allocated and free extents for tablespaces that is in "dictionary managed" mode. 
+Free space is recorded in the SYS.FET$ table, and used space in the SYS.UET$ table.
+
+SQL> CREATE TABLESPACE ts1 DATAFILE '/oradata/ts1_01.dbf' SIZE 50M 
+      EXTENT MANAGEMENT DICTIONARY;
+
+Locally Managed Tablespaces (LMT):
+----------------------------------
+A tablespace that manages its own extents maintaining a bitmap to keep track of the free or used status of blocks in that data file.
+
+SQL> CREATE TABLESPACE ts1 DATAFILE '/oradata/ts1_01.dbf' SIZE 50M 
+      EXTENT MANAGEMENT LOCAL AUTOALLOCATE;
+      /EXTENT MANAGEMENT LOCAL UNIFORM SIZE 128K;
+
+
+AUTOEXTEND TABLESPACE:
+----------------------
+We can set a tablespace to automatically extend itself by a specified amount when it reaches its size limit. 
+You are alerted when the tablespace reaches its critical or warning threshold size.
+Syntex: ALTER TABLESPACE NEW_TBS_TEST ADD DATAFILE '/oracle/oradata/TEST/NEW_TBS_TEST03.dbf' SIZE 15M AUTOEXTEND ON MAXSIZE UNLIMITED/200M;
+
+BIGFILE vs  SMALL file: 
+-----------------------
+Max-No.-of Data/Temp File:1 (1022 for SmallFile), Max (Data/temp) File size upto: 128TB, Max block size:32K, 
+Locally and Easy Managed, Automatic Segment Space Management (ASSM).
+***A smallfile tablespace might be bigger than a bigfile tablespace.
+
+QUESTION:-03 & 07
+=================
+RAC(Real Application Clusters):
+------------------------------
+Oracle RAC is an Oracle database that has two or more instances accessing a shared database using cluster technology. 
+A cluster is a group of machines (or nodes) that work together to perform the same task.
+
+DATA GUARD:
+----------
+Data Guard provides a comprehensive set of services that create, maintain, manage, and monitor one or more standby databases of a production database.
+If the production database becomes unavailable because of a planned or an unplanned outage, or disasters and data corruptions
+Data Guard can switch any standby database to the production role, minimizing the downtime associated with the outage. 
+-- Used with traditional backup, restoration, and cluster techniques.
+
+PFILE vs SPFILE:
+----------------
+These parameter files define- 
+how the database instance is configured when it starts up. Example: NLS_DATE_FORMAT = 'MM/DD/YYYY', db_cache_size = 176000M
+SELECT * FROM v$parameter; 
+
+PFILEs -are also know as INIT.ORA files:
+----------------------------------------
+Client side,Text file, 
+Edit with text editor like vi or notepad
+RMAN don't backup this file. 
+
+SPFILEs (Server Parameter File)
+-------------------------------
+A server managed binary file 
+Edit by issuing ALTER SYSTEM SET commands
+if you do not specify PFILE in your STARTUP command, Oracle will use server parameter file (SPFILE) by default.
+SPFILE permits dynamic changes without requiring you to restart that instance.
+RMAN backup this file.
+CMD to- 'show parameter spfile;'
+
+
+SERVICE NAME:
+-------------
+An Oracle database is represented to clients as a service(it is just an alias for the db).Ex: orcl(.com), pdb1(.com)
+A database can have one or more services associated with it.
+
+SID:
+----
+The system identifier (SID) is a unique name for an Oracle database instance on a specific host. 
+
+DISPATCHER:
+-----------
+A dispatcher support multiple client connections concurrently in shared server architecture, .
+The dispatcher direct/place client connections to a common queue.
+The dispatcher use a virtual circuit(a piece of shared memory) for client database connection requests and replies.
+-receivs connection requests from the listener and directing each request to the least busy Shared Server process.
+
+
+LISTENER
+----------
+01.
+-Listener accepts remote incoming user connections.
+-When the listener receives the client request. It checkes requested database instance is registered with the Listener or NOT. 
+Then it establishes a connection between the client and the database instance.
+-Once the client is connected to the database instance successfully, it hands over the client connection to the server process.
+**The listener is a separate database server process that runs locally on the database server or remotely on the Oracle RAC environment.
+
+02.
+When the listener receives the client request. The listener performs following actions:
+-Hands the connect request directly off to a disptacher.
+-Sends a redirect message back to the client with the location of the dispatcher or dedicated server process. 
+The client then connects directly to the dispatcher or dedicated server process.
+
+
+Listerner.ora
+--------------
+-It can be found in the "$ORACLE_HOME/network/admin" directory on the SERVER.
+-Contains server side network configuration parameters.
+**Because the configuration parameters have default values, it is possible to start and use a listener with no configuration.
+*This default listener has a name of LISTENER, supports no services on startup, and listens on TCP/IP protocol address.
+*A listener is configured with one or more listening protocol addresses, information about supported services, and parameters that control its runtime behavior.
+
+LISTENER02 =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1)) //The IPC protocol support can be used only when the client program and Oracle Database are installed on the same system
+      (ADDRESS = (PROTOCOL = TCP)(HOST = myserver.example.com)(PORT = 1521))
+    )
+
+
+TNS (Transparent Network Substrate):
+------------------------------------
+Oracle client will need to know the following:
+The hostname where is the listener is running, Port number, Listener protocol, Name of the service that the listener is handling.
+
+tnsnames.ora
+---------------
+-CLIENT SIDE network configuration parameters. 
+-It can be found in the "$ORACLE_HOME/network/admin" directory on the client.
+
+LISTENER = (ADDRESS = (PROTOCOL = TCP)(HOST = myserver.example.com)(PORT = 1521))
+
+ORCL =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = test.com)(PORT = 1521))
+    )
+    (CONNECT_DATA = (SERVICE_NAME = orcl.com))
+  )
+  
+
+STATIC vs DYNAMIC SERVICE Registration:
+---------------------------------------
+-- Registers instance information with the listener by updating the listener.ora manually, is called STATIC SERVICE REGISTRATION.
+-- Dynamic service registration does not require any manual (instance information) configuration in the listener.ora file. It is done by LREG automaticaly. 
+
+LISTENER REGISTRATION PROCESS(LREG):-
+-------------------------------------
+-- It is responsible for registering the oracle instance with the oracle network listener.
+
+CONNECT TIME FAILOVER(CTF):
+--------------------------
+-- If the first listener/database/destination host can/does not be contacted/connected/respond, it will try the second connection.
+-- Requires the connect string to have two or more listener addresses configured into tnsnames.ora file on the client machine. 
+-- Part of a data guard service
+-- Not yet connected sessions
+
+TRANSPARENT APPLICATION FAILOVER(TAF):
+---------------------------------------
+-- While a application is running and connection to the database instance is lost 
+-- Applications and users are automatically and transparently reconnected to another system, applications 
+   and queries continue uninterrupted, and the login context is maintained. 
+-- Oracle Net Services is configured to allow the LISTENER on each database instance to failover in case of failure.
+-- Use it in a RAC(Real Application Cluster) environment.
+
+CTF and TAF Configuration in tnsnames.ora:
+-----------------------------------------
+https://docs.oracle.com/cd/E19509-01/820-3492/boaem/index.html
+MY_CLUSTER =
+  (DESCRIPTION =
+    (FAILOVER = ON)     //CTF Allow
+    (LOAD_BALANCE = OFF)
+    (ADDRESS_LIST =    
+      (ADDRESS = (PROTOCOL = TCP)(HOST = Node1)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = Node2)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = my_cluster.my_company.com)
+      (FAILOVER_MODE = (TYPE = SELECT)(METHOD = PRECONNECT)(BACKUP = Node2))  //TAF Allow
+    )
+  )
+
+
+LOAD BALANCING:
+---------------
+Distribute client connections across the instances through dispatcher when using a Shared Server configuration in an Oracle RAC configuration
+-The main purpose of load balancing is to prevent any single server from getting overloaded and possibly breaking down.
+01. Client-side load balancing and 02. Server-side load balancing
+
+Source Routing (SOURCE_ROUTE):
+------------------------------
+Source routing connects to each address in the list sequentially whereas connect-time failover.
+It enables the use of Connection Manager (CMAN) which enables network traffic to be routed through a firewall.
+
+CONNECTION MANAGER(CMAN):
+-------------------------
+Oracle Connection Manager is a proxy server that forwards connection requests to databases or other proxy servers. 
+It operates on the session level. It usually resides on a computer separate from the database server and client computers.
+
+    
+----------------- 
+   Question:-04
+================
+
+NLS_DATE_FORMAT:National Language Support (NLS)
+------------------------------------------------
+default date format to use with the TO_CHAR (show date and time) and TO_DATE (show only date) functions. 
+The default value of this parameter is determined by NLS_TERRITORY.
+Example: 
+SELECT TO_DATE(CURRENT_DATE, 'DD-MON-YY HH:MI:SS') AS CDATE,
+TO_CHAR(SYSDATE, 'DD-MON-YY HH:MI:SS') AS SDATE
+FROM dual;
+Result: 
+TO_CHAR: 14-SEP-21 04:02:32
+TO_DATE: 14-SEP-21
+
+SYSTIMESTAMP:
+-------------
+returns the date and time (with timezone value ex: +06:00) of the database. 
+SELECT SYSTIMESTAMP FROM dual/v$instance;
+Result: 14-SEP-21 04.01.03.801945000 PM +06:00
+
+CURRENT_TIMESTAMP:
+------------------
+returns the current date and time in the session time zone, in a value of datatype TIMESTAMP WITH TIME-ZONE-NAME.
+SELECT CURRENT_TIMESTAMP FROM dual/v$instance;
+Result: 14-SEP-21 04.10.05.003848000 PM ASIA/DHAKA
+
+SYSDATE:
+--------
+returns the only date from the database timezone.
+SELECT SYSDATE FROM dual/v$instance;
+Result: 14-Sept-21
+
+CURRENT_DATE:
+-------------
+returns the only date from your session timezone (your timezone). 
+SELECT CURRENT_DATE FROM dual/v$instance;
+Result: 14-Sept-21
+
+QUESTION: 06
+-------------
+Where is Undo stored, What happens if undo tablespace is full and HOW to Enable Automatic Undo Management:?
+-----------------------------------------------------------------------------------------------------------
+Traditionally transaction undo information was stored in Rollback Segments until a commit or rollback statement was issued, at which point it was purged.
+Undo data is stored in a logical database structure called an undo tablespace.
+
+--The UNDO tablespace works as follows: * The UNDO records are not deleted when they are expired. 
+They stay and are overwritten only when a new UNDO record needs to be written and there is no free space. 
+Thus, it is normal for UNDOTBS1 to appear at 99% full.
+
+UNDO_MANAGEMENT = AUTO       # Default is MANUAL
+UNDO_RETENTION  = 900        # The time undo is retained.  # Default is 900 seconds.
+
+
+Why temporay undo is used for? Enable/Disable temporay undo.
+------------------------------------------------------------
+The temporary table record stored in Temporary tablespace instead of undo teblespace.
+Benefit:
+1. Reduction in use of undo tablespace. 2. Less redo data generation.
+
+-- Session/System level
+ALTER SESSION/SYSTEM SET TEMP_UNDO_ENABLED = TRUE/FALSE;
+
+
+System Global Area (SGA)
+------------------------
+Group of SHARED memory structures that
+-Cache non user data like Data dictionary and each SQL statement that is executed like execution plan.
+-Contain data and control information for one Oracle Database instance.
+Ex: Database Buffer Cache, Redo Log Buffer, Shared Pool, Large Pool, JAVA Pool, Streams Pool, Fixed SGA.
+
+
+Program Global Area (PGA)
+-------------------------
+NON-SHARED memory region 
+-Each server process has its own cache , this cache also known as PGA
+-When sorting data, joining large tables together as part of a SQL statement, 
+it contains data and control information used by the server processes 
+
+
+Server Process:
+---------------
+-Parsing and running SQL statement(sorting, joining etc.) as per client request. And retrieving results to instance buffer cache.
+Example: If one user session doing select statement, so this mean oracle will create SP and this SP has its own PGA.
+
+
+Background Process:
+-------------------
+To maximize performance and accommodate many users, a multiprocess Oracle system uses some additional Oracle processes called background processes.
+Ex: PMON, SMON, LREG, LGWR, RECO
+
+Question  #08 & #17
+===================
+
+LOGICAL= Data BlocK, Extents, Segments 
+PHYSICAL = Data File
+
+SEGMENT-- is a logical storage structure and composed of one or more extents. 
+That contains data structure of database objects. 
+Each table's data is stored in its own data segment.
+
+EXTENT-- is a database storage space allocation, made up of a number of contiguous(পাশাপাশি) data blocks.
+Note that although you can allocate additional extents, the blocks themselves are allocated separately.
+
+DATA BLOCK-- is the data structure in which database data is stored on disk.
+
+-----------
+Segment and all its extents are stored in same tablespace; its extents may or may not be contiguous(পাশাপাশি) on disk. 
+Segment's blocks's size will be same.
+Segments can span files, but individual extents cannot.
+When the existing space in a segment is completely used, Oracle allocates a new extent for the segment.
+
+HIGH WATER MARK: is the boundary between used and unused space in a segment.  
+the segment space to the left of the high water mark is used, and the space to the right of it is unused.
+
+
+Automatic Segment Space Management (ASSM) offers the following benefits:
+------------------------------------------------------------------------
+CREATE TABLESPACE mytbs1
+DATAFILE '/u01/oracle/data/mytbs01.dbf' SIZE 500M
+EXTENT MANAGEMENT LOCAL
+SEGMENT SPACE MANAGEMENT AUTO;
+
+- Provides administrative ease of use by avoiding the specification of storage parameters.
+- Is a good method for handling objects with varying row sizes.
+- Provides better run-time adjustment for variations in concurrent access and avoids tedious tuning methods.
+- Provides better multi-instance behavior in terms of performance/space utilization.
+
+Update and Insert Operations
+----------------------------
+
+
+
+QUESTION: 09:
+=============
+TRANSACTION: 
+-----------
+A logical unit of work that contains one or more SQL statements.
+A transaction ends when it is committed or rolled back, 
+
+
+COMMIT vs ROLLBACK vs SAVEPONT vs FLASHBACK
+-------------------------------------------
+COMMIT commits the current transaction, making its changes permanent. Cannot rollback what has already been commited
+ROLLBACK rolls back the current transaction.
+
+A SAVEPOINT is a marker within a transaction that allows for a partial rollback. 
+If we encounter an error, we can rollback to a SAVEPOINT or all the way back to the beginning of the transaction.
+
+SQL> INSERT INTO BOOK_AUTHOR VALUES ('A111', 'B130', .20);
+1 row created.
+SQL> savepoint in_book_author;
+Savepoint created.
+SQL> INSERT INTO BOOK
+2 VALUES ('B130', 'P002', 'easy oracle sql',
+3 'miscellaneous', 9.95, 1000, 15, 0, '',
+4 to_date ('02-20-2005','MM-DD-YYYY'));
+1 row created.
+SQL> rollback to in_author;
+Rollback complete.
+
+FLASHBACK:
+You cannot rollback what has already been commited. 
+In this particular situation, quickest options, is to issue a flashback query against a table you've deleted row(s) from and insert them back.
+
+
+
+INDEX:
+------
+An index is an optional structure, associated with a table or table cluster, that can sometimes speed data access.
+For example, without an index, a query of location 2700 in the hr.departments table requires the database to search every row in every table block for this value. 
+**This approach does not scale well as data volumes increase.
+** Each index's data is stored in its own index segment
+
+--
+CREATE INDEX index_name 
+ON table_name( member_id INT GENERATED BY DEFAULT AS IDENTITY,
+    	       first_name VARCHAR2(100) NOT NULL, 
+               PRIMARY KEY(member_id));
+
+--
+SELECT index_name, index_type,visibility,  status 
+FROM   all_indexes
+WHERE table_name = 'table_name';
+
+
+DROP	                                        DELETE	                                                TRUNCATE
+---------------------                           ------------------------                                ---------------------------
+Drop Command is a DDL Command	                DELETE Command is a DML Command	                        TRUNCATE Command is a DDL Command
+It removes the whole table from the database	It removes all/ single/multiple rows from the table	It removes all the rows exist in the table
+WHERE clause cannot be used with DROP command	WHERE clause can be used with DELETE command	        WHERE clause cannot be used with TRUNCATE command
+Rollback cannot be possible	                Rollback can be possible	                        Rollback cannot be possible
+Commit cannot be possible	                Commit can be possible	                                Commit cannot be possible
+No Trigger will be fired	                Trigger will be fired	                                No Trigger will be fired
+Faster and Time saving	                        Slowest and Time consuming	                        Faster and Time saving
+Syntax: DROP TABLE table_name;                  Syntax: DELETE TABLE table_name; COMMIT;                Syntax: TRUNCATE TABLE table_name;
+
+
+
+Question #11
+============
+
+SET VERIFY ON
+-------------
+To confirm the changes in the SQL statement, use the SQL*Plus SET VERIFY command. 
+Setting SET VERIFY ON forces SQL*Plus to display the text of a command before and after it replaces substitution variables with VALUES.
+old 3: WHERE empno = &employee_num
+new 3: WHERE empno = 7369 
+
+SQL Developer vs SQL*Plus
+-------------------------
+SQL*PLUS is a command line tool, SQL Developer is a GUI interface to your DB.
+You can call SQL*PLUS from command line and easily execute scripts so it's simple to automate tasks.
+SQL Developer will display db content in a nice layout, allows you to edit data etc.
+
+DEFINE command
+--------------
+DEF[INE] [variable] | [variable = text]
+Specifies a user or predefined variable and assigns a CHAR value to it, or lists the value and variable type of a single variable or all variables.
+
+Question #15
+============
+DML vs DDL vs DCL vs TRANSACTION CONTROL
+----------------------------------------
+DML: Select, Insert, Update Delete, Merge
+DDL: Create, Alter, Drop, Rename, Truncate, Comment
+DCL: Grant, Revoke
+TRANSACTION CONTROL:  Commit, Rollback, Savepoint
+
+Oracle Managed Files (OMF)
+--------------------------
+It simplifies the creation of databases as Oracle does all OS operations and file naming. Its advantages.
+-Automatic cleanup of the filesystem when database objects are dropped.
+-Standardised naming of database files.
+-No unused files wasting disk space.
+The location of database files is defined using the DB_CREATE_FILE_DEST parameter.
+
+Question #16
+============
+CASCADE(জলপ্রপাত), CONSTRAINTS(অবরোধ)
+--------------------------------------
+on delete/update cascade; When you create a foreign key constraint, Oracle default to "on delete/update restrict" to ensure 
+that a parent rows cannot be deleted/update while a child row still exists. 
+However, you can also implement on delete/update cascade to delete all child rows when a parent row is deleted/updated.
+
+Constraints:
+Applying certain rules or conditions on a column of a database table.
+> NOT NULL constraints > Unique constraints > Primary key constraints > Foreign key (referential) constraints.
+
+UNUSED column and Its free SPACE
+--------------------------------
+alter table hr.admin_emp SET(/DROP) unused column AGE;
+-This statement marks one or more columns as unused.
+
+You do not get the actual name of the column which is set unused as the column is logically(**Not parmanently) deleted and is no more accessible for the user.
+All constraints, indexes, and statistics defined on the column are also removed.
+Now, since the column is only logically deleted, a new column can reuse that name . 
+We can however see the name Oracle has given the column before the **DROP UNUSED COLUMN is issued.
+
+Dropping a column may not result in additional usable free space in the block.
+If the column is small, you will only get small chunks of space in each block that may not be reusable.
+The only way this will be freed up for reuse is to rebuild/move the table. 
+It is more efficient to mark the column as unusable, then rebuild the table.
+
+
+Question #19
+============
+One database, Two or more databases on the same server, Two or more databases on separate servers.
+
+Question #21
+============
+PROFILE CONTAINS:
+-----------------
+Account locked, Inactive Account, Login attempts 
+User's No. of Sessions, Idle Time, Maximum amount of CPU time allowed
+A password change and reuse
+
+Question #23
+============
+Bulk load operation: a process whereby one can load large amounts of data into a database in a relatively short period of time.
+vs
+Conventional DML operations: Insert/update/delete data using DML 
+
+DATABASE vs DATA WAREHOSE vs DATA MINING:
+-----------------------------------------
+Data WAREHOUSE and DATABASE both are relative data systems, 
+But both are made to serve different purposes.
+
+--DATABASE
+is made to store current transactions and allow quick access to specific transactions for ongoing business processes, 
+commonly known as Online Transaction Processing (OLTP).
+
+--DATA WAREHOUSE:
+is built to store a huge amount of historical data(by joining from heterogeneous(ভিন্নধর্মী) sources, such as social databases, level documents, etc.)
+and empowers fast requests over all the data, typically using Online Analytical Processing (OLAP).
+
+--DATA MINING:
+is a process of carefully reviewing and processing large quantities of data (the “dirt”) to discover important patterns, findings or 
+correlations (the “diamonds”) which might be important for the business.
+
+
+OLTP(Online Transaction Processing):
+------------------------------------
+Numerous transactions = Performed by many users, at the same time. 
+-It is mainly used for data reading
+-Manage very large number of online short transactions
+-Tables in OLTP database are normalized.
+-It uses traditional DBMS
+
+OLAP(On-Line Analytical Processing):
+------------------------------------
+-It is used for data analysis
+-It uses data warehouse
+-It manages all insert, update  and delete transaction
+-Tables in OLAP database are not  normalized.
+-A bit slower than OLTP
+
+What?
+-----
+COMPRESS PARTITION/TABLE(ROW/COLUMN) 
+
+In where/when?
+--------------
+-Data Warehouse
+-Bulk Loaded 
+
+How/Algorithom?
+---------------
+-Eliminate duplicate (values within a database block, And across multiple columns).
+-Group and compresse (A set of rows are grouped together and compressed).
+-Storing data (Combination of both row and column methods for storing data).
+
+
+Basic Table Compression:
+------------------------
+Best suited for data warehouse applications and loaded using bulk load operations 
+but does not compress data that is added/changed through conventional DML operations (INSERT or UPDATE).
+
+If DML INSERTS and UPDATES are performed on a Basic compressed table/partition over time, 
+then that table/partition would have to be re-compressed to get the changes compressed.
+
+Advanced Row Compression:
+-------------------------
+Used in Data Warehouse applications. Compress data during all types of data manipulation operations, including conventional DML such as INSERT and UPDATE.
+The Algorithm specifically designed to eliminate duplicate values within a database block, even across multiple columns.
+In general, compression ratio in the range of 2x to 4x
+
+
+Hybrid Columnar Compression:
+---------------------------
+This technology utilizes a combination of both row and column methods for storing data.
+is best suited for data warehouse applications (read-mostly) 
+where data is loaded using bulk load operations and is never (or very rarely) modified.
+
+When data is loaded, column values for a set of rows are grouped together and compressed. 
+After the column data for a set of rows has been compressed, it is stored in a compression unit.
+In general, compression ratios in the range of 6x to 15x.
+
+
+Question #24
+============
+Private Temporary Tables (PTT):
+-------------------------------
+A memory-based temporary table that is dropped at the end of the session or transaction depending on the setup.
+
+UNUSABLE INDEX:
+---------------
+Oracle indexes can go into a UNUSABLE state after maintenance operation on the table or if the index is marked as 'unusable' with an ALTER INDEX command. 
+A direct path load against a table or partition will also leave its indexes unusable.
+
+
+Question #25
+============
+PMON
+----
+Is responsible for performing the following operations:
+> Process recovery when a user process fails, including cache cleanup and the freeing of resources the process was using
+> Rollback of uncommitted transactions
+> Release of locks held by failed or terminated processes
+> Restart of failed dispatcher and shared server processes
+
+The PMON process wakes up on every 3sec to check whether any of these operations are required. 
+In addition, other background processes can wake up PMON if they require one of these services.
+
+
+
+Question #28
+============
+SQL> ALTER SYSTEM SET DB_CACHE_SIZE=1024M;
+------------------------------------------
+DB_CACHE_SIZE specifies the size of the DEFAULT buffer pool. 
+Caching frequently used data on a middle-tier system.
+https://docs.oracle.com/en/database/oracle/oracle-database/19/refrn/DB_CACHE_SIZE.html#GUID-68F83472-D74F-4C1D-B515-FC80C40CC61B
+
+Question #29
+============
+Online table segment shrink:
+----------------------------
+-This is a space saving feature in oracle database.
+-Use to reclaim unused space in tablespace.
+-When we update, insert and delete on object within a tablespace can create pockets of empty space and that empty space also not large enough to use for new data. 
+ 
+Some of the considerations around using this type of operation.
+-A shrink operation occurs (When Database is) online
+-The table is not locked during the SHRINK SPACE operation. So, users can do DML on the table as usual
+-It will maintain any indexes on the table while operation is running
+-Indexes are in a usable state after shrinking the corresponding table
+
+Benefits and why we need to shrink segments:
+-Improves the performance of scan
+-Improve the DML operations
+
+
+Automatic data file extension (AUTOEXTEND):
+------------------------------------------
+An automatic extend feature that automatically grows a database file by a prespecified amount, up to a prespecified maximum size, underlying file system has enough space. 
+For example, suppose the current size of a database file emp.dbf is 100MB, but this file is expected to triple in size over time. 
+To accommodate this growth using AUTOEXTEND feature, you can specify the next size at 20MB and maxsize at 300MB. 
+This will automatically grow the file by 20MB until its size reaches 300MB. For example:
+	alter database datafile 'emp.dbf' autoextend on next 20m \ maxsize 300m;
+
+Automatic Workload Repository (AWR):
+------------------------------------
+-AWR collects, processes, and maintains performance statistics for the database. 
+AWR tracks metrics, metrics can be measured against a variety of units, including time, transactions, or database calls. 
+For example, the number of database calls per second is a metric. 
+
+Question #30
+============
+STOP_JOB=IMMEDIATE
+------------------
+To stop a current job /an immediate shutdown.
+
+All attached clients, including the one issuing the STOP_JOB command, receive a warning that the job is being stopped by the current user and they will be detached. 
+After all clients are detached, the process structure of the job is immediately run down. 
+That is, the master process will not wait for the worker processes to finish their current tasks. 
+
+There is no risk of corruption or data loss when you specify STOP_JOB=IMMEDIATE. 
+However, some tasks that were incomplete at the time of shutdown may have to be redone at restart time.
+
+
+Question #31
+============
+GRANT CREATE SESSION TO hr WITH (ADMIN OPTION):
+-----------------------------------------------
+Here CREATE SESSION privilege can be transferred to other user.
+
+Question #33
+============
+UNDO(ROLLBACK)
+--------------
+-UNDO helps in rollback and to maintain read consistency  
+-Can't be overwritten while the transaction remains uncommitted.
+-Stored in the database
+
+REDO 
+----
+-Rolling forward database changes (always write only).
+-UNDO is backed by REDO, changes to undo blocks are also logged to redo. 
+-Is stored outside of the database, in the redo log files.
+
+
+Question #34
+============
+CREATE DATABASE LINK:
+---------------------
+To access database that is created by others.
+syntex:
+CREATE DATABASE LINK link_name 
+CONNECT TO hr IDENTIFIED BY hr
+USING 'db_name';
+
+Query:
+SELECT * FROM employees@db_name;
+
+Question #38
+============
+Types of segments:
+------------------
+Four types of segments:
+- Data Segments
+- Index Segments
+- Temporary Segments
+- Rollback Segments
+
+Question #40
+============
+Single row functions:
+MOD, FLOOR, CEIL, CONCAT, TRUNC 
+
+MOD: Returns the remainder of m divided by n. Returns m if n is 0.
+Example: SELECT MOD (26,11); 
+Result: 4
+
+FLOOR: Returns largest integer equal to or less than n.
+Example: SELECT FLOOR(15.7) "Floor" FROM DUAL;
+Result: 15
+
+CEIL :Returns smallest integer greater than or equal to n.
+Example: SELECT CEIL(15.7);
+Result: 16
+
+CONCAT
+-------
+syntex:CONCAT(char1, char2) or CHAR1 || CHAR2
+Returns char1 concatenated with char2, where char1 and char2 are string arguments. This function is equivalent to the concatenation operator (||).
+
+This example uses nesting to concatenate three character strings.
+SELECT CONCAT(CONCAT(ename, ' is a '), job) "Job" FROM emp WHERE empno = 7900;
+
+Result.
+Job
+-------------------------
+JAMES      is a CLERK
+
+TRUNC
+-----
+Syntax with Numeric Arguments
+TRUNC(n [, m])
+
+Syntax with Date Arguments
+TRUNC(d [, fmt])
+
+Purpose with Numeric Arguments
+Returns n truncated to m decimal places, where m and n are numeric arguments. If m is omitted, truncates to 0 places. 
+If m is negative, truncates (makes zero) m digits to the left of the decimal point.
+
+Purpose with Date Arguments
+Returns the date d with its time portion truncated to the time unit specified by the format model fmt.
+If you omit fmt, then d is truncated to the nearest day.
+
+
+Question #42
+============
+
+DEFERRED_SEGMENT_CREATION (বিলম্বিত সেগমেন্ট সৃষ্টি) = FALSE 
+If set to true, then segments for tables and their dependent objects (LOBs, indexes) will not be created until the first row is inserted into the table.
+Before creating a set of tables, if it is known that a significant number of them will not be populated, then consider setting this parameter to true.
+This saves disk space and minimizes install time.
+
+RESUMABLE__TIMEOUT = 7200
+Encountered and the suspended operations, automatically resumes when the error condition disappears. 
+Database operations are suspended when an out-of-space condition raise.
+
+
+QUESTION:-43
+============
+DATA DICTIONARY
+---------------
+contains metadata i.e data about the database. 
+It contains information such as:--
+What is in the database (Schemas, all the tables, tbl-location, their owners, 
+their security constraints(primary key attributes, foreign key information), when they were created etc), 
+who is allowed to access it, where is the database physically stored etc.
+Information about the database views
+-it is only handled by the database administrators.
+
+
+Question #44
+============
+Listener listens on port 1531 by using this statement: CONNECT pdb2
+CONNECT HR/HRMGR@orcl -
+
+
+QUESTION:-45
+============
+VIEW:
+-----
+is a virtual table that does not physically exist, In Oracle. 
+It is stored in Oracle data dictionary and do not store any data. 
+It can be executed when called. Ex: v$tablespace, v$tables
+-A view is created by a query joining one or more tables.
+Syntex: CREATE VIEW view_name AS  SELECT columns FROM tables WHERE conditions;
+
+Static Data Dictionary Views:
+-----------------------------
+Many data dictionary tables have three corresponding views:
+DBA_, ALL_, and USER_ . The USER_ view usually does not have an OWNER column.
+It changes infrequently, only when a change is made to the data dictionary.
+
+Dynamic Performance Views:
+--------------------------
+Dynamic performance views monitor ongoing database activity.
+They are available only to administrators. 
+Views start with the characters V$.
+
+QUESTION:-47
+============
+undo_retention
+---------------
+to set the amount of time you want undo information retained in the database.
+
+Guaranteed Retention
+--------------------
+If the retention guarantee is not enabled, the database can overwrite unexpired undo when space is low, thus lowering the undo retention for the system. 
+This option is disabled by default.
+Enabling retention guarantee can cause multiple DML operations to fail.
+
+QUESTION:-51
+============
+Global Temporary Tables:
+------------------------
+Temporay data store = Database, PL/SQL table
+Applications often use some form of temporary data store for processes that are to complicated to complete in a single pass. 
+Often, these temporary stores are defined as database tables or PL/SQL tables. 
+The maintenance and management of temporary tables can be delegated to the server by using Global Temporary Tables.
+
+
+QUESTION:-52
+============
+Trace Files:
+------------
+Each server and background process writes to a trace file.
+When a process detects an internal error, it writes information about the error to its trace file.
+
+Name, Location and Extention: Stored in the Automatic Diagnostic Repository (ADR) directory, file contains the name of the thread, by the extension ".trc".
+specified by the parameter DIAGNOSTIC_DEST in the initialization parameter file.
+
+Background trace file names:---
+ops_pmon_1556.trc
+ops_mmon_3768.trc
+ops_lgwr_2356.trc
+
+Foreground trace file names:---
+ops_ora_5804.trc
+ops_ora_4160.trc
+
+
