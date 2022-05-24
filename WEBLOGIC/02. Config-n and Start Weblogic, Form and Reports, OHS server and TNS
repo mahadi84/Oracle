@@ -25,7 +25,7 @@ To check:
        Go to : http://localhost:7001/em
        User: Domain user name(Usually weblogic and password weblogic123)
        Pass: Domain password (Usually password weblogic123)
-**OHS located in  HTTPS server
+**OHS located under HTTPS server
 
 If everything is OK.
 Change below information:
