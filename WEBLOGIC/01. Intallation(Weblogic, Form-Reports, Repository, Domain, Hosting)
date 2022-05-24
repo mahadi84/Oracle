@@ -7,9 +7,11 @@ https://www.youtube.com/watch?v=tiqW_MZ-WqQ&list=PLQfBfu7k8exAjg0-lIZUYkeE1Dgpse
 
 01. WEBLOGIC SERVER INSTALLTION PROCESS:
 ----------------------------------------
-> Firstly, Install "Oracle WebLogic Server 12.2.1.4.0"
+> Open CMD prompt with admin priv.
+> Firstly, Install "Oracle WebLogic Server 12.2.1.4.0" 
+           CMD: weblogic_software_folder_location>java -jar installation_file.jar
 > Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
-            >> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
+           >> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
             
 
 02. FORM and REPORT DEVELOPER INSTALLATION:
@@ -23,6 +25,7 @@ https://www.youtube.com/watch?v=tiqW_MZ-WqQ&list=PLQfBfu7k8exAjg0-lIZUYkeE1Dgpse
 > Go to below file:
   C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
 > Click On: rcu.bat
+***Uninstall a repository is same process.
 
 04. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
 ---------------------------------------------------------
