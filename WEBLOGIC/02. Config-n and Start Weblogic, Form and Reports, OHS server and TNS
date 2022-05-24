@@ -2,9 +2,12 @@
 
 01. How to start Weblogic server?
 
+
 02. How/Where to update/TNS information?
 
-03. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
+03. How to check If Form is installed or not?
+
+04. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
     How to solve these problems?
 
 
@@ -38,7 +41,6 @@ Change below information:
 -->Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
 Restart the OHS server.
 
-
 02. How/Where to update/TNS information?
 =========================================
 
@@ -54,10 +56,15 @@ Tnsping:
 C:\Users\fleck>C:\Oracle12c\Middleware\Oracle_Home\bin\tnsping.exe pdborcl
 
 
+03. How to check If Form is installed or not?
+=============================================
+Administration Server Console: http://host:port/console
+Enterprise Manager Console: http://host:port/em
+Oracle Forms: http://host:port/forms/frmservlet
+Oracle Reports: http://host:port/reports/rwservlet
 
 
-
-03. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
+04. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 ===================================================================================================
 
 Create files with weblogic username and password
