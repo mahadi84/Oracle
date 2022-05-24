@@ -38,7 +38,7 @@ Change below information:
 </Location>
 
 -->Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
-Restart the OHS server.
+-->Restart the OHS server through the Browser.
 
 02. How/Where to update/TNS information?
 =========================================
