@@ -39,6 +39,10 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
   -> C:\Oracle\Middleware\Oracle_Home\bin
             Click On: frmbld.exe
 To check:--------
+       IE    :  http://localhost:9001/forms/frmservlet?form=test
+       OR    :  http://localhost:9001/forms/frmservlet?config=sepwin
+       
+       OR
        Go to : http://localhost:7001/em
        User: Domain user name(Usually weblogic and password weblogic123)
        Pass: Domain password (Usually password weblogic123)
