@@ -29,7 +29,7 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
 
 02. CMD TO START Admin Server, Forms and Reports server and Form:
 =================================================================
-  -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\bin
+  -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin
             Click On: startWebLogic.cmd
             Click On: startNodeManager.cmd
   -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin  (Run command mode with Admin priv.)
