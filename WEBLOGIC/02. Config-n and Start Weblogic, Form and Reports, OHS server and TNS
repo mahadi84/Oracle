@@ -38,14 +38,20 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
             startManagedWebLogic.cmd WLS_REPORTS
   -> C:\Oracle\Middleware\Oracle_Home\bin
             Click On: frmbld.exe
-To check:--------
-       IE    :  http://localhost:9001/forms/frmservlet?form=test
-       OR    :  http://localhost:9001/forms/frmservlet?config=sepwin
-       
-       OR
+
+To check SERVERS(Admin,Form,Report,Ohs):--------
        Go to : http://localhost:7001/em
        User: Domain user name(Usually weblogic and password weblogic123)
        Pass: Domain password (Usually password weblogic123)
+
+To check if FORMs installed properly:
+       IE    :  http://localhost:9001/forms/frmservlet?form=webstart
+       OR    :  http://localhost:9001/forms/frmservlet?config=sepwin
+       
+      **If shows error: restart the form server on http://localhost:7001/em
+       
+
+      
 **OHS located under HTTPS server
 
 DB connection Check/Ping through Weblogic FORM:
