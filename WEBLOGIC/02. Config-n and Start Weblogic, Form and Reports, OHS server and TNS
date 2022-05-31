@@ -1,9 +1,27 @@
 
+
+00. How to:
+        A) Check If server is OPEN
+        B) PING a TNS
+        C) Check if FORMs/REPORTs installed properly
+        D) Run/Check Specific form
+
+       
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
-02. How to start Weblogic/Form/Report/Ohs server and  check if the CONNECTIONs IS OK?
-03. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
+02.  How/Where to update/TNS information?
+03. CMD TO START Admin Server, Forms and Reports server and Form:
+04. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 04. How to solve above problems?
 05. What's the errors I faced and how I solved these?
+
+
+00. HOW TO:
+===========
+A) If server is OPEN: Administration Server Console: http://host:port/console or em
+B) Tnsping: C:\Users\fleck>C:\Oracle12c\Middleware\Oracle_Home\bin\tnsping.exe pdborcl
+C) Oracle Forms: http://localhost:9001/forms/frmservlet
+   Oracle Reports: http://localhost:9002/reports/rwservlet
+D) Run/Check Specific form:  http://localhost:9001/forms/frmservlet?form=C:\path_to_your_fmx\someForm.fmx
 
 
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
@@ -13,13 +31,12 @@ ADD/Edit:01:
 -------------
 -->Go to  C:\Oracle\Middleware\Oracle_Home\forms\templates\config
 -->Add below line to: forms.conf
-<Location /forms>
-      SetHandler weblogic-handler 
-      WebLogicHost localhost
-      WeblogicPort 9001
-</Location>
-
--->Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
+      <Location /forms>
+              SetHandler weblogic-handler 
+              WebLogicHost localhost
+              WeblogicPort 9001
+      </Location>
+-->And Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
 
 ADD/Edit 02:
 ------------
@@ -36,8 +53,6 @@ B:--> Edit width and heigh on formsweb.cfg to 100%
 =========================================
 -> COPY tnsnames.ora from ORACLE DATABASE and PAST to below location
 C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
-
-**Try start servers and try to connect form.
 
 
 03. CMD TO START Admin Server, Forms and Reports server and Form:
@@ -60,27 +75,9 @@ To check SERVERS(Admin,Form,Report,Ohs):--------
 To check if FORMs installed properly:
        IE    :  http://localhost:9001/forms/frmservlet?form=webstart
        OR    :  http://localhost:9001/forms/frmservlet?config=sepwin
-       
-      **If shows error: restart the form server on http://localhost:7001/em
-       
 
+  
       
-**OHS located under HTTPS server
-
-DB connection Check/Ping through Weblogic FORM:
------------------------------------------------
-C:\Oracle12c\Middleware\Oracle_Home\bin\sqlplus.exe hr/hrpassword@172.25.5.100\pdborcl
-Tnsping:
-C:\Users\fleck>C:\Oracle12c\Middleware\Oracle_Home\bin\tnsping.exe pdborcl
-
-How to check If server is OPEN
--------------------------------
-Administration Server Console: http://host:port/console
-Enterprise Manager Console: http://host:port/em
-Oracle Forms: http://host:port/forms/frmservlet
-Oracle Reports: http://host:port/reports/rwservlet
-
-
 04. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 ===================================================================================================
 Create files with weblogic username and password
@@ -103,13 +100,17 @@ echo password=weblogic_Password>> C:\Oracle\Middleware\Oracle_Home\user_projects
 ===================    ERROR I FACED:        =======================
 ====================================================================
 
-When Finally RUN form on Browser Shows:
 
+TNS Connection Issue:
+Solution: https://community.oracle.com/tech/developers/discussion/4311305/unable-to-connect-oracle-forms-and-reports-12c-12-2-1-4-and-oracle-database-12c
+
+
+When Finally RUN form on Browser Shows:
 FRM-93618: fatal error reading data from runtime process
 Cause: 
 01.Java version 8u211-32bit was not installed.
    And Restart WLS_FORM from browser consle.
-
+Solution: https://community.oracle.com/tech/developers/discussion/3888605/forms-12c-ie-add-on-issue
 
 FRM-40010: Cannot read form %s.
 Cause: One of the following:
@@ -119,7 +120,6 @@ Cause: One of the following:
 4. You do not have a compiled copy of the form.
 
 Action: Retype the form name correctly, provide the proper path name, contact your system administrator, or compile the form.
-
 
 
 
