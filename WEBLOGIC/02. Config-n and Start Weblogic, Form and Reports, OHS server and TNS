@@ -2,7 +2,8 @@
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
 02. How to start Weblogic/Form/Report/Ohs server and  check if the CONNECTIONs IS OK?
 03. Everytime we open the Node Manager, Admin, Form and Hosting server ask for Password
-    How to solve these problems?
+04. How to solve above problems?
+05. What's the errors I faced and how I solved these?
 
 
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
@@ -29,6 +30,8 @@ B:--> Edit width and heigh on formsweb.cfg to 100%
 
    **If server is ON-->Restart the OHS server through the Browser.
 
+
+
 02. How/Where to update/TNS information?
 =========================================
 -> COPY tnsnames.ora from ORACLE DATABASE and PAST to below location
@@ -37,7 +40,7 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
 **Try start servers and try to connect form.
 
 
-02. CMD TO START Admin Server, Forms and Reports server and Form:
+03. CMD TO START Admin Server, Forms and Reports server and Form:
 =================================================================
   -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin
             Click On: startWebLogic.cmd
@@ -78,7 +81,7 @@ Oracle Forms: http://host:port/forms/frmservlet
 Oracle Reports: http://host:port/reports/rwservlet
 
 
-03. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
+04. AUTO SET PASSWORD (Node Manager, Admin, Form, Hosting Server and Form) (CONFIGURATION-PART-01):
 ===================================================================================================
 Create files with weblogic username and password
 So that NO NEED PUT CREDENTIALs everytime we start the server:
