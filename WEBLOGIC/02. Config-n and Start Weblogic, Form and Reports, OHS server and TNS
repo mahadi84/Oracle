@@ -96,4 +96,29 @@ echo username=weblogic_Username> C:\Oracle\Middleware\Oracle_Home\user_projects\
 echo password=weblogic_Password>> C:\Oracle\Middleware\Oracle_Home\user_projects\domains\oracledev\servers\WLS_FORMS\security\boot.properties
 
 
+====================================================================
+===================    ERROR I FACED:        =======================
+====================================================================
+
+When Finally RUN form on Browser Shows:
+
+FRM-93618: fatal error reading data from runtime process
+Cause: 
+01.Java version 8u211-32bit was not installed.
+   And Restart WLS_FORM from browser consle.
+
+
+FRM-40010: Cannot read form %s.
+Cause: One of the following:
+1. You entered a nonexistent form name.
+2. You typed an incomplete path.
+3. You do not have the proper privileges to run the form.
+4. You do not have a compiled copy of the form.
+
+Action: Retype the form name correctly, provide the proper path name, contact your system administrator, or compile the form.
+
+
+
+
+
 
