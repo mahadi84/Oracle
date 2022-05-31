@@ -1,9 +1,24 @@
 
-Download Link:
-https://edelivery.oracle.com/osdc/faces/Home.jspx
+
 
 Tutorial Link:
+https://simpleoracle.com/2019/11/08/install-oracle-forms-reports-12-2-1-4-with-weblogic-12c-12-2-1-4/
 https://www.youtube.com/watch?v=tiqW_MZ-WqQ&list=PLQfBfu7k8exAjg0-lIZUYkeE1DgpsePTA
+
+
+SOFTWARE RQQUIREMENTS:
+---------------------
+• Java SE Development Kit 8 (jre-8u211-32bit)
+         Download Link: https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
+• WebLogic Server 12c (12.2.1.4) 
+• Fusion Middleware 12c(12.2.1.4.0)
+• Forms and Reports 12c (12.2.1.4.0)
+        Download Link: https://edelivery.oracle.com/osdc/faces/Home.jspx
+
+PREQUISITS:
+----------
+
+
 
 01. WEBLOGIC SERVER INSTALLTION PROCESS:
 ----------------------------------------
