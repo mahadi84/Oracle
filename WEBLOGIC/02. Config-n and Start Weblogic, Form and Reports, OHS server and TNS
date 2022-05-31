@@ -5,7 +5,6 @@
         B) PING a TNS
         C) Check if FORMs/REPORTs installed properly
         D) Run/Check Specific form
-
        
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
 02. How/Where to update/TNS information?
@@ -44,7 +43,7 @@ A:-->Add my form URL below line to: dfault.eng
        FORMS_PATH=D:\Form_Oracle;
 B:--> Edit width and heigh on formsweb.cfg to 100%
 
-   **If server is ON-->Restart the OHS server through the Browser.
+**If server is ON-->Restart the OHS server through the Browser.
 
 
 
