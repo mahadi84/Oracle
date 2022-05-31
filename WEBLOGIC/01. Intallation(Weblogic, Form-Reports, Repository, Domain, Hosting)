@@ -35,15 +35,15 @@ https://www.youtube.com/watch?v=tiqW_MZ-WqQ&list=PLQfBfu7k8exAjg0-lIZUYkeE1Dgpse
 
 > Create Domain_Name 
 > Select on Next page:
-  [+]Oracle Forms [forms]
-  [+]Oracle Reports Application[reports]
-  [+]Oracle Enterprise Manager [em]
-  [+]Oracle Server (colloceted [ohs])
-  [+]Oracle Reports Tools [ReportReportComponents]
-  [+]Oracle Server [ReportServerComponents]
-  [+]Oracle Bridge [ReportBridgeComponents]
-  [+]Oracle JRF [oracle_common]
-  [+]WebLogic Coherence Cluster Extension[wlserver]
+  01. [+]Oracle Forms [forms]
+  02. [+]Oracle Reports Application[reports]
+  03. [+]Oracle Enterprise Manager [em]
+  04. [+]Oracle Server (colloceted [ohs])
+  05. [+]Oracle Reports Tools [ReportReportComponents]
+  06. [+]Oracle Server [ReportServerComponents]
+  07. [+]Oracle Bridge [ReportBridgeComponents]
+  08. [+]Oracle JRF [oracle_common]
+  09. [+]WebLogic Coherence Cluster Extension[wlserver]
 
 > Set Loging info: User:weblogic password: weblogic123
 > Select "Production"
