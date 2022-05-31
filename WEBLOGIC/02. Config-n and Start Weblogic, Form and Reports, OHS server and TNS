@@ -99,7 +99,6 @@ echo password=weblogic_Password>> C:\Oracle\Middleware\Oracle_Home\user_projects
 ===================    ERROR I FACED:        =======================
 ====================================================================
 
-
 TNS Connection Issue:
 Solution: https://community.oracle.com/tech/developers/discussion/4311305/unable-to-connect-oracle-forms-and-reports-12c-12-2-1-4-and-oracle-database-12c
 
