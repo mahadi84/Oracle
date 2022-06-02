@@ -63,6 +63,18 @@ select * from dba_tablespaces where tablespace_name=upper('TS1');
 
 To list all tables in a PDB created by user:
 ---------------------------------------------
+delete from ALEX.EMP;
+truncate table ALEX.EMP;
+drop table ALEX.EMP;
+
+CREATE TABLE HRMS.EMP ( emp_id number, name varchar2(10) not null, );
+INSERT INTO   HRMS.EMP VALUES (1,'ford');
+SELECT * from HRMS.emp;
+
+alter table hrms.emp add (salary number);
+update hrms.employees set salary =500 where employee_id=1;
+
+
 set pagesize 200
 col PDB_NAME format a25  
 col OWNER format a25  
@@ -70,37 +82,7 @@ col TABLE_NAME format a15
 SELECT p.PDB_NAME, t.OWNER, t.TABLE_NAME FROM DBA_PDBS p, CDB_TABLES t WHERE p.PDB_ID = 5 AND t.OWNER IN('TEST') AND p.PDB_ID = t.CON_ID ORDER BY p.PDB_ID;
 
 select rowid,id,name,comments from HRMS2.TEST where id=10;   (Here HRMS2 is table and TEST is an User)
-
 SELECT table_name FROM user_tables ORDER BY table_name;   (Logged in as a user ID)
-
---example
---rowid OOOOOOFFFBBBBBBRRR
---OOOOOO object number
---FFF Relative File Number
---BBBBBB The data block number
---RRR The row number
-
-delete from ALEX.EMP;
-commit;
-
-truncate table ALEX.EMP;
-
-CREATE TABLE EMP ( EMP_ID NUMBER, ENAME VARCHAR2(100) );
-INSERT INTO EMP VALUES (1,'ford');
-INSERT INTO EMP VALUES (2,'gm');
-commit;
-SELECT * from HRMS.emp;
-
-CREATE TABLE HRMS.EMP ( EMP_ID NUMBER, ENAME VARCHAR2(100) );
-INSERT INTO   HRMS.EMP VALUES (1,'ford');
-SELECT * from HRMS.emp;
-
-alter table hrms.emp
-add (salary number);
-
-update hrms.employees
-set salary =500
-where employee_id=1;
 
 
 SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
