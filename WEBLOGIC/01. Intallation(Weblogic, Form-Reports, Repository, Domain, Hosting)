@@ -2,7 +2,7 @@
 
 00.  What software we need to install weblogic? What are the prerequisites?
      What is the tutorial link?
-04.  What information do I select to create domain?
+03.  What information do I select to create domain?
 
 
 Tutorial Link:
@@ -35,21 +35,18 @@ PREQUISITS:
 > Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
            >> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0"
             
-
-02. FORM and REPORT DEVELOPER INSTALLATION:
--------------------------------------------
-> On the 'C:\Oracle\Middleware\Oracle_Home' folder 
+> Thirdly, On the 'C:\Oracle\Middleware\Oracle_Home' folder 
          >> Install "Oracle Forms and Reports 12.2.1.4.0"
 
 
-03. REPOSITORY INSTALLATION:
+02. REPOSITORY INSTALLATION:
 ----------------------------
 > Go to below file:
   C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
 > Click On: rcu.bat
 ***Uninstall a repository is same process.
 
-04. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
+03. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
 ---------------------------------------------------------
 > Go tho below link:
   C:\Oracle\Middleware\Oracle_Home\oracle_common\common\bin
