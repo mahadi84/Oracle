@@ -39,7 +39,7 @@ ADD/Edit:01:
 ADD/Edit 02:
 ------------
 -->Go to  C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
-A:-->Add my form URL below line to: dfault.eng
+A:-->Add my form URL below line to: dfault.env
        FORMS_PATH=D:\Form_Oracle;
 B:--> Edit width and heigh on formsweb.cfg to 100%
 
