@@ -46,6 +46,7 @@ PREQUISITS:
   C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
 > Click On: rcu.bat
 **Select All EXCEPT "User Messaging Service"
+-->Run these command to DB console: GRANT execute on dbms_lob to DEV_MDS;
 ***Uninstall a repository is same process.
 
 03. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
