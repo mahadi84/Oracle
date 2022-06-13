@@ -1,8 +1,41 @@
 
-declare
-	P number;
-	U char;
+What/Why is PL/SQL?
+-------------------
+Ans: 
+    --PL/SQL stands for Procedural Language extensions of SQL. Introduces block structure.
+    --Oracle created PL/SQL that extends some limitations of SQL 
+    --To provide a more comprehensive solution for building mission-critical applications running on the Oracle database.
+
+
+BASIC STRUCTURE:
+----------------
+[DECLARE]
+   Declaration statements;
+BEGIN
+   Execution statements;
+  [EXCEPTION]
+      Exception handling statements;
+END;
+----
+SET SERVEROUTPUT ON SIZE 1000000
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Hello PL/SQL');
+END;
+------
+VARIBLE DECLARATION:
+--------------------
+declare 
+        v_first_name  EMPLOYEES.FIRST_NAME%TYPE;  / v_first_name is varible that receive data from EMPLOYEES table's FIRST NAME field with SAME DATA TYPE.
+	hire_date := to_date('19700101','YYYYMMDD');   /to assign a value or a variable to another use :=
+	Usr varchar2(20);
+	Pass number;
 begin
-:P:=:CONTROL.PASS;
-:U:=:CONTROL.USERNAME;
+:Pass:=:CONTROL.PASS;
+:Usr:=:CONTROL.USERNAME;
+SELECT first_name INTO v_f_name FROM employees WHERE user_pass:=CONTROL.PASS;
+DBMS_OUTPUT.PUT_LINE(v_f_name);
 end;
+
+
+
+
