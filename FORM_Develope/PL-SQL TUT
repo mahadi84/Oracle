@@ -1,0 +1,8 @@
+
+declare
+	P number;
+	U char;
+begin
+:P:=:CONTROL.PASS;
+:U:=:CONTROL.USERNAME;
+end;
