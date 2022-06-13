@@ -1,0 +1,53 @@
+
+
+TABLE:
+-----
+create table pubali.user_info
+(user_id number(10) primary key
+, user_pass varchar2(20) not null
+, user_name varchar2(30)
+, user_type varchar2(20)
+);
+
+insert into pubali.user_info values (10, 123, 'mahadi', 'admin');
+insert into pubali.user_info values (20, 123, 'hasan', 'operator');
+
+
+
+CODE for WHEN-BUTTON-PRESSED:
+----------------------------
+
+declare
+ v_record user_info1%rowtype;
+begin
+ :ERR_MESS:='';
+ select * into v_record from USER_INFO1
+ where USER_NAME=:CONTROL.USERNAME;
+  IF 
+   v_record.USER_PASS=:CONTROL.PASS THEN
+ --:global.USER_NAME:=v_record.USER_NAME;
+    --:global.memid:=v_record.memid;
+ IF 
+       v_record.USER_TYPE= 'admin' then
+       open_form('E:\Micro Credit Project\All Pages\HOME_PAGE.fmx');
+      elsif
+        v_record.USER_TYPE='operator' then
+        open_form('E:\Micro Credit Project\All Pages\member_PAGE.fmx');
+      elsif
+        v_record.USER_TYPE='audit' then
+        open_form('E:\Micro Credit Project\All Pages\group_PAGE.fmx');
+      end if;
+elsif v_record.USER_PASS ():CONTROL.PASS THEN
+     :ERR_MESS:=('Invalid Password!!');
+  elsif :CONTROL.PASS is null THEN
+     :ERR_MESS:=('Please enter username/Password!!'); 
+  elsif :CONTROL.USERNAME is null THEN
+     :ERR_MESS:=('Please enter username/Password!!');
+  end if;
+exception
+   when others then
+   :ERR_MESS:=('Invalid Username/Password!!');
+end;
+
+
+
