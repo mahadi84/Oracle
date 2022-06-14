@@ -21,68 +21,28 @@ declare
  v_record user_info%rowtype;
 begin
  :ERR_MESS:='';
- :MESS:='';
  
- IF :CONTROL.USERNAME is NOT null THEN
+IF :CONTROL.USERNAME is NOT null THEN
   	select * into v_record from USER_INFO
     where USER_NAME=:CONTROL.USERNAME;
-
-      IF v_record.USER_PASS=:CONTROL.PASS THEN
-       --:global.USER_NAME:=v_record.USER_NAME;
-       --:global.memid:=v_record.memid;
-         if
-          v_record.USER_TYPE= 'admin' then 
-          open_form('D:\Form_Oracle\TEST.fmx');    
-         elsif
-       	  v_record.USER_TYPE='operator' then
-       	  :MESS:= ('Hello Operator');
+     
+     IF :CONTROL.PASS is null THEN
+           :ERR_MESS:=('Please enter Password!!');
+     ELSIF v_record.USER_PASS!=:CONTROL.PASS THEN
+           :ERR_MESS:=('Invalid Password!!');
+     ELSIF  v_record.USER_PASS=:CONTROL.PASS THEN
+          --:global.USER_NAME:=v_record.USER_NAME;
+          --:global.memid:=v_record.memid;
+         if    v_record.USER_TYPE= 'admin' then 
+               open_form('D:\Form_Oracle\TEST.fmx');    
+         elsif v_record.USER_TYPE='operator' then
+       	       open_form('D:\Form_Oracle\T02.fmx');
          end if;
-
-      ELSIF :CONTROL.PASS is null THEN
-         :ERR_MESS:=('Please enter Password!!'); 
-      ELSIF v_record.USER_PASS!=:CONTROL.PASS THEN
-         :ERR_MESS:=('Invalid Username/Password!!');
       END IF;
- 
- ELSE
-       :ERR_MESS:=('Please enter Username!!'); 
- 
- END IF;
+      
+ELSE :ERR_MESS:=('Please enter Username!!'); 
+END IF;
   
-exception
-   when others then
-   :ERR_MESS:=('Invalid Username/Password!!');
-end;
-
-
--------------------------------------------------------
-declare
- v_record user_info1%rowtype;
-begin
- :ERR_MESS:='';
- select * into v_record from USER_INFO1
- where USER_NAME=:CONTROL.USERNAME;
-  IF 
-   v_record.USER_PASS=:CONTROL.PASS THEN
- --:global.USER_NAME:=v_record.USER_NAME;
-    --:global.memid:=v_record.memid;
- IF 
-       v_record.USER_TYPE= 'admin' then
-       open_form('E:\Micro Credit Project\All Pages\HOME_PAGE.fmx');
-      elsif
-        v_record.USER_TYPE='operator' then
-        open_form('E:\Micro Credit Project\All Pages\member_PAGE.fmx');
-      elsif
-        v_record.USER_TYPE='audit' then
-        open_form('E:\Micro Credit Project\All Pages\group_PAGE.fmx');
-      end if;
-elsif v_record.USER_PASS ():CONTROL.PASS THEN
-     :ERR_MESS:=('Invalid Password!!');
-  elsif :CONTROL.PASS is null THEN
-     :ERR_MESS:=('Please enter username/Password!!'); 
-  elsif :CONTROL.USERNAME is null THEN
-     :ERR_MESS:=('Please enter username/Password!!');
-  end if;
 exception
    when others then
    :ERR_MESS:=('Invalid Username/Password!!');
