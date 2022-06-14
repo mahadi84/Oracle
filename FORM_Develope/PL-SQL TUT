@@ -1,10 +1,18 @@
 
+
+
+What is Procedure and Sequence in Oracle Programming?
+-----------------------------------------------------
+Ans: 
+    PROCEDURE: Is a group of PL/SQL statements that you can call by name.
+    SEQUENCE: An object in Oracle that is used to generate a (unique)number sequence, specially to act as a primary key.
+
+
 What/Why is PL/SQL?
 -------------------
 Ans: 
     --PL/SQL stands for Procedural Language extensions of SQL. Introduces block structure.
     --Oracle created PL/SQL that extends some limitations of SQL 
-    --To provide a more comprehensive solution for building mission-critical applications running on the Oracle database.
 
 
 BASIC STRUCTURE:
