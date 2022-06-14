@@ -59,7 +59,6 @@ IF condition_1 THEN
      statements_2
      ELSIF condition_3 THEN
      statements_3
-
 ELSE
     else_statements
 END IF;
