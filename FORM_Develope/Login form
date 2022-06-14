@@ -24,7 +24,7 @@ begin
  
 IF :CONTROL.USERNAME is NOT null THEN
   	select * into v_record from USER_INFO
-    where USER_NAME=:CONTROL.USERNAME;
+   where USER_NAME=:CONTROL.USERNAME;
      
      IF :CONTROL.PASS is null THEN
            :ERR_MESS:=('Please enter Password!!');
