@@ -1,11 +1,18 @@
 
 
 
-What is Procedure and Sequence in Oracle Programming?
------------------------------------------------------
+What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
+---------------------------------------------------------------------------------------------
 Ans: 
     PROCEDURE: Is a group of PL/SQL statements that you can call by name.
     SEQUENCE: An object in Oracle that is used to generate a (unique)number sequence, specially to act as a primary key.
+
+Procedure vs User Define Function(UDF):
+---------------------------------------
+ > We cannot use Procudure in SQL statements like SELECT, INSERT, UPDATE, DELETE, MERGE, and JOIN CLAUSE. but we can use them with UDF.
+ > We can use transactions in SP but it is not possible in UDF.
+ > Procedure compiled Execution whereas UDF is Pre-compiled Execution.
+ > SP can have both table variables and temporary tables but UDF can have only table variables as it does not permit the use of temporary tables.
 
 
 What/Why is PL/SQL?
