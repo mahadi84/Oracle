@@ -31,7 +31,6 @@ IF :CONTROL.USERNAME is NOT null THEN
            :ERR_MESS:=('Invalid Password!!');
      ELSIF  v_record.USER_PASS=:CONTROL.PASS THEN
           --:global.USER_NAME:=v_record.USER_NAME;
-          --:global.memid:=v_record.memid;
          if    v_record.USER_TYPE= 'admin' then 
                open_form('D:\Form_Oracle\TEST.fmx');    
          elsif v_record.USER_TYPE='operator' then
