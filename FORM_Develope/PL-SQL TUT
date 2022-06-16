@@ -1,7 +1,8 @@
+01. What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
+02.What/Why is PL/SQL?
 
 
-
-What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
+01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
 ---------------------------------------------------------------------------------------------
 Ans: 
     PROCEDURE: Is a group of PL/SQL statements that you can call by name.
@@ -15,8 +16,8 @@ Procedure vs User Define Function(UDF):
  > SP can have both table variables and temporary tables but UDF can have only table variables as it does not permit the use of temporary tables.
 
 
-What/Why is PL/SQL?
--------------------
+02.What/Why is PL/SQL?
+----------------------
 Ans: 
     --PL/SQL stands for Procedural Language extensions of SQL. Introduces block structure.
     --Oracle created PL/SQL that extends some limitations of SQL 
