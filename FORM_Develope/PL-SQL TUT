@@ -1,5 +1,6 @@
 01. What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
-02.What/Why is PL/SQL?
+02. What/Why is PL/SQL?
+03. What/Why is Trigger? Where/How it works?
 
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
@@ -21,6 +22,27 @@ Procedure vs User Define Function(UDF):
 Ans: 
     --PL/SQL stands for Procedural Language extensions of SQL. Introduces block structure.
     --Oracle created PL/SQL that extends some limitations of SQL 
+
+
+03. What/Why is Trigger? Where/How it works?
+--------------------------------------------
+We can also say that they are specialized stored programs which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
+This means we cannot call and execute them directly instead they only get triggered by events in the database.
+
+These events can be anything such as:
+-------------------------------------
+01. A DML Statement – An Update, Insert or Delete statement executing on any table of your database. 
+                      You can program your trigger to execute either BEFORE or AFTER executing your DML statement.
+02. A DDL Statement – Such as CREATE or ALTER. 
+                      These triggers can also be executed either BEFORE or AFTER the execution of your DDL statement. 
+                      These triggers are generally used by DBAs for auditing purpose (keep an eye on the various changes on your schema).
+03. A system event. – I mean shut down or startup of your database.
+04. A User Events   – Such as log off or log on onto your database. You can create a trigger which will either execute before or after the event. 
+                      Furthermore, it will record the information such as time of event occur, the username who created it.
+
+
+
+
 
 
 BASIC STRUCTURE:
