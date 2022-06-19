@@ -1,6 +1,7 @@
 01. What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
 02. What/Why is PL/SQL?
 03. What/Why is Trigger? Where/How it works?
+04. Restriction on The Database Triggers
 
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
@@ -29,19 +30,34 @@ Ans:
 We can also say that they are specialized stored programs which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
 This means we cannot call and execute them directly instead they only get triggered by events in the database.
 
+Why/Adv. trigger?
+-----------------
+We can--
+01. -Enforce business rules that can’t be defined by using integrity constants.
+02. -Gain strong control over the security.
+03. -Collect statistical information on the table access.
+04. -Generate values for derived columns such as auto increment numeric primary key.
+05. -Prevent the invalid transactions Using database triggers.
+
+
 These events can be anything such as:
 -------------------------------------
-01. A DML Statement – An Update, Insert or Delete statement executing on any table of your database. 
+1. A DML Statement – An Update, Insert or Delete statement executing on any table of your database. 
                       You can program your trigger to execute either BEFORE or AFTER executing your DML statement.
-02. A DDL Statement – Such as CREATE or ALTER. 
+2. A DDL Statement – Such as CREATE or ALTER. 
                       These triggers can also be executed either BEFORE or AFTER the execution of your DDL statement. 
                       These triggers are generally used by DBAs for auditing purpose (keep an eye on the various changes on your schema).
-03. A system event. – I mean shut down or startup of your database.
-04. A User Events   – Such as log off or log on onto your database. You can create a trigger which will either execute before or after the event. 
+3. A system event. – I mean shut down or startup of your database.
+4. A User Events   – Such as log off or log on onto your database. You can create a trigger which will either execute before or after the event. 
                       Furthermore, it will record the information such as time of event occur, the username who created it.
 
 
-
+04.Restriction on The Database Triggers:
+----------------------------------------
+-> The maximum size of the database trigger body must not exceed 32,760 bytes. This is because triggers’ bodies are stored in LONG datatypes columns.
+-> A trigger may not issue transaction control statements or TCL statements such as COMMIT, ROLLBACK or SAVEPOINT. All operations performed when the trigger fires, become part of a transaction. Therefore whenever this transaction is rolled back or committed it leads to the respective rolling back or committing of the operations performed. 
+-> Any function or procedure called by a database trigger may not issue a transactional control statement. That is unless it contains an autonomous transaction.
+-> Declaring LONG or LONG RAW variable is not permissible in the body of the trigger.
 
 
 
