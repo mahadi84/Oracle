@@ -2,7 +2,8 @@
 01. What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
 02. What/Why is PL/SQL?
 03. What/Why is Trigger? Where/How it works?
-04. Restriction on The Database Triggers
+04. Restriction on The Database Triggers.
+05. How to check Error of a Trigger.
 
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
@@ -96,7 +97,10 @@ END;
 
 
 
-
+05. How to check ERROR of a TRIGGER:
+------------------------------------
+SHOW ERRORS TRIGGER trigger_name;   //Check Error
+select * from user_errors where   type = 'TRIGGER' and  name = 'TRIG_NAME';   //Check syntax error in a trigger:
 
 
 
