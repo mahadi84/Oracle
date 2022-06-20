@@ -10,6 +10,8 @@
 
 08. How to audit Schema & Database Using DDL Trigger?
 
+09. What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
+
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
 ================================================================================================
@@ -178,6 +180,13 @@ ora_dict_obj_name,
 ora_sysevent);
 END;
 
+
+
+09. What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
+=======================================================================================
+
+Instead-of triggers in oracle database provide a way of modifying ONLY VIEWS(NOT TABLE) that cannot be modified directly through the DML statements. 
+By using Instead-of triggers, you can perform Insert, Update, Delete and Merge operations on a view in oracle database.
 
 
 
