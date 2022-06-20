@@ -8,6 +8,8 @@
 06. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
 07. How To Create Synchronized Table Backup Using DML Trigger?
 
+08. How to audit Schema & Database Using DDL Trigger?
+
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
 ================================================================================================
@@ -137,13 +139,44 @@ BEGIN
 END;
 
 
+08. How to audit Schema & Database Using DDL Trigger?
+=====================================================
+Tut: http://www.rebellionrider.com/schema-database-auditing-using-ddl-trigger-in-pl-sql/
 
+--
+CREATE TABLE schema_audit(
+    ddl_date       DATE,
+    ddl_user       VARCHAR2(15),
+    object_created VARCHAR2(15),
+    object_name    VARCHAR2(15),
+    ddl_operation  VARCHAR2(15)
+  );
+--
+Audit to Schema(Any user)
+-------------------------
+CREATE OR REPLACE TRIGGER hr_audit_tr 
+AFTER DDL ON SCHEMA
+BEGIN
+    INSERT INTO schema_audit VALUES (
+sysdate, 
+sys_context('USERENV','CURRENT_USER'), 
+ora_dict_obj_type, 
+ora_dict_obj_name, 
+ora_sysevent);
+END;
 
-
-
-
-
-
+Audit to Database
+-----------------
+CREATE OR REPLACE TRIGGER db_audit_tr 
+AFTER DDL ON DATABASE
+BEGIN
+    INSERT INTO schema_audit VALUES (
+sysdate, 
+sys_context('USERENV','CURRENT_USER'), 
+ora_dict_obj_type, 
+ora_dict_obj_name, 
+ora_sysevent);
+END;
 
 
 
