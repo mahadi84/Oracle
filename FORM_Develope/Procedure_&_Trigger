@@ -188,5 +188,80 @@ END;
 Instead-of triggers in oracle database provide a way of modifying ONLY VIEWS(NOT TABLE) that cannot be modified directly through the DML statements. 
 By using Instead-of triggers, you can perform Insert, Update, Delete and Merge operations on a view in oracle database.
 
+What are Modifiable and Non Modifiable Views?
+---------------------------------------------
+A view is naturally modifiable if you do not require INSTEAD OF triggers to insert, delete or update data as well as if it complies to the restrictions discussed 
+herewith. If the view query comprises of any of the mentioned constructs, 
+then it is not naturally modifiable and therefore you cannot perform inserts, updates, or deletes on the view:
+
+Set operators
+Aggregate functions
+GROUP BY, CONNECT BY, or START WITH clauses
+The DISTINCT operator
+Joins (however, some join views are updatable)
+
+
+INSTED OF INSERT Trigger
+========================
+
+Step1: Create Tables Table 1- trainer and Table 2- Subject
+CREATE TABLE trainer ( full_name VARCHAR2(20));
+CREATE TABLE subject( subject_name VARCHAR2(15) );
+Insert dummy data into the above tables
+
+INSERT INTO trainer VALUES ('Manish Sharma');
+INSERT INTO subject VALUES ('Oracle');
+
+Step 2: Create View that will show the combined result of the data from the two tables above.
+CREATE VIEW vw_rebellionrider AS
+SELECT full_name, subject_name FROM trainer, subject;
+
+This is a non-updatable view which you can confirm by executing any DML statement over it. Error as a result of DML operation on this view will be your confirmation.
+
+Step 3: Create INSTEAD OF Insert trigger over the view vw_rebellionrider that we created in step 2.
+
+CREATE OR REPLACE TRIGGER tr_Io_Insert
+INSTEAD OF INSERT ON vw_rebellionrider
+FOR EACH ROW
+BEGIN
+  INSERT INTO trainer (full_name) VALUES (:new.full_name);
+  INSERT INTO subject (subject_name) VALUES (:new.subject_name);
+END
+
+
+Instead-Of UPDATE Trigger
+-------------------------
+Instead-of update trigger will override the default behavior of your update operation when you execute the update statement and will let you update the data of the underlying tables over which your view is created.
+
+Example:
+Tables (Trainer and Subject) and View (VW_RebellionRider) used in this example are the same as the ones we created in the previous tutorial.
+
+CREATE OR REPLACE TRIGGER io_update
+INSTEAD OF UPDATE ON vw_rebellionrider
+FOR EACH ROW
+BEGIN
+  UPDATE trainer SET FULL_NAME = :new.full_name 
+  WHERE FULL_NAME = :old.full_name;
+  UPDATE subject SET subject_NAME = :new.subject_name 
+  WHERE subject_NAME = :old.subject_name;
+END;
+/
+
+Instead-of DELETE trigger Example:
+----------------------------------
+In this example I will again use the View VW_RebellionRider which we created earlier and have consistently used in this Instead-of trigger series so far.
+
+Needless to say that executing DELETE DML on this view will return an error because of its non-updatable nature. Thus the only way to perform DELETE DML on this view is by using an Instead of trigger. Let’s quickly create one.
+
+CREATE OR REPLACE TRIGGER io_delete
+INSTEAD OF DELETE ON vw_RebellionRider
+FOR EACH ROW
+BEGIN
+  DELETE FROM trainer WHERE FULL_NAME = :old.FULL_NAME;
+  DELETE FROM subject WHERE SUBJECT_NAME= :old.SUBJECT_NAME;
+END;
+/
+
+
 
 
