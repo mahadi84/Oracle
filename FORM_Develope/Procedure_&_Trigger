@@ -5,9 +5,12 @@
 04. Restriction on The Database Triggers.
 05. How to check Error of a Trigger.
 
+06. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
+07. How To Create Synchronized Table Backup Using DML Trigger?
+
 
 01.What is Procedure and Sequence in Oracle Programming? Procedure vs User Define Function(UDF)?
----------------------------------------------------------------------------------------------
+================================================================================================
 Ans: 
     PROCEDURE: Is a group of PL/SQL statements that you can call by name.
     SEQUENCE: An object in Oracle that is used to generate a (unique)number sequence, specially to act as a primary key.
@@ -21,7 +24,7 @@ Procedure vs User Define Function(UDF):
 
 
 02.What/Why is PL/SQL?
-----------------------
+======================
 Ans: 
     --PL/SQL stands for Procedural Language extensions of SQL. Introduces block structure.
     --Oracle created PL/SQL that extends some limitations of SQL 
@@ -55,15 +58,22 @@ These events can be anything such as:
 
 
 04.Restriction on The Database Triggers:
-----------------------------------------
+=========================================
 -> The maximum size of the database trigger body must not exceed 32,760 bytes. This is because triggers’ bodies are stored in LONG datatypes columns.
 -> A trigger may not issue transaction control statements or TCL statements such as COMMIT, ROLLBACK or SAVEPOINT. All operations performed when the trigger fires, become part of a transaction. Therefore whenever this transaction is rolled back or committed it leads to the respective rolling back or committing of the operations performed. 
 -> Any function or procedure called by a database trigger may not issue a transactional control statement. That is unless it contains an autonomous transaction.
 -> Declaring LONG or LONG RAW variable is not permissible in the body of the trigger.
 
 
-EXAMLE TRIGGER:
----------------
+05. How to check ERROR of a TRIGGER:
+====================================
+SHOW ERRORS TRIGGER trigger_name;   //Check Error
+select * from user_errors where   type = 'TRIGGER' and  name = 'TRIG_NAME';   //Check syntax error in a trigger:
+
+
+06. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
+===========================================================================
+
 CREATE TABLE sh_audit(
   new_name varchar2(30),
   old_name varchar2(30),
@@ -96,11 +106,16 @@ BEGIN
 END;
 
 
+07. How To Create Synchronized Table Backup Using DML Trigger?
+==============================================================
 
-05. How to check ERROR of a TRIGGER:
-------------------------------------
-SHOW ERRORS TRIGGER trigger_name;   //Check Error
-select * from user_errors where   type = 'TRIGGER' and  name = 'TRIG_NAME';   //Check syntax error in a trigger:
+
+
+
+
+
+
+
 
 
 
