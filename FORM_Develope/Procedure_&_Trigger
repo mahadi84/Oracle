@@ -113,6 +113,8 @@ END;
 07. How To Create Synchronized Table Backup Using DML Trigger?
 ==============================================================
 Tut: http://www.rebellionrider.com/how-to-create-synchronized-table-backup-using-dml-trigger-in-oracle-pl-sql/
+
+**NO GOOD for those tables that involve heavy data input, deletion and updation due to the performance reasons.
 --
 CREATE TABLE superheroes_backup AS SELECT * FROM superheroes WHERE 1=2;
 --
