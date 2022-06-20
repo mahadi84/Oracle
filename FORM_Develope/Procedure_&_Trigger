@@ -73,7 +73,11 @@ select * from user_errors where   type = 'TRIGGER' and  name = 'TRIG_NAME';   //
 
 06. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
 ===========================================================================
-
+CREATE TABLE superheroes(
+                        CUST_NAME VARCHAR2(50);
+                        DESIGNATION VARCHAR2(50)
+                        )
+--
 CREATE TABLE sh_audit(
   new_name varchar2(30),
   old_name varchar2(30),
@@ -108,7 +112,27 @@ END;
 
 07. How To Create Synchronized Table Backup Using DML Trigger?
 ==============================================================
+Tut: http://www.rebellionrider.com/how-to-create-synchronized-table-backup-using-dml-trigger-in-oracle-pl-sql/
+--
+CREATE TABLE superheroes_backup AS SELECT * FROM superheroes WHERE 1=2;
+--
+CREATE OR REPLACE trigger superheroes_backup
+BEFORE INSERT OR DELETE OR UPDATE ON superheroes
+FOR EACH ROW
+ENABLE
 
+DECLARE
+
+BEGIN
+  IF INSERTING THEN
+    INSERT INTO superheroes_backup (cust_name,designation) 
+    VALUES(:NEW.CUST_NAME, :NEW.designation);
+  ELSIF UPDATING THEN
+    UPDATE superheroes_backup SET cust_name=:NEW.CUST_NAME, designation=:NEW.DESIGNATION WHERE cust_name=:OLD.CUST_NAME;
+  ELSIF DELETING THEN
+    DELETE FROM superheroes_backup WHERE cust_name=:OLD.CUST_NAME;
+  END IF;
+END;
 
 
 
