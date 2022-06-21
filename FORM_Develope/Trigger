@@ -32,28 +32,27 @@ We can--
 
 These events can be anything such as:
 -------------------------------------
-1. A DML Statement – An Update, Insert or Delete statement executing on any table of your database. 
-                      You can program your trigger to execute either BEFORE or AFTER executing your DML statement.
-2. A DDL Statement – Such as CREATE or ALTER. 
-                      These triggers can also be executed either BEFORE or AFTER the execution of your DDL statement. 
-                      These triggers are generally used by DBAs for auditing purpose (keep an eye on the various changes on your schema).
-3. A system event. – I mean shut down or startup of your database.
-4. A User Events   – Such as log off or log on onto your database. You can create a trigger which will either execute before or after the event. 
-                      Furthermore, it will record the information such as time of event occur, the username who created it.
+1. A DML Statement – An Update/Insert/Delete statement executing on any table of database. Either BEFORE or AFTER executing of statement.
+                     -Auditing purpose (keep an eye on the various changes on Table).
+2. A DDL Statement – CREATE/DROP/ALTER schema/db. Either BEFORE or AFTER the execution of statement. 
+                     -DBAs for auditing purpose (keep an eye on the various changes on schema/DB like who create TABLE).
+3. A system event. – Shut down or startup of database.
+4. A User Events   – Such as log off or log on onto database. Either execute before or after the event. 
+                     -Auditing time of event occur, the username who created it.
 
 
 02.Restriction on The Database Triggers:
 =========================================
--> The maximum size of the database trigger body must not exceed 32,760 bytes. This is because triggers’ bodies are stored in LONG datatypes columns.
--> A trigger may not issue transaction control statements or TCL statements such as COMMIT, ROLLBACK or SAVEPOINT. All operations performed when the trigger fires, become part of a transaction. Therefore whenever this transaction is rolled back or committed it leads to the respective rolling back or committing of the operations performed. 
--> Any function or procedure called by a database trigger may not issue a transactional control statement. That is unless it contains an autonomous transaction.
--> Declaring LONG or LONG RAW variable is not permissible in the body of the trigger.
+-> Trigger size must not exceed 32,760 bytes. 
+-> Stored in LONG datatypes columns but LONG or LONG RAW variable is not permissible in the body of the trigger.
+-> May not issue TCL statements such as COMMIT, ROLLBACK or SAVEPOINT.
+-> All operations performed when the trigger fires, become part of a transaction unless it contains an autonomous transaction.
 
 
 03. How to check ERROR of a TRIGGER:
 ====================================
 SHOW ERRORS TRIGGER trigger_name;   //Check Error
-select * from user_errors where   type = 'TRIGGER' and  name = 'TRIG_NAME';   //Check syntax error in a trigger:
+select * from user_errors where  type = 'TRIGGER' and  name = 'TRIG_NAME';   //Check syntax error in a trigger:
 
 
 04. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
@@ -182,7 +181,7 @@ The DISTINCT operator
 Joins (however, some join views are updatable)
 
 
-INSTED OF INSERT Trigger
+INSTEAD OF INSERT Trigger
 ========================
 
 Step1: Create Tables Table 1- trainer and Table 2- Subject
@@ -242,6 +241,10 @@ BEGIN
   DELETE FROM subject WHERE SUBJECT_NAME= :old.SUBJECT_NAME;
 END;
 /
+
+
+
+
 
 
 
