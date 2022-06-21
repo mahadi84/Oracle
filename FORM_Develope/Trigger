@@ -13,12 +13,12 @@
 07.  How to Insert/update/delete on a view?
      -What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
 
-
+======================
 
 01. What/Why is Trigger? Where/How it works?
 --------------------------------------------
-We can also say that they are specialized stored programs which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
-This means we cannot call and execute them directly instead they only get triggered by events in the database.
+-Specialized stored programs which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
+-Cannot call and execute them directly instead they only get triggered by events in the database.
 
 Why/Adv. trigger?
 -----------------
