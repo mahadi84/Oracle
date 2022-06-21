@@ -13,6 +13,10 @@
 07.  How to Insert/update/delete on a view?
      -What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
 
+08. Schema Level Database LOGON and LOGOFF Trigger?
+
+09. What are the differences between Schema Level and Database Level system Event triggers?
+
 ======================
 
 01. What/Why is Trigger? Where/How it works?
@@ -249,6 +253,71 @@ BEGIN
   DELETE FROM subject WHERE SUBJECT_NAME= :old.SUBJECT_NAME;
 END;
 /
+
+
+08. Schema Level Database LOGON and LOGOFF Trigger?
+===================================================
+
+
+LOGON Trigger:
+--------------
+
+Types of Database Event Triggers:
+--------------------------------
+Schema Level Event Triggers
+Database Level Event Triggers
+
+
+
+CREATE TABLE hr_evnt_audit
+  (
+    event_type VARCHAR2(30),
+    logon_date DATE,
+    logon_time VARCHAR2(15),
+    logof_date DATE,
+    logof_time VARCHAR2(15)
+  );
+-------------
+CREATE OR REPLACE TRIGGER hr_lgon_audit
+AFTER LOGON ON SCHEMA
+BEGIN
+  INSERT INTO hr_evnt_audit VALUES(
+    ora_sysevent,
+    sysdate,
+    TO_CHAR(sysdate, 'hh24:mi:ss'),
+    NULL,
+    NULL
+  );
+  COMMIT;
+END;
+  
+
+LOG OFF Trigger:
+--------------
+CREATE OR REPLACE TRIGGER db_lgof_audit
+BEFORE LOGOFF ON DATABASE
+BEGIN
+  INSERT INTO db_evnt_audit 
+  VALUES(
+    user,
+    ora_sysevent,
+    NULL,
+    NULL,
+    SYSDATE,
+    TO_CHAR(sysdate, 'hh24:mi:ss')
+    );
+END;
+
+
+09. What are the differences between Schema Level and Database Level system Event triggers?
+===========================================================================================
+
+As the name suggests Database event trigger fires for the entire database or 
+you can say that it fires for all the schemas created under the database in which these triggers are created which is unlike Schema Level System Event trigger which runs for a specific schema only.
+
+Also database level system event trigger can only be created by high privileged users such as sys or system or any user 
+who has ADMINISTER DATABASE TRIGGER system privilege where Schema level system event trigger can be created by any user of the database on its own schema which has Create Trigger System Privilege.
+
 
 
 
