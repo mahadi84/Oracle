@@ -186,6 +186,7 @@ Joins (however, some join views are updatable)
 
 INSTEAD OF INSERT Trigger
 ========================
+Tut: http://www.rebellionrider.com/how-to-create-instead-of-insert-trigger-in-oracle-pl-sql/
 
 Step1: Create Tables Table 1- trainer and Table 2- Subject
 CREATE TABLE trainer ( full_name VARCHAR2(20));
@@ -214,8 +215,10 @@ END
 
 Instead-Of UPDATE Trigger
 -------------------------
-Instead-of update trigger will override the default behavior of your update operation when you execute the update statement and will let you update the data of the underlying tables over which your view is created.
+Tut: http://www.rebellionrider.com/how-to-create-instead-of-update-trigger-in-oracle-pl-sql/
 
+Instead-of update trigger will override the default behavior of your update operation when you execute the update statement 
+and will let you update the data of the underlying tables over which your view is created.
 Example:
 Tables (Trainer and Subject) and View (VW_RebellionRider) used in this example are the same as the ones we created in the previous tutorial.
 
@@ -232,9 +235,11 @@ END;
 
 Instead-of DELETE trigger Example:
 ----------------------------------
-In this example I will again use the View VW_RebellionRider which we created earlier and have consistently used in this Instead-of trigger series so far.
+Tut: http://www.rebellionrider.com/how-to-create-instead-of-delete-trigger-in-oracle-pl-sql/
 
-Needless to say that executing DELETE DML on this view will return an error because of its non-updatable nature. Thus the only way to perform DELETE DML on this view is by using an Instead of trigger. Let’s quickly create one.
+In this example I will again use the View VW_RebellionRider which we created earlier and have consistently used in this Instead-of trigger series so far.
+Needless to say that executing DELETE DML on this view will return an error because of its non-updatable nature. 
+Thus the only way to perform DELETE DML on this view is by using an Instead of trigger. Let’s quickly create one.
 
 CREATE OR REPLACE TRIGGER io_delete
 INSTEAD OF DELETE ON vw_RebellionRider
