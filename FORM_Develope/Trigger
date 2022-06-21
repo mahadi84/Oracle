@@ -4,12 +4,14 @@
 02. Restriction on The Database Triggers.
 03. How to check Error of a Trigger.
 
-04. How to Audit(who insert/update/delete row in) Table Using DML Triggers?
+04. How to Audit(who insert/update/delete data in) Table Using DML Triggers?
 05. How To Create Synchronized Table Backup Using DML Trigger?
 
-06. How to audit Schema & Database Using DDL Trigger?
+06. How to check who create/drop/alter object like table and who log into database and when.
+     -How to audit Schema & Database Using DDL Trigger?
 
-07. What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
+07.  How to Insert/update/delete on a view?
+     -What/Why INSTEAD-OF Trigger? How to create Instead-Of INSERT/UPDATE/DELETE Trigger?
 
 
 
