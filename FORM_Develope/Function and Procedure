@@ -1,0 +1,55 @@
+
+
+What are PL/SQL functions in Oracle Database?
+---------------------------------------------
+In Oracle Database we can define a PL/SQL function as a self-contained sub-program that is meant to do some specific well defined task. 
+Functions are named PL/SQL block which means they can be stored into the database as a database object and can be reused. 
+That is also the reason why some books refer to PL/SQL functions as stored functions.
+
+Types of PL/SQL functions in Oracle Database
+--------------------------------------------
+There are two types of PL/SQL functions in Oracle Database, these are
+Pass-by-Value Functions and
+Pass-by-Reference functions
+
+FUNCTION SYNTEX:
+----------------
+--Function Header
+CREATE OR REPLACE FUNCTION circle_area (radius NUMBER) 
+RETURN NUMBER IS
+--Declare a constant and a variable
+pi  	CONSTANT NUMBER(7,2) :=	3.141;
+area 	NUMBER(7,2);
+BEGIN
+  --Area of Circle pi*r*r;
+  area := pi * (radius * radius);
+  RETURN area; 
+END;
+
+
+WHAT IS STORED PROCEDURE?
+=========================
+Tut: http://www.rebellionrider.com/how-to-create-pl-sql-stored-procedures-without-parameters-in-oracle-database/
+
+Similar to PL/SQL Functions a stored Procedure is a self-contained subprogram that is meant to do some specific tasks.
+Also similar to functions, procedures are named PL/SQL blocks thus they can be reused because they are stored into the database as a database object.
+But unlike PL/SQL functions a stored procedure does not return any value. 
+
+Syntax of PL/SQL Stored Procedures
+----------------------------------
+CREATE OR REPLACE PROCEDURE emp_sal
+(dep_id NUMBER, sal_raise NUMBER) 
+IS
+BEGIN
+  	UPDATE employees 
+SET salary = salary * sal_raise 
+WHERE department_id = dep_id;  
+DBMS_OUTPUT.PUT_LINE ('salary updated successfully');
+END;
+
+Calling  Procedure:
+-------------------
+EXECUTE emp_sal(40,2);
+
+
+
