@@ -1,0 +1,141 @@
+Tut: http://www.rebellionrider.com/what-are-pl-sql-cursors-in-oracle-database/
+
+
+
+01. What is Database Cursor?
+02. What is the Context Area?
+03. Advantages of Cursors?
+04. Types of cursors in oracle database?
+05. Cursor Attributes?
+06. Basic Programming Structure of the Cursor?
+
+07. How To Create An Explicit Cursor In Oracle Database?
+08. How To Create A) Cursor Parameter and 
+                  B) Parameterized cursor
+                  C) Cursor Parameter with Default Value?
+
+
+=================================================
+
+01. What is Database Cursor?
+----------------------------
+Cursor is a pointer to a memory area called context area. 
+This context area is a memory region inside the Process Global Area or PGA assigned to hold the information about the processing of a SELECT statement 
+or DML Statement such as INSERT, DELETE, UPDATE or MERGE.
+
+02. What is the Context Area?
+-----------------------------
+A special memory region inside the Process Global Area or PGA which helps oracle server in processing an SQL statement by holding 
+the important information about that statement.
+
+This information includes:
+> Rows returned by a query.
+> Number of rows processed by a query.
+> A pointer to the parsed query in the shared pool.
+> Using cursor you can control the context area as it is a pointer to the same.
+
+03. Advantages of Cursors:
+--------------------------
+There are two main advantages of a cursor:
+> Cursor is names thus you can reference it in your program whenever you want.
+> Cursor allows you to fetch and process rows returned by a SELECT statement by a row at a time.
+ 
+04. Types of cursors in oracle database:
+----------------------------------------
+There are two types of cursors in oracle database:
+   >Implicit cursor--Are automatically created by the oracle server every time an SQL DML statement is executed. does not exist for that SQL statement.
+   >Explicit cursor--User has to create these cursors for any statement which returns more than one row of data.
+
+05. Cursor Attributes
+---------------------
+Oracle provides four attributes:
+%FOUND       : Returns TRUE if the previous FETCH command returned a row otherwise it returns FALSE.
+%NOTFOUND    : Returns TRUE only when previous FETCH command of the cursor did not return a row otherwise this attribute will return FALSE. 
+%ISOPEN      : Returns TRUE if the cursor is open otherwise it returns FALSE.
+%ROWCOUNT    : Returns a numeric of records fetched from a cursor at that point in time.
+
+06. Basic Programming Structure of the Cursor:
+----------------------------------------------
+DECLARE
+	CURSOR cursor_name IS select_statement; 
+BEGIN
+	 OPEN cursor_name;
+	 FETCH cursor_name INTO PL/SQL variable [PL/SQL record]; 
+  CLOSE cursor_name; 
+END;
+
+07. How To Create An Explicit Cursor In Oracle Database?
+--------------------------------------------------------
+
+SET SERVEROUTPUT ON;
+DECLARE
+  v_name VARCHAR2(30);
+  --Declare Cursor 
+  CURSOR cur_RebellionRider IS 
+  SELECT first_name FROM EMPLOYEES 
+  WHERE employee_id < 105;
+BEGIN
+  OPEN cur_RebellionRider; 
+  LOOP 
+    FETCH cur_RebellionRider INTO v_name; 
+    DBMS_OUTPUT.PUT_LINE (v_name); 
+    EXIT WHEN cur_RebellionRider%NOTFOUND; 
+  END LOOP;--Simple Loop End
+  CLOSE cur_RebellionRider;
+END;
+
+
+08. How To Create Cursor Parameter In Oracle Database?
+------------------------------------------------------
+What is Parameterized cursor?
+Unlike simple explicit cursor, parameterized cursors accept values as parameter. You specify the list of parameters separated by comma (,)
+while declaring the cursor and supply the corresponding argument for each parameter in the list while opening the cursor.
+
+Syntax of Parameterized Cursor:
+-------------------------------
+CURSOR cur _ name (parameter list) IS SELECT statement;
+OPEN cur _ name (argument list);
+
+Parameterized cursor:
+---------------------
+SET SERVEROUTPUT ON;
+DECLARE
+  v_name VARCHAR2 (30);
+  --Declare Cursor 
+  CURSOR p_cur_RebellionRider (var_e_id VARCHAR2) IS 
+  SELECT first_name FROM EMPLOYEES 
+  WHERE employee_id < var_e_id;
+BEGIN
+  OPEN p_cur_RebellionRider (105); 
+LOOP 
+    FETCH p_cur_RebellionRider INTO v_name; 
+    EXIT WHEN p_cur_RebellionRider%NOTFOUND; 
+    DBMS_OUTPUT.PUT_LINE(v_name );  
+  END LOOP;
+  CLOSE p_cur_RebellionRider;
+END;
+
+Cursor Parameter with Default Value
+------------------------------------
+DECLARE
+  v_name VARCHAR2(30);
+  v_eid  NUMBER(10);
+  CURSOR cur_RebellionRider(var_e_id NUMBER := 190 )
+  IS
+  SELECT first_name, employee_id FROM employees 
+  WHERE employee_id > var_e_id; 
+BEGIN
+  OPEN cur_rebellionrider (200);
+  LOOP
+    FETCH cur_rebellionrider INTO v_name, v_eid; 
+    EXIT WHEN cur_rebellionrider%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_name ||' '||v_eid); 
+  END LOOP;
+  CLOSE cur_rebellionrider;
+END;
+
+
+
+
+
+
