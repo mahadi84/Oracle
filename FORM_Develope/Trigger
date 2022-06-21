@@ -17,9 +17,9 @@
 
 01. What/Why is Trigger? Where/How it works?
 --------------------------------------------
--Specialized stored programs which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
-     -For Auditing purpose (keep an eye on the various changes on Table/Schema/Database).
+-Specialized stored programs For Auditing purpose which execute implicitly(পরোক্ষভাবে) when a triggering event occurs.
 -Cannot call and execute them directly instead they only get triggered by events in the database.
+  ***For Auditing purpose (keep an eye on the various changes on Table/Schema/Database).
 
 
 Why/Adv. trigger?
