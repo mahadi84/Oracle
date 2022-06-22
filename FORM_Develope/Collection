@@ -1,0 +1,126 @@
+http://www.rebellionrider.com/introduction-to-pl-sql-collections-in-oracle-database/
+
+
+
+What are PL/SQL Collections in Oracle Database?
+-----------------------------------------------
+In simple language we can say that, an array in Oracle Database is called Collection.
+A homogeneous single dimension data structure which is made up of elements of same datatype is called collection in Oracle Database.
+
+
+Types of PL/SQL Collections in Oracle Database
+----------------------------------------------
+PL/SQL collections can be divided into two categories:
+ A) Persistent -which physically store the collection structure with the data into the database and can be accessed again if needed
+ B) Non-persistent -non-persistent collection only stores data and structure for one session.
+
+In the basis of above categories collections are further divided into three types:
+ 01. Nested Tables
+ 02. Variable Sized Arrays or VARRAYs and
+ 03. Associative arrays.
+
+01. Nested Table
+----------------
+Nested tables are persistent collection which means they can be stored into the database and can be reused. 
+Nested tables has no upper limits on rows thus they are unbounded collections.
+Nested tables are initially dense but can become sparse through deletion.
+Example:----
+SET SERVEROUTPUT ON;
+DECLARE
+   TYPE my_nested_table   IS TABLE OF number;
+    var_nt  my_nested_table :=  my_nested_table (9,18,27,36,45,54,63,72,81,90);
+BEGIN
+   DBMS_OUTPUT.PUT_LINE ('Value Stored at index 1 in NT is ' ||var_nt (1)); 
+   DBMS_OUTPUT.PUT_LINE ('Value Stored at index 2 in NT is ' ||var_nt (5));
+END;
+
+01.1>How To Create Nested Table As Database Object?
+---------------------------------------------------
+http://www.rebellionrider.com/how-to-create-nested-table-as-database-object-in-oracle/
+
+Example:-------
+CREATE TABLE my_subject(
+	  sub_id    	NUMBER,
+	  sub_name  	VARCHAR2 (20),
+	  sub_schedule_day    my_nested_table
+) NESTED TABLE sub_schedule_day STORE AS nested_tab_space;
+
+update a single instance of nested table:----
+UPDATE TABLE
+  (SELECT sub_schedule_day FROM my_subject 
+  WHERE sub_id = 101) A
+SET A.COLUMN_VALUE   = 'Thur' 
+WHERE A.COLUMN_VALUE = 'Sat';
+
+01.2> How To Create Nested Table Using User-Define Datatype?
+------------------------------------------------------------
+http://www.rebellionrider.com/how-to-create-nested-table-using-user-define-datatype-in-oracle-database/
+
+Example:-----
+CREATE TABLE Base_Table(
+   tab_id  NUMBER,
+   tab_ele My_NT
+)NESTED TABLE tab_ele STORE AS stor_tab_1;
+ /
+ INSERT INTO base_table (tab_id, tab_ele) VALUES
+ (801,  -- value for 1st colum 
+   My_NT (object_type (1,'Superman') -- values for 2nd column )
+ );
+ /
+ UPDATE base_table SET tab_ele = My_NT(object_type(1,'SpiderMan')) WHERE tab_id = 801; 
+ /
+ Select tab_id, tab_ele FROM base_table;
+ /SELECT * FROM TABLE(
+  SELECT tab_ele FROM Base_Table WHERE tab_id = 801
+)
+
+02. VARRAYs
+-----------
+http://www.rebellionrider.com/how-to-create-varrays-as-database-object-in-oracle-database/
+
+Similar to Nested tables Variable-Sized Arrays are also persistent collections thus they can be created in database as well as PL/SQL block and can be reused.  
+But unlike nested tables VARRAYs are Bounded, can hold only a fixed amount of elements.
+Syntex: 
+CREATE [OR REPLACE] TYPE type_name
+IS {VARRAY | VARYING ARRAY} (size_limit) OF element_type;
+Example:
+--------
+DECLARE
+    vry_obj dbObj_vry    := dbObj_vry();
+BEGIN
+    FOR i IN 1..vry_obj.LIMIT
+    LOOP
+        vry_obj.EXTEND; 
+        vry_obj(i):= 10*i;
+        DBMS_OUTPUT.PUT_LINE(vry_obj(i));    
+    END LOOP;
+END;
+/
+
+
+03. Associative Array  
+---------------------
+Unlike nested table and VARRAYs, associative arrays are non-persistent collections thus they cannot be stored into the database.
+Since they cannot be store hence they cannot be reused but they are available in PL/SQL block for the session. 
+But similar to nested tables associative arrays are unbounded, don’t have lower and upper limits on rows.
+
+
+
+
+
+
+
+Commonly used terms in PL/SQL Collection.
+Bounded & Unbounded Collection – A collection which has lower or upper limits on values of row number or say a collection 
+which can hold only limited number of elements are called bounded collections. 
+A collection which has no lower or upper limits on row numbers are called unbounded collections.
+
+Dense & Sparse Collection. – Collections is said to be dense if all the rows between the first and the last are defined and given a value. 
+And a collection in which rows are not defined and populated sequentially are called sparse collection.
+
+
+
+
+
+
+
