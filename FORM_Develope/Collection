@@ -100,11 +100,34 @@ END;
 
 03. Associative Array  
 ---------------------
+http://www.rebellionrider.com/how-to-create-associative-arrays-in-oracle-database/
+
 Unlike nested table and VARRAYs, associative arrays are non-persistent collections thus they cannot be stored into the database.
 Since they cannot be store hence they cannot be reused but they are available in PL/SQL block for the session. 
 But similar to nested tables associative arrays are unbounded, don’t have lower and upper limits on rows.
 
+Syntex:----
+TYPE aArray_name IS TABLE OF element_datatype [Not Null]
+INDEX BY index_elements_datatype;
 
+Example:------
+SET SERVEROUTPUT ON;
+DECLARE
+    TYPE books IS TABLE OF NUMBER
+        INDEX BY VARCHAR2(20);
+    isbn Books;
+BEGIN
+    	-- How to insert data into the associative array 
+    	isbn('Oracle Database') := 1234;
+    	isbn('MySQL') := 9876;
+    	DBMS_OUTPUT.PUT_LINE('Value Before Updation '||isbn('MySQL'));
+
+    	-- How to update data of associative array.
+    	isbn('MySQL') := 1010;
+    
+-- how to retrieve data using key from associative array.  
+    	DBMS_OUTPUT.PUT_LINE('Value After Updation '||isbn('MySQL'));
+END;
 
 
 
