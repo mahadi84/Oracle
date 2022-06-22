@@ -143,7 +143,9 @@ END;
  
  C) Trim PROCEDURE:
  ==================
- Collection Procedure TRIM with parameter.
+http://www.rebellionrider.com/collection-method-trim-procedure-in-oracle-database/
+Collection Procedure TRIM with parameter.
+
 SET SERVEROUTPUT ON;
 DECLARE
     TYPE my_nestedTable IS TABLE OF number;
