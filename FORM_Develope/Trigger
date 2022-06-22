@@ -313,10 +313,12 @@ END;
 ===========================================================================================
 
 As the name suggests Database event trigger fires for the entire database or 
-you can say that it fires for all the schemas created under the database in which these triggers are created which is unlike Schema Level System Event trigger which runs for a specific schema only.
+you can say that it fires for all the schemas created under the database in which these triggers are created 
+which is unlike Schema Level System Event trigger which runs for a specific schema only.
 
 Also database level system event trigger can only be created by high privileged users such as sys or system or any user 
-who has ADMINISTER DATABASE TRIGGER system privilege where Schema level system event trigger can be created by any user of the database on its own schema which has Create Trigger System Privilege.
+who has ADMINISTER DATABASE TRIGGER system privilege where Schema level system event trigger can be created by any user of the database 
+on its own schema which has Create Trigger System Privilege.
 
 
 
