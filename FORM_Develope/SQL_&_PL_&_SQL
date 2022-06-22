@@ -9,9 +9,9 @@ DELETE FROM superheroes WHERE cust_name = 'PUBALI';
 
 Change/Add-Table/Cloumn/Data Type:
 ----------------------------------
-ALTER TABLE table_name ADD column_name datatype;            /New Clumn Add
 ALTER TABLE table_name RENAME to new_table_name;            /Table name Change
 ALTER TABLE table_name RENAME COLUMN old_name TO new_name;  /Column name Change
+ALTER TABLE table_name ADD column_name datatype;            /New Clumn Add
 ALTER TABLE table_name MODIFY COLUMN column_name datatype;  /Datatype change
 
 
