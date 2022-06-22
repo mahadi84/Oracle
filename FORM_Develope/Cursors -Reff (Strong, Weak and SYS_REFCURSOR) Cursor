@@ -104,3 +104,52 @@ BEGIN
 END;
 
 
+=================== SYS_REFCURSOR =======================
+http://www.rebellionrider.com/how-to-create-pl-sql-sys_refcursor-in-oracle-database/
+
+What is PL/SQL SYS_REFCURSOR?
+------------------------------
+SYS_REFCURSOR is a predefined weak ref cursor which comes built-in with the Oracle database software.
+
+How will it being a pre-defined ref cursor helps us?
+----------------------------------------------------
+SYS_REFCURSOR is a predefined weak ref cursor which means we do not have to define it into our code like we did with the explicit weak ref cursor 
+in the previous tutorial. As we learnt in that tutorial that creating a weak ref cursor is a two-step process. 
+First you have to create the “weak ref cursor type” and then you have to create “a cursor variable” using that ref cursor.
+
+When using SYS_REFCURSOR, you just have to create a cursor variable and nothing else. 
+SYS_REFCURSOR completely minimizes the first step where you create the weak ref cursor type.
+
+So Sys_Refcursor is a built-in ref cursor, where can we find its definition?
+You can find out the definition of PL/SQL SYS_REFCURSOR in a script named “stdspec.sql”. You can locate this script into the directory whose path is as follow. 
+
+
+Why would someone declare a weak ref cursor when we already have a predefined one?
+----------------------------------------------------------------------------------
+The answer to this question is No, we do not need to create a weak ref cursor explicitly. 
+Oracle minimized the need of creating a weak ref cursor by shipping SYS_REFCURSOR as a part of standard package 
+since Oracle Database 9i though the option of creating one is still available.
+
+It is like a personal choice, if someone wants to create a weak ref cursor then they can. 
+If not, then they have SYS_REFCURSOR always at their disposal. 
+
+
+
+How to create PL/SQL SYS_REFCURSOR?
+------------------------------------
+SET SERVEROUTPUT ON;
+DECLARE
+    --Declare cursor variable of SYS_REFCURSOR type
+    cur_var SYS_REFCURSOR;
+    
+    --Declare variables for holding data
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
+END;
+
+
