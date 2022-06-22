@@ -3,7 +3,7 @@ http://www.rebellionrider.com/introduction-to-record-datatypes-in-oracle-databas
 
 What is a Record in Oracle Database?
 ------------------------------------
-Records are composite data structures made up of different components called fields. 
+Records are composite(connected) data structures made up of different components called fields. 
 These fields can have different data types. This means that you can store data of different data types in a single record variable. 
 Similar to the way we define columns in a row of a table.
 
