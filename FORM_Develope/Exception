@@ -1,0 +1,105 @@
+
+Tut: http://www.rebellionrider.com/introduction-to-pl-sql-exception-handling-in-oracle-database/
+
+Knowing your problem is the first step towards finding its solution.
+
+What is an Exception?
+---------------------
+Is a run time error 
+Or abnormal condition that interrupts the normal flow of your program’s instructions.
+
+Exceptions are designed for run time error handling rather than compile time error handling. 
+Errors that occur during compilation phase are detected by the PL/SQL compiler and reported back to the user.
+Two utility functions SQLCODE & SQLERRM to retrieve the error code and message for last occur exception.
+
+
+Types of exceptions
+--------------------
+There are two types of PL/SQL exceptions in Oracle database.
+  A) System-defined exceptions and
+  B) User-defined exceptions
+  
+
+How to Declare a User-Define Exception in Oracle Database.
+----------------------------------------------------------
+There are three ways of declaring user-define exceptions in Oracle Database.
+
+By declaring a variable of EXCEPTION type in declaration section:
+-----------------------------------------------------------------
+http://www.rebellionrider.com/how-to-declare-user-define-exception-using-an-exception-variable-in-oracle-database/
+
+You can declare a user defined exception by declaring a variable of EXCEPTION datatype in your code and raise it 
+explicitly in your program using RAISE statement and handle them in the Exception Section.
+
+Example: Divide by zero error using PL/SQL User-define Exception in Oracle Database
+--------
+SET SERVEROUTPUT ON;
+DECLARE
+  var_dividend NUMBER := 24;
+  var_divisor NUMBER := 0;
+  var_result NUMBER;
+  ex_DivZero EXCEPTION;
+BEGIN
+  IF var_divisor = 0 THEN
+    RAISE ex_DivZero;
+  END IF;
+  var_result := var_dividend/var_divisor;
+  DBMS_OUTPUT.PUT_LINE('Result = ' ||var_result);
+  EXCEPTION WHEN ex_DivZero THEN
+      DBMS_OUTPUT.PUT_LINE('Error Error - Your Divisor is Zero');
+END;
+
+Declare user-defined exception using PRAGMA EXCEPTION_INIT function:
+--------------------------------------------------------------------
+http://www.rebellionrider.com/user-define-exception-using-pragma-exception-init/
+
+Using PRAGMA EXCEPTION_INIT function you can map a non-predefined error number with the variable of EXCEPTION datatype. 
+Means using the same function you can associate a variable of EXCEPTION datatype with a standard error.
+
+Example: Declare User-define exception using Pragma Exception_Init
+--------
+**Though it is not mandatory to use PRAGMA EXCEPTION_INIT with RAISE_APPLICATION_ERROR procedure. 
+
+DECLARE
+  ex_age    EXCEPTION;
+  age       NUMBER    := 17;
+  PRAGMA EXCEPTION_INIT(ex_age, -20008);
+BEGIN
+  IF age<18 THEN
+    RAISE_APPLICATION_ERROR(-20008, 'You should be 18 or above for the drinks!');
+  END IF;
+  
+  DBMS_OUTPUT.PUT_LINE('Sure! What would you like to have?');
+  
+  EXCEPTION WHEN ex_age THEN
+    DBMS_OUTPUT.PUT_LINE(SQLERRM);   
+END;
+
+
+
+
+RAISE_APPLICATION_ERROR method:
+--------------------------------
+http://www.rebellionrider.com/declare-user-define-exception-using-raise_application_error-method-in-oracle-database/
+
+Using this method you can declare a user defined exception with your own customized error number and message.
+is a stored procedure which comes in-built with Oracle software. 
+
+Example:
+--------
+SET SERVEROUTPUT ON;
+ACCEPT var_age NUMBER PROMPT 'What is yor age';
+DECLARE
+  age   NUMBER := &var_age;
+BEGIN
+  IF age < 18 THEN
+    RAISE_APPLICATION_ERROR (-20008, 'you should be 18 or above for the DRINK!');
+  END IF; 
+  DBMS_OUTPUT.PUT_LINE ('Sure, What would you like to have?'); 
+  EXCEPTION WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE (SQLERRM);
+END;
+
+
+
+
