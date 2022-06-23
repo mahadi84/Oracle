@@ -1,9 +1,22 @@
 
 Tut: http://www.rebellionrider.com/introduction-to-pl-sql-exception-handling-in-oracle-database/
 
-Knowing your problem is the first step towards finding its solution.
 
-What is an Exception?
+
+
+01. What is an Exception?
+02. Types of exceptions
+03. How to Declare a User-Define Exception in Oracle Database.
+04. How to declare a variable of EXCEPTION type in declaration section:
+05. How to declare user-defined exception using PRAGMA EXCEPTION_INIT function.
+06. What is RAISE_APPLICATION_ERROR method?
+
+
+
+**Knowing your problem is the first step towards finding its solution.
+=================================
+
+01. What is an Exception?
 ---------------------
 Is a run time error 
 Or abnormal condition that interrupts the normal flow of your program’s instructions.
@@ -13,18 +26,18 @@ Errors that occur during compilation phase are detected by the PL/SQL compiler a
 Two utility functions SQLCODE & SQLERRM to retrieve the error code and message for last occur exception.
 
 
-Types of exceptions
+02. Types of exceptions
 --------------------
 There are two types of PL/SQL exceptions in Oracle database.
   A) System-defined exceptions and
   B) User-defined exceptions
   
 
-How to Declare a User-Define Exception in Oracle Database.
+03. How to Declare a User-Define Exception in Oracle Database.
 ----------------------------------------------------------
 There are three ways of declaring user-define exceptions in Oracle Database.
 
-By declaring a variable of EXCEPTION type in declaration section:
+04. How to declare a variable of EXCEPTION type in declaration section:
 -----------------------------------------------------------------
 http://www.rebellionrider.com/how-to-declare-user-define-exception-using-an-exception-variable-in-oracle-database/
 
@@ -49,7 +62,7 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('Error Error - Your Divisor is Zero');
 END;
 
-Declare user-defined exception using PRAGMA EXCEPTION_INIT function:
+05. How to declare user-defined exception using PRAGMA EXCEPTION_INIT function:
 --------------------------------------------------------------------
 http://www.rebellionrider.com/user-define-exception-using-pragma-exception-init/
 
@@ -78,7 +91,7 @@ END;
 
 
 
-RAISE_APPLICATION_ERROR method:
+06. What is RAISE_APPLICATION_ERROR method:
 --------------------------------
 http://www.rebellionrider.com/declare-user-define-exception-using-raise_application_error-method-in-oracle-database/
 
