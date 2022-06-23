@@ -1,13 +1,19 @@
 http://www.rebellionrider.com/introduction-to-record-datatypes-in-oracle-database/
 
 
-What is a Record in Oracle Database?
+
+01. What is a Record in Oracle Database?
+02. Types of Record datatype.
+
+
+
+01. What is a Record in Oracle Database?
 ------------------------------------
 A record is a group of related data items stored in fields, 
 each with its own name and datatype. The fields correspond to table columns. 
 You can think of a record as a variable that can hold a table row, or some columns from a table row. 
 
-Types of Record datatype
+02. Types of Record datatype
 -------------------------
 In Oracle PL/SQL we have three types of Record datatype.
  A) Table Based Record            Syntex: Variable_ name   table_name%ROWTYPE;
