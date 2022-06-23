@@ -7,11 +7,9 @@ http://www.rebellionrider.com/introduction-to-native-dynamic-sql-in-oracle-datab
 02. What is Static Vs Native Dynamic SQL?
 03. How to use dynamic SQL in Oracle Database?
 
-04. Example of Execute Immediate using the first clause which is INTO.
-05. Example of DDL through PL/SQL program using Execute Immediate.
-06. How to ALTER & DROP Table DDL With Execute Immediate?
-07. What is a bind variable?
-08. Example of INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
+04. Example of EXECUTE IMMEDIATE INTO.
+05. Example of DDL(CREATE/ALTER/DROP) through PL/SQL program using Execute Immediate.
+
 
 
 
@@ -32,8 +30,8 @@ FROM all_objects WHERE object_name ='TUT_83';
  - Hardcode them inside PL/SQL block. 
  - May allow users to enter their own queries.
  
- DYNAMIC:
- - SQL (DDL) statement which is constructed at the runtime 
+ DYNAMIC:--
+ - SQL (DDL and DML) statement which is constructed at the runtime 
  - These statements are built on the fly.
  - Cannot be hardcoded inside PL/SQL block.
  
@@ -57,10 +55,9 @@ How To Use Execute Immediate With INTO:
  http://www.rebellionrider.com/how-to-use-execute-immediate-with-into-clause-in-oracle-database/
 
 
-04. Example of Execute Immediate using the first clause which is INTO.
-------------------------------------------------------------------
-**Execute Immediate with INTO clause.
-SET SERVEROUTPUT ON;
+04. Example of EXECUTE IMMEDIATE INTO.
+--------------------------------------
+
 DECLARE
     sql_qry     VARCHAR2 (150);
     emp_tot     NUMBER(3);
@@ -69,6 +66,15 @@ BEGIN
     EXECUTE IMMEDIATE sql_qry INTO emp_tot;
     DBMS_OUTPUT.PUT_LINE ('Total employees are: '||emp_tot);
 END;
+/
+DECLARE
+    sql_smt VARCHAR2 (150);
+BEGIN
+    sql_smt :=  'INSERT INTO stu_info (student_name) VALUES (:stu_name)';
+    EXECUTE IMMEDIATE sql_smt USING 'Steve';
+END;
+
+
 
 
 How To Run Create Table DDL With EXECUTE IMMEDIATE?
@@ -76,8 +82,8 @@ How To Run Create Table DDL With EXECUTE IMMEDIATE?
 http://www.rebellionrider.com/how-to-run-create-table-ddl-with-execute-immediate-in-oracle-database/
 
 
-05. Example of DDL through PL/SQL program using Execute Immediate:
----------------------------------------------------
+05. Example of DDL(CREATE/ALTER/DROP) through PL/SQL program using Execute Immediate:
+-----------------------------------------------------------------
 BEGIN
     EXECUTE IMMEDIATE 'CREATE TABLE tut_82(
                 	tut_num     NUMBER(3),
@@ -98,10 +104,6 @@ BEGIN
     EXECUTE IMMEDIATE ddl_qry;
 END;
 
-
-06. How to ALTER & DROP Table DDL With Execute Immediate?
-=======================================================
-http://www.rebellionrider.com/alter-drop-table-ddl-with-execute-immediate-in-oracle-database/
 
 Example of ALTER:
 ------------------
@@ -124,30 +126,6 @@ BEGIN
     EXECUTE IMMEDIATE ddl_qry;
 END;
 /
-
-
-How to Insert DML With Bind Variable: USING Clause Of Execute Immediate Statement?
-======================================================================================
-http://www.rebellionrider.com/insert-dml-with-bind-variable-by-applying-using-clause-of-execute-immediate/
-
-
-07. What is a bind variable?
-----------------------------
-We can define bind variable as the variable that we create in SQL*Plus and then reference in PL/SQL. Furthermore we can declare a Bind variable anywhere in the host environment. 
-Therefore bind variables are also known as host variable.
-
-
-08. Example of INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
---------------------------------------------------------
-SET SERVEROUTPUT ON;
-DECLARE
-    sql_smt VARCHAR2 (150);
-BEGIN
-    sql_smt :=  'INSERT INTO stu_info (student_name) VALUES (:stu_name)';
-    EXECUTE IMMEDIATE sql_smt USING 'Steve';
-END;
-
-
 
 
 
