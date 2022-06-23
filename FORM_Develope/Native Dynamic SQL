@@ -3,10 +3,11 @@ http://www.rebellionrider.com/introduction-to-native-dynamic-sql-in-oracle-datab
 
 
 01. How to check TABLE or OBJECT is created or NOT?
+
 02. What is Static Vs Native Dynamic SQL?
 03. How do we use dynamic SQL in Oracle Database?
 04. Example of Execute Immediate using the first clause which is INTO.
-05. Example of DDL through PL/SQL program using Execute Immediate:
+05. Example of DDL through PL/SQL program using Execute Immediate.
 06. How to ALTER & DROP Table DDL With Execute Immediate?
 07. What is a bind variable?
 08. Example of INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
