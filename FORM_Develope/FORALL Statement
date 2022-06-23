@@ -1,0 +1,192 @@
+
+
+
+
+
+What/Why is a FORALL statement?
+--------------------------------
+FORALL statement helps to process bulk data in an optimized manner by sending DML statements 
+or a MERGE statement (if you are using 11g or above) in batches from PL/SQL engine to SQL engine.
+You can also define a FORALL statement as a bulk loop construct which executes DML statement or a MERGE statement one time or multiple times at once.
+
+Bulk collect optimizes the query and boosts the performance by reducing the context switches. 
+FORALL does the same thing for DML statements like Insert, Delete, Update or for a MERGE statement.
+
+What is the syntax of FORALL statement?
+---------------------------------------
+FORALL index IN bound_clauses 
+[SAVE EXCEPTION]
+DML statement;
+Where:
+
+FORALL is the Oracle Reserved Keyword.
+
+Index is an implicitly defined loop counter which is declared by PL/SQL engine as PLS_INTEGER. As it is implicitly defined by PL/SQL engine 
+thus you do not need to define it. The scope of Index is limited to the FORALL statement in which it is defined.
+
+Bound_Clauses are the clauses which control the number of the loop iterations. Also the value of index is also dependent on it. 
+There are three types of bound clauses in Oracle PL/SQL which we will discuss separately later in this tutorial.
+
+SAVE EXCEPTION is an optional choice which keeps the FORALL statement running even when DML statement causes an exception.
+These exceptions are saved in a cursor attribute called SQL%Bulk_Exceptions.
+Info:
+﻿Because of SAVE EXCEPTION, FORALL statement does not exit abruptly even when there is an exception. 
+ This is an advantage of FORALL statement over FOR Loop.
+
+DML Statement: DML statement could be any DML statement like INSERT, UPDATE or DELETE. 
+If you are using Oracle 11g or above then you can also use MERGE statement with FORALL. But you need to make sure that your DML statement or the MERGE statement must be referencing at least one collection in its VALUES or WHERE clause.
+
+Furthermore unlike FOR Loop, with FORALL statement we can only use one DML at a time. This is the shortcoming of FORALL.
+
+Is FORALL a loop like FOR Loop?
+-------------------------------
+No, although FORALL statement iterates through all the rows of a collection but it is not a FOR loop. 
+If you have seen the syntax carefully then you must have noticed that unlike ‘FOR Loop’ 
+the block of the FORALL statement is neither starting with the keyword LOOP nor ending with the keyword END LOOP.
+
+Can we execute Insert and Update DML at once using FORALL?
+----------------------------------------------------------
+No, unfortunately Unlike FOR Loop with FORALL we cannot execute more than one DML at a time. 
+This means you can either execute Insert or Update at a time not both together. That is a shortcoming of the FORALL statement.
+
+What is cursor attribute SQL%Bulk_Exceptions?
+---------------------------------------------
+The cursor attribute SQL%Bulk_Exceptions is a collection of records which has two fields Error_Index and Error_Code. 
+Error_Index stores the number of iterations of the FORALL statement in the course of which the exception has occurred. 
+On the other hand Error_Code stores the exception code that is corresponding to the raised exception.
+
+Can we see the number of exceptions that has occurred during the execution of the FORALL statement?
+---------------------------------------------------------------------------------------------------
+You can easily check how many exceptions has been raised during the execution of the FORALL statement using SQL%BULK_EXCEPTION.COUNT.
+
+What are those bound clauses?
+----------------------------
+As mentioned above, Bound clauses control the value of loop index and the number of iterations of the FORALL statement. 
+There are three types of bound clauses which can be used with the FORALL statement in Oracle Database. These are:
+ A) Lower & Upper Bound
+ B) Indices of and
+ C) Values of
+
+The LOWER AND UPPER bound: 
+--------------------------
+Similar to FOR LOOP, in this bound clause you have to specify the valid starting 
+and the ending of the consecutive index numbers of the referenced collection.
+
+It is a must to specify a valid range of consecutive index numbers along with this Bound Clause for the number of collection(s) referenced in the DML statement. 
+However there stands a chance of error if the collection that is referenced with this clause is found to be sparse. The error that you will get is this:
+
+ A) FORALL statement with Lower and Upper bound.
+-------------------------------------------------
+http://www.rebellionrider.com/forall-statement-with-values-of-bound-clause-in-oracle-database/
+
+SET SERVEROUTPUT ON;
+CREATE TABLE tut_77 (
+    Mul_tab    NUMBER(5)
+);
+That is going to be our table which will hold the data. Next we will write the PL/SQL block.
+
+DECLARE
+	-- Declare the collection
+    TYPE My_Array IS TABLE OF NUMBER INDEX BY PLS_INTEGER;
+    col_var My_Array;
+	--Declare a variable for holding the total number of records of the table
+    tot_rec NUMBER;
+BEGIN
+    --Populate the collection
+    FOR i IN 1..10 LOOP
+        col_var (i) := 9*i;
+    END LOOP;
+    -- Write the FORALL statement.
+    FORALL idx IN 1..10
+        INSERT INTO tut_77 (mul_tab)
+        VALUES (col_var (idx));
+    --Get the total number of records from the table     
+    SELECT count (*) INTO tot_rec FROM tut_77;
+    DBMS_OUTPUT.PUT_LINE ('Total records inserted are '||tot_rec);
+END;
+
+B) FORALL Statement With INDICES-OF Bound Clause In Oracle Database
+--------------------------------------------------------------------
+http://www.rebellionrider.com/forall-statement-with-indices-of-bound-clause-in-oracle-database/
+
+INDICES-OF Bound clause
+Similar to Lower & Upper bound clause INDICES-OF clause helps us in bulk data processing by letting us iterate through the collection. 
+The only difference is that using INDICES OF clause we can iterate through a dense as well as a sparse collection.
+Whereas Lower & Upper bound clause works only with a dense collection.
+
+Example of INDICES OF bound clause:
+-----------------------------------
+Here we will fetch the data from an already initialized sparse nested table and store it into a table.
+As we learnt in the previous tutorial that FORALL statement takes the data from the collection and stores it into a table. Thus we will first create a table.
+
+SET SERVEROUTPUT ON;
+CREATE TABLE tut_78(
+    mul_tab NUMBER(5)
+);
+In order to keep the demonstration easy we created a very simple table with name tut_78. This table has only one column mul_tab of NUMBER data type.
+
+DECLARE
+    TYPE my_nested_table IS TABLE OF number;
+    var_nt my_nested_table := my_nested_table (9,18,27,36,45,54,63,72,81,90);
+    --Another variable for holding total number of record stored into the table 
+    tot_rec NUMBER;
+BEGIN
+    var_nt.DELETE(3, 6);
+    
+    FORALL idx IN INDICES OF var_nt
+        INSERT INTO tut_78 (mul_tab) VALUES (var_nt(idx));
+        
+    SELECT COUNT (*) INTO tot_rec FROM tut_78;
+    DBMS_OUTPUT.PUT_LINE ('Total records inserted are '||tot_rec);
+END;
+
+
+
+C) FORALL Statement With VALUES-OF Bound Clause:
+------------------------------------------------
+http://www.rebellionrider.com/forall-statement-with-values-of-bound-clause-in-oracle-database/
+
+What is a ‘Values-of’ bound clause?
+-----------------------------------
+FORALL statement is all about binding the collection elements with a single DML statement in an optimized manner. 
+Using ‘Values-of’ bound clause of FORALL statement we can bind the selected elements of the collection with the DML statement.
+
+Are there any restrictions with Values-of clause which we should know about?
+-----------------------------------------------------------------------------
+Yes, there are a few things which you must know before working with values-of bound clause in Oracle Database. These restrictions are –
+The indexing collection must be a NESTED TABLE or an ASSOCIATIVE ARRAY.
+If the indexing collection is an associative array then it must be indexed by PLS_INTEGER or BINARY_INTEGER.
+The elements of the indexing collection must be of either PLS_INTEGER or BINARY_INTEGER.
+
+Example of Values-of bound clause with FORALL statement in Oracle Database:
+---------------------------------------------------------------------------
+Step 1: Create table
+CREATE TABLE tut_79 (
+    selected_data     NUMBER(5)
+);
+Step 2: Write a PL/SQL block demonstrating how to use Values-of clause with FORALL statement in Oracle Database.
+SET SERVEROUTPUT ON;
+DECLARE
+    --Source collection
+    TYPE My_NestedTable IS TABLE OF NUMBER;
+    source_col My_NestedTable := My_NestedTable (9,18,27,36,45,54,63,72,81,90);
+    
+    --Indexing collection
+    TYPE My_Array IS TABLE OF PLS_INTEGER INDEX BY PLS_INTEGER;
+    index_col My_Array;
+BEGIN
+    --Initializing indexing collection with the index numbers.
+    index_col   (1) :=  3;
+    index_col   (5) :=  7;
+    index_col   (12):=  8;
+    index_col   (28):=  10;
+    --FORALL statement 
+    FORALL idx IN VALUES OF index_col
+        INSERT INTO tut_79 VALUES (source_col (idx));
+END;
+
+
+
+
+
+
