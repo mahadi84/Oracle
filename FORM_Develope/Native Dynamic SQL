@@ -31,7 +31,7 @@ FROM all_objects WHERE object_name ='TUT_83';
  - May allow users to enter their own queries.
  
  DYNAMIC:--
- - SQL (DDL and DML) statement which is constructed at the runtime 
+ - SQL (DDL) statement which is constructed at the runtime 
  - These statements are built on the fly.
  - Cannot be hardcoded inside PL/SQL block.
  
