@@ -7,8 +7,8 @@ http://www.rebellionrider.com/introduction-to-native-dynamic-sql-in-oracle-datab
 02. What is Static Vs Native Dynamic SQL?
 03. How to use dynamic SQL in Oracle Database?
 
-04. Example of EXECUTE IMMEDIATE INTO.
-05. Example of DDL(CREATE/ALTER/DROP) through PL/SQL program using Execute Immediate.
+04. Example of DML(INSERT/UPDATE/DELETE) through Dynamic (PL/)SQL program using EXECUTE IMMEDIATE.
+05. Example of DDL(CREATE/ALTER/DROP) through Dynamic (PL/)SQL program using  EXECUTE IMMEDIATE.
 
 
 
