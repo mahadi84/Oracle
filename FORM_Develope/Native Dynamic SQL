@@ -1,0 +1,176 @@
+http://www.rebellionrider.com/introduction-to-native-dynamic-sql-in-oracle-database/
+
+How to check TABLE or OBJECT is created or NOT?
+-----------------------------------------------
+DESCRIBE tut_83; Or DESC tut_83
+OR
+SELECT 'We created a table with name '||object_name||' in '
+        ||owner||' schema on '||created
+FROM all_objects WHERE object_name ='TUT_83';
+
+
+What is Static SQL?
+-------------------
+As the name suggests any SQL statement which does not change during the runtime is called a static SQL statement.
+The advantage of Static SQL statements is that we already know whether all the depended objects over which we are writing the statement are present or not. 
+Another advantage of Static SQL statements is that we hardcode them into our application. Thus we can tune them for optimal performance.
+
+
+What is Native Dynamic SQL?
+---------------------------
+Again as the name suggests, any SQL statement which is constructed at the runtime is called dynamic SQL. 
+These statements are built on the fly. Therefore they cannot be hardcoded into the application.
+This in turn increases their flexibility.
+
+On one hand static SQL lets you execute only DML statements inside your PL/SQL block. 
+On the other hand the dynamic SQL enables you to execute DDL statements and that too inside your PL/SQL block. 
+Thus by using Dynamic SQL you can create a table or drop an index or truncate your table right inside your PL/SQL block. 
+This is an advantage of Native Dynamic SQL over static SQL.
+
+What is Native Dynamic PL/SQL?
+------------------------------
+Similar to dynamic SQL, the process of constructing PL/SQL code at runtime is called dynamic PL/SQL.
+
+
+Benefits of Native Dynamic SQL
+------------------------------
+Easy to Use Codes: 
+Improvement In The Performance Of The Code: 
+Support for User-Defined Types: 
+Support For Fetching Into Records: 
+
+What are the functionalities of Dynamic SQL in Oracle Database?
+---------------------------------------------------------------
+Firstly, Dynamic DDL & DML with the use of any bind variable.
+Secondly, Dynamic DQL and
+Thirdly, Dynamic DML using a known list of bind variables
+These are the three functionalities which Dynamic SQL adds to your PL/SQL programming.
+
+So, how do we use dynamic SQL in Oracle Database?
+-------------------------------------------------
+The two most common methods of using dynamic SQL and PL/SQL in Oracle Database are:
+ 01. Execute Immediate statement and
+ 02. Open-For, Fetch & Close block.
+
+Execute Immediate statement is used when the query is returning single row data. 
+In case the query is returning multi row data then you can take help of Open-For,Fetch and close block. 
+We will learn about Execute Immediate and Open-for, fetch and close block in detail in the upcoming tutorials.
+
+Are there any other ways of using Dynamic SQL in Oracle Database?
+------------------------------------------------------------------
+Apart from above mentioned most commonly used methods,
+the other ways of using dynamic SQL or PL/SQL are
+ 01. With Bulk Fetch
+ 02. Secondly with Bulk Execute Immediate
+ 03. Along with Bulk FORALL and
+ 04. Lastly with Bulk Collect Into statement
+
+
+How To Use Execute Immediate With INTO:
+=======================================
+ http://www.rebellionrider.com/how-to-use-execute-immediate-with-into-clause-in-oracle-database/
+
+Execute Immediate With INTO Clause
+Native dynamic SQL or NDS is helping developers by providing flexibility, improving performance and simplifying programming syntaxes. 
+
+
+So what is an Execute Immediate Statement in Oracle Database?
+-------------------------------------------------------------
+Using Execute Immediate we can parse and execute any SQL statement or a PL/SQL block dynamically in Oracle Database. And by dynamically I mean at runtime.
+Execute immediate takes only one argument. It can either be a SQL statement or a PL/SQL block. 
+Compiler treats the arguments of the Execute Immediate statement as the string of VARCHAR2 data types. 
+Therefore do make sure to enclose your SQL query or PL/SQL block into the pair of single quotes ( ‘ ’ ).
+
+Can we use any SQL statement with Execute Immediate?
+----------------------------------------------------
+Any SQL statement or PL/SQL block which returns single row of results can be used with Execute Immediate. 
+Furthermore if your statement returns more than one row of results then there are other ways. 
+Additionally these we will discuss in future tutorials.
+
+
+Example of Execute Immediate using the first clause which is INTO.
+------------------------------------------------------------------
+**Execute Immediate with INTO clause.
+SET SERVEROUTPUT ON;
+DECLARE
+    sql_qry     VARCHAR2 (150);
+    emp_tot     NUMBER(3);
+BEGIN
+    
+    sql_qry:= ‘SELECT count (*) FROM employees';
+    EXECUTE IMMEDIATE sql_qry INTO emp_tot;
+    DBMS_OUTPUT.PUT_LINE ('Total employees are: '||emp_tot);
+
+END;
+/
+
+
+How To Run Create Table DDL With EXECUTE IMMEDIATE
+===================================================
+http://www.rebellionrider.com/how-to-run-create-table-ddl-with-execute-immediate-in-oracle-database/
+
+what is the proper way of executing a DDL through PL/SQL program?
+-----------------------------------------------------------------
+You can execute a DDL through PL/SQL program either by using DBMS_SQL package or by using the Execute Immediate statement of Native Dynamic SQL. 
+The latter option is the most used one, specially now a days because of its better performance and easy to learn syntax.
+
+DDL for creating a table first:
+-------------------------------
+CREATE TABLE tut_82 (
+    tut_num    NUMBER (3),
+    tut_name   VARCHAR2 (50)
+    );
+    
+DDL through PL/SQL program using Execute Immediate:
+---------------------------------------------------
+BEGIN
+    EXECUTE IMMEDIATE 'CREATE TABLE tut_82(
+                	tut_num     NUMBER(3),
+                	tut_name    VARCHAR2(50)
+                )';
+END;
+
+--OR
+
+SET SERVEROUTPUT ON;
+DECLARE
+    ddl_qry     VARCHAR2 (150);
+BEGIN
+    ddl_qry := 'CREATE TABLE tut_82(
+                tut_num     NUMBER(3),
+                tut_name    VARCHAR2(50)
+                )';
+    EXECUTE IMMEDIATE ddl_qry;
+END;
+
+
+How to ALTER & DROP Table DDL With Execute Immediate?
+=======================================================
+http://www.rebellionrider.com/alter-drop-table-ddl-with-execute-immediate-in-oracle-database/
+
+Example of ALTER:
+------------------
+SET SERVEROUTPUT ON;
+DECLARE
+ ddl_qry VARCHAR2(50);
+BEGIN
+ ddl_qry := 'ALTER TABLE tut_83
+        	 ADD  tut_date DATE';
+ EXECUTE IMMEDIATE ddl_qry;
+END;
+
+Example of DROP:
+------------------
+SET SERVEROUTPUT ON;
+DECLARE
+    ddl_qry     VARCHAR2 (100);
+BEGIN
+    ddl_qry := 'DROP TABLE tut_83';
+    EXECUTE IMMEDIATE ddl_qry;
+END;
+/
+
+
+
+
+
