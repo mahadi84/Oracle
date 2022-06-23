@@ -1,5 +1,31 @@
 
-What/Why Bulk Collection?
+
+
+01. What/Why Bulk Collection?
+02. Where can we use Bulk Collect clause?
+03. What is Bulk Data Processing?
+04. How To Use Bulk Collect Clause With SELECT INTO Statement?
+05. When should we use Bulk Collect with Select-Into statement?
+06. What should I do if my SELECT statement is retrieving huge number of rows?
+07. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
+08. When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
+09. Can we store the result returned by the bulk collect clause into a variable of primitive datatype?
+10. Why/What Bulk Collect Clause With FETCH INTO Statement?
+11. Why should we use Bulk Collect clause with FETCH INTO statement?
+12. What is Bulk Collect With LIMIT Clause:
+13. What do you mean by excessive memory exhaustion caused by bulk collect?
+14. How can we solve this problem of memory exhaustion by bulk collect?
+15. What is the syntax of the LIMIT clause?
+16. What does LIMIT clause do?
+17. Can we use the LIMIT clause with SELECT-INTO statement?
+18. EXAMPLE: How to use LIMIT clause with Bulk Collect statement 
+19. what is the right amount of rows we can fetch?
+
+
+=====================================================
+
+
+01. What/Why Bulk Collection?
 -------------------------
 A well structured query, written today could save you from catastrophic events in the future.
 Query performance is something we all seek, but very few truly find it. 
@@ -7,41 +33,41 @@ Learning small concepts could help you in gaining experience which could lead to
 Today in this blog you are going to learn one of those small concepts that is the “Bulk Collect”.
 Bulk collect is all about reducing context switches and improving the performance of the query. 
 
-Where can we use Bulk Collect clause?
+02. Where can we use Bulk Collect clause?
 -------------------------------------
 Bulk collect clause can be used with SELECT-INTO, FETCH-INTO and RETURN-INTO clauses.
 With the help of Bulk Collect Statement we can SELECT, INSERT, UPDATE or DELETE large data sets from database objects such as Tables or Views.
 
-What is Bulk Data Processing?
+03. What is Bulk Data Processing?
 -----------------------------
 The process of fetching batches of data from PL/SQL runtime engine to SQL engine and vice versa is called Bulk Data Processing.
 
-How To Use Bulk Collect Clause With SELECT INTO Statement?
+04. How To Use Bulk Collect Clause With SELECT INTO Statement?
 ==========================================================
 http://www.rebellionrider.com/how-to-use-bulk-collect-clause-with-select-into-statement-in-oracle-database/
 
-When should we use Bulk Collect with Select-Into statement?
+05. When should we use Bulk Collect with Select-Into statement?
 -----------------------------------------------------------
 When you are certain that the returning result of your SELECT statement is small then you should use Bulk Collect clause with Select-Into statement.
 Otherwise your bulk collect clause will make your Select-Into statement a memory hogging monster. Consequently it will slowdown the performance of your database. 
 
-What should I do if my SELECT statement is retrieving huge number of rows?
+06. What should I do if my SELECT statement is retrieving huge number of rows?
 --------------------------------------------------------------------------
 You can always use LIMIT clause along with the Bulk Collect to limit the number of rows fetched from the database. 
 But this is only possible when we are using the Bulk Collect clause with PL/SQL Cursors. Nonetheless, we will discuss about this in detail in the next tutorial.
 
-Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
+07. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
 --------------------------------------------------------------------------------
 When we use Bulk Collect clause with SELECT-INTO statement it uses implicit cursor to perform the task of bulk data processing. 
 However Limit Clause can only be used with Bulk Collect clause, when the latter is using Explicit Cursor for data processing.
 
-When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
+08. When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
 ----------------------------------------------------------------------------------
 If we are using Bulk Collect Clause with a SQL statement such as SELECT-INTO it uses an implicit cursor.
 On the other hand whenever we use Bulk Collect clause with the FETCH statement it uses an explicit cursor.
 
 
-Can we store the result returned by the bulk collect clause into a variable of primitive datatype?
+09. Can we store the result returned by the bulk collect clause into a variable of primitive datatype?
 --------------------------------------------------------------------------------------------------
 No, as of now PL/SQL Collections are the only supportive datatypes for Bulk Data Processing with Bulk Collect Clause in Oracle Database. 
 In case if you try to store the data retrieved using Bulk Collect clause into a variable of datatype such as Char, Number or Varchar2 you will get an error which will read something like this:
@@ -74,7 +100,7 @@ http://www.rebellionrider.com/how-to-use-pl-sql-bulk-collect-clause-with-fetch-i
 
 
 
-Why/What Bulk Collect Clause With FETCH INTO Statement?
+10. Why/What Bulk Collect Clause With FETCH INTO Statement?
 -------------------------------------------------------
 In the previous tutorial we managed to compress multiple context switches into a single one by using PL/SQL Bulk Collect with SELECT-INTO statement. 
 SELECT-INTO statement is a SQL standard query which means developer does not have much control over the execution of the statement.
@@ -86,7 +112,7 @@ In this blog you will learn how to use Bulk Collect clause with FETCH-INTO state
 As FETCH statements are part of cursor life cycle thus a working knowledge of explicit cursor is required for the better understanding of this tutorial. 
 
 
-Why should we use Bulk Collect clause with FETCH INTO statement?
+11. Why should we use Bulk Collect clause with FETCH INTO statement?
 ----------------------------------------------------------------
 As mentioned in the previous blog whenever we use Bulk-Collect with SELECT-INTO statement the runtime engine uses IMLICITE cursor to process the task. 
 But if we use Bulk Collect with FETCH-INTO statement then the runtime engine will use the EXPLICITE cursor to process the task.
@@ -127,7 +153,7 @@ PL/SQL Bulk Collect With LIMIT Clause:
 --------------------------------------
 http://www.rebellionrider.com/pl-sql-bulk-collect-with-limit-clause-in-oracle-database/
 
-Bulk Collect With LIMIT Clause:
+12. What is Bulk Collect With LIMIT Clause:
 -------------------------------
 So far we have learned how to improve query performance using bulk collect with SELECT-INTO which uses the implicit cursor and 
 FETCH-INTO statement of an explicit cursor. But the question remains that is there still scope for further query optimization? In this blog,
@@ -137,7 +163,7 @@ We have already learned the process of compressing multiple switches by using bu
 the query by using the same with a fetch-into statement of an explicit cursor. But there is still a problem which requires our attention and that 
 is excessive memory exhaustion caused by bulk collect.
 
-What do you mean by excessive memory exhaustion caused by bulk collect?
+13. What do you mean by excessive memory exhaustion caused by bulk collect?
 -----------------------------------------------------------------------
 Whenever we retrieve or fetch a large number of records using bulk collect clause, our program starts consuming a lot of memory in order to be fast and efficient.
 This is not just any memory. Unlike the SGA memory that is shared among all the sessions of Oracle Database,
@@ -146,23 +172,23 @@ the program consumes the PGA memory that is specifically allotted for each sessi
 This degrades the performance of the database. This means that our query must surely be performing well but at the same time, our database may not.
 
 
-How can we solve this problem of memory exhaustion by bulk collect?
+14. How can we solve this problem of memory exhaustion by bulk collect?
 -------------------------------------------------------------------
 This problem of memory exhaustion can easily be overcome if we can control and constraint the amount of data fetched using the bulk collect. 
 We can do that by using Bulk Collect with the LIMIT clause.
 
-What is the syntax of the LIMIT clause?
+15. What is the syntax of the LIMIT clause?
 ---------------------------------------
 LIMIT clause works as an attribute of a FETCH-INTO statement:
 FETCH <cursor_name> BULK COLLECT INTO <plsql_collection> LIMIT number;
 As LIMIT works as an attribute of the FETCH-INTO statement thus to use it you can add keyword LIMIT followed by a specific numerical digit 
 which will specify the number of rows that the bulk-collect clause will retrieve in one go at the end of FETCH-INTO statement.
 
-What does LIMIT clause do?
+16. What does LIMIT clause do?
 --------------------------
 LIMIT clause restricts the number of rows fetched using BULK COLLECT with FETCH statement.
 
-Can we use the LIMIT clause with SELECT-INTO statement?
+17. Can we use the LIMIT clause with SELECT-INTO statement?
 -------------------------------------------------------
 No, we cannot use the LIMIT clause with SELECT-INTO statement.
 LIMIT clause works as an attribute to the FETCH-INTO statement because LIMIT clause requires an explicit cursor to work and 
@@ -171,7 +197,7 @@ FETCH-INTO statement is a part of explicit cursor life cycle.
 So always remember the LIMIT clause can only be used when you are using BULK COLLECT with FETCH-INTO statement.
 It cannot be used when you are using bulk collect with SELECT-INTO statement.
 
-EXAMPLE: How to use LIMIT clause with Bulk Collect statement 
+18. EXAMPLE: How to use LIMIT clause with Bulk Collect statement 
 ------------------------------------------------------------
 
 SET SERVEROUTPUT ON;
@@ -194,7 +220,7 @@ END;
 
 
 
-what is the right amount of rows we can fetch?
+19. what is the right amount of rows we can fetch?
 ----------------------------------------------
 There is a shortcoming with this approach also and that is: 
 If you execute this same program again, then this FETCH-INTO statement with LIMIT clause will not append the collection with next 10 records. 
