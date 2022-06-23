@@ -27,17 +27,15 @@ FROM all_objects WHERE object_name ='TUT_83';
 
 02. What is Static Vs Native Dynamic SQL?
 -----------------------------------------
--Any SQL statement which does not change during the runtime is called a static SQL statement.
--We hardcode them into our application.
--Static SQL lets you execute only DML statements inside your PL/SQL block. 
-Example, the application may allow users to enter their own queries.
+ - SQL (DML) statement which does not change during the runtime.
+ - Hardcode them inside PL/SQL block. 
+ - May allow users to enter their own queries.
  
  DYNAMIC:
- - Any SQL statement which is constructed at the runtime is called dynamic SQL. 
- - These statements are built on the fly. Therefore they cannot be hardcoded into the application.
- - Dynamic SQL enables you to execute DDL statements and that too inside your PL/SQL block.
-    You can create a table or drop an index or truncate your table right inside your PL/SQL block. 
-    This is an advantage of Native Dynamic SQL over static SQL.
+ - SQL (DDL) statement which is constructed at the runtime 
+ - These statements are built on the fly.
+ - Cannot be hardcoded inside PL/SQL block.
+ 
 
 
 03. How do we use dynamic SQL in Oracle Database?
