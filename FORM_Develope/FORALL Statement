@@ -3,7 +3,25 @@
 
 
 
-What/Why is a FORALL statement?
+01. What/Why is a FORALL statement?
+02. What is the syntax of FORALL statement?
+03. Is FORALL a loop like FOR Loop?
+04. Can we execute Insert and Update DML at once using FORALL?
+05. What is cursor attribute SQL%Bulk_Exceptions?
+06. Can we see the number of exceptions that has occurred during the execution of the FORALL statement?
+07. What are those bound clauses?
+08. The LOWER AND UPPER bound:
+09. A) FORALL statement with Lower and Upper bound.
+10. B) FORALL Statement With INDICES-OF Bound Clause In Oracle Database
+11. C) FORALL Statement With VALUES-OF Bound Clause:
+12. What is a ‘Values-of’ bound clause?
+13. Are there any restrictions with Values-of clause which we should know about?
+
+
+=====================================
+
+
+01. What/Why is a FORALL statement?
 --------------------------------
 FORALL statement helps to process bulk data in an optimized manner by sending DML statements 
 or a MERGE statement (if you are using 11g or above) in batches from PL/SQL engine to SQL engine.
@@ -12,7 +30,7 @@ You can also define a FORALL statement as a bulk loop construct which executes D
 Bulk collect optimizes the query and boosts the performance by reducing the context switches. 
 FORALL does the same thing for DML statements like Insert, Delete, Update or for a MERGE statement.
 
-What is the syntax of FORALL statement?
+02. What is the syntax of FORALL statement?
 ---------------------------------------
 FORALL index IN bound_clauses 
 [SAVE EXCEPTION]
@@ -38,28 +56,30 @@ If you are using Oracle 11g or above then you can also use MERGE statement with 
 
 Furthermore unlike FOR Loop, with FORALL statement we can only use one DML at a time. This is the shortcoming of FORALL.
 
-Is FORALL a loop like FOR Loop?
+03. Is FORALL a loop like FOR Loop?
 -------------------------------
 No, although FORALL statement iterates through all the rows of a collection but it is not a FOR loop. 
 If you have seen the syntax carefully then you must have noticed that unlike ‘FOR Loop’ 
 the block of the FORALL statement is neither starting with the keyword LOOP nor ending with the keyword END LOOP.
 
-Can we execute Insert and Update DML at once using FORALL?
+04. Can we execute Insert and Update DML at once using FORALL?
 ----------------------------------------------------------
 No, unfortunately Unlike FOR Loop with FORALL we cannot execute more than one DML at a time. 
 This means you can either execute Insert or Update at a time not both together. That is a shortcoming of the FORALL statement.
 
-What is cursor attribute SQL%Bulk_Exceptions?
+05. What is cursor attribute SQL%Bulk_Exceptions?
 ---------------------------------------------
 The cursor attribute SQL%Bulk_Exceptions is a collection of records which has two fields Error_Index and Error_Code. 
 Error_Index stores the number of iterations of the FORALL statement in the course of which the exception has occurred. 
 On the other hand Error_Code stores the exception code that is corresponding to the raised exception.
 
-Can we see the number of exceptions that has occurred during the execution of the FORALL statement?
+
+06. Can we see the number of exceptions that has occurred during the execution of the FORALL statement?
 ---------------------------------------------------------------------------------------------------
 You can easily check how many exceptions has been raised during the execution of the FORALL statement using SQL%BULK_EXCEPTION.COUNT.
 
-What are those bound clauses?
+
+07. What are those bound clauses?
 ----------------------------
 As mentioned above, Bound clauses control the value of loop index and the number of iterations of the FORALL statement. 
 There are three types of bound clauses which can be used with the FORALL statement in Oracle Database. These are:
@@ -67,7 +87,8 @@ There are three types of bound clauses which can be used with the FORALL stateme
  B) Indices of and
  C) Values of
 
-The LOWER AND UPPER bound: 
+
+08. The LOWER AND UPPER bound: 
 --------------------------
 Similar to FOR LOOP, in this bound clause you have to specify the valid starting 
 and the ending of the consecutive index numbers of the referenced collection.
@@ -75,7 +96,8 @@ and the ending of the consecutive index numbers of the referenced collection.
 It is a must to specify a valid range of consecutive index numbers along with this Bound Clause for the number of collection(s) referenced in the DML statement. 
 However there stands a chance of error if the collection that is referenced with this clause is found to be sparse. The error that you will get is this:
 
- A) FORALL statement with Lower and Upper bound.
+
+ 09. A) FORALL statement with Lower and Upper bound.
 -------------------------------------------------
 http://www.rebellionrider.com/forall-statement-with-values-of-bound-clause-in-oracle-database/
 
@@ -105,7 +127,8 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE ('Total records inserted are '||tot_rec);
 END;
 
-B) FORALL Statement With INDICES-OF Bound Clause In Oracle Database
+
+10. B) FORALL Statement With INDICES-OF Bound Clause In Oracle Database
 --------------------------------------------------------------------
 http://www.rebellionrider.com/forall-statement-with-indices-of-bound-clause-in-oracle-database/
 
@@ -142,16 +165,18 @@ END;
 
 
 
-C) FORALL Statement With VALUES-OF Bound Clause:
+11. C) FORALL Statement With VALUES-OF Bound Clause:
 ------------------------------------------------
 http://www.rebellionrider.com/forall-statement-with-values-of-bound-clause-in-oracle-database/
 
-What is a ‘Values-of’ bound clause?
+
+12. What is a ‘Values-of’ bound clause?
 -----------------------------------
 FORALL statement is all about binding the collection elements with a single DML statement in an optimized manner. 
 Using ‘Values-of’ bound clause of FORALL statement we can bind the selected elements of the collection with the DML statement.
 
-Are there any restrictions with Values-of clause which we should know about?
+
+13. Are there any restrictions with Values-of clause which we should know about?
 -----------------------------------------------------------------------------
 Yes, there are a few things which you must know before working with values-of bound clause in Oracle Database. These restrictions are –
 The indexing collection must be a NESTED TABLE or an ASSOCIATIVE ARRAY.
