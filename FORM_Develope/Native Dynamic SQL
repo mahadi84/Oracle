@@ -5,21 +5,22 @@ http://www.rebellionrider.com/introduction-to-native-dynamic-sql-in-oracle-datab
 01. How to check TABLE or OBJECT is created or NOT?
 02. What is Static SQL?
 03. What is Native Dynamic SQL?
-05. Benefits of Native Dynamic SQL.
-06. how do we use dynamic SQL in Oracle Database?
-07. Are there any other ways of using Dynamic SQL in Oracle Database?
-08. How To Use Execute Immediate With INTO?
-09. So what is an Execute Immediate Statement in Oracle Database?
-10. Can we use any SQL statement with Execute Immediate?
-11. How To Run Create Table DDL With EXECUTE IMMEDIATE?
-12. what is the proper way of executing a DDL through PL/SQL program?
-13. How to ALTER & DROP Table DDL With Execute Immediate?
-14. How to Insert DML With Bind Variable: USING Clause Of Execute Immediate Statement?
-15. What is a bind variable?
+04. How do we use dynamic SQL in Oracle Database?
+05. Are there any other ways of using Dynamic SQL in Oracle Database?
+06. So what is an Execute Immediate Statement in Oracle Database?
+07. Can we use any SQL statement with Execute Immediate?
+08. Example of Execute Immediate using the first clause which is INTO.
+09. What is the proper way of executing a DDL through PL/SQL program?
+10. Example of DDL through PL/SQL program using Execute Immediate:
+11. How to ALTER & DROP Table DDL With Execute Immediate?
+12. What is a bind variable?
+13. Example of INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
 
 
 
-===========================
+
+
+===============================================
 01.How to check TABLE or OBJECT is created or NOT?
 ---------------------------------------------------
 DESCRIBE tbl_name; Or DESC tbl_name;
@@ -35,6 +36,7 @@ FROM all_objects WHERE object_name ='TUT_83';
 -Static SQL lets you execute only DML statements inside your PL/SQL block. 
 Example, the application may allow users to enter their own queries.
 
+
 03. What is Native Dynamic SQL?
 -------------------------------
  - Any SQL statement which is constructed at the runtime is called dynamic SQL. 
@@ -43,78 +45,67 @@ Example, the application may allow users to enter their own queries.
     You can create a table or drop an index or truncate your table right inside your PL/SQL block. 
     This is an advantage of Native Dynamic SQL over static SQL.
 
-05. Benefits of Native Dynamic SQL
-------------------------------
-Easy to Use Codes: 
-Improvement In The Performance Of The Code: 
-Support for User-Defined Types: 
-Support For Fetching Into Records: 
 
-
-06. how do we use dynamic SQL in Oracle Database?
+04. How do we use dynamic SQL in Oracle Database?
 -------------------------------------------------
-The two most common methods of using dynamic SQL and PL/SQL in Oracle Database are:
+Common methods of using dynamic SQL and PL/SQL:
  01. Execute Immediate statement and
  02. Open-For, Fetch & Close block.
 
-Execute Immediate statement is used when the query is returning single row data. 
-In case the query is returning multi row data then you can take help of Open-For,Fetch and close block. 
-We will learn about Execute Immediate and Open-for, fetch and close block in detail in the upcoming tutorials.
+**Execute Immediate statement is used when the query is returning single row data. 
+  In case the query is returning multi row data then you can take help of Open-For,Fetch and close block. 
+  We will learn about Execute Immediate and Open-for, fetch and close block in detail in the upcoming tutorials.
 
-07. Are there any other ways of using Dynamic SQL in Oracle Database?
+
+05. Are there any other ways of using Dynamic SQL in Oracle Database?
 ------------------------------------------------------------------
-Apart from above mentioned most commonly used methods,
-the other ways of using dynamic SQL or PL/SQL are
- 01. With Bulk Fetch
- 02. Secondly with Bulk Execute Immediate
- 03. Along with Bulk FORALL and
- 04. Lastly with Bulk Collect Into statement
+The other ways of using dynamic SQL or PL/SQL are
+ 01. Bulk Fetch
+ 02. Bulk Execute Immediate
+ 03. Bulk FORALL and
+ 04. Bulk Collect Into statement
 
 
-08. How To Use Execute Immediate With INTO:
-==========================================
+How To Use Execute Immediate With INTO:
+=======================================
  http://www.rebellionrider.com/how-to-use-execute-immediate-with-into-clause-in-oracle-database/
 
-Execute Immediate With INTO Clause
-Native dynamic SQL or NDS is helping developers by providing flexibility, improving performance and simplifying programming syntaxes. 
 
-
-09. So what is an Execute Immediate Statement in Oracle Database?
+06. So what is an Execute Immediate Statement in Oracle Database?
 -------------------------------------------------------------
 Using Execute Immediate we can parse and execute any SQL statement or a PL/SQL block dynamically in Oracle Database. And by dynamically I mean at runtime.
 Execute immediate takes only one argument. It can either be a SQL statement or a PL/SQL block. 
 Compiler treats the arguments of the Execute Immediate statement as the string of VARCHAR2 data types. 
 Therefore do make sure to enclose your SQL query or PL/SQL block into the pair of single quotes ( ‘ ’ ).
 
-10. Can we use any SQL statement with Execute Immediate?
+
+07. Can we use any SQL statement with Execute Immediate?
 ----------------------------------------------------
 Any SQL statement or PL/SQL block which returns single row of results can be used with Execute Immediate. 
 Furthermore if your statement returns more than one row of results then there are other ways. 
 Additionally these we will discuss in future tutorials.
 
 
-Example of Execute Immediate using the first clause which is INTO.
+08. Example of Execute Immediate using the first clause which is INTO.
 ------------------------------------------------------------------
 **Execute Immediate with INTO clause.
 SET SERVEROUTPUT ON;
 DECLARE
     sql_qry     VARCHAR2 (150);
     emp_tot     NUMBER(3);
-BEGIN
-    
+BEGIN    
     sql_qry:= ‘SELECT count (*) FROM employees';
     EXECUTE IMMEDIATE sql_qry INTO emp_tot;
     DBMS_OUTPUT.PUT_LINE ('Total employees are: '||emp_tot);
-
 END;
-/
 
-11. How To Run Create Table DDL With EXECUTE IMMEDIATE?
+
+How To Run Create Table DDL With EXECUTE IMMEDIATE?
 ======================================================
 http://www.rebellionrider.com/how-to-run-create-table-ddl-with-execute-immediate-in-oracle-database/
 
 
-12. what is the proper way of executing a DDL through PL/SQL program?
+09. What is the proper way of executing a DDL through PL/SQL program?
 -----------------------------------------------------------------
 You can execute a DDL through PL/SQL program either by using DBMS_SQL package or by using the Execute Immediate statement of Native Dynamic SQL. 
 The latter option is the most used one, specially now a days because of its better performance and easy to learn syntax.
@@ -125,8 +116,8 @@ CREATE TABLE tut_82 (
     tut_num    NUMBER (3),
     tut_name   VARCHAR2 (50)
     );
-    
-DDL through PL/SQL program using Execute Immediate:
+
+10. Example of DDL through PL/SQL program using Execute Immediate:
 ---------------------------------------------------
 BEGIN
     EXECUTE IMMEDIATE 'CREATE TABLE tut_82(
@@ -149,7 +140,7 @@ BEGIN
 END;
 
 
-13. How to ALTER & DROP Table DDL With Execute Immediate?
+11. How to ALTER & DROP Table DDL With Execute Immediate?
 =======================================================
 http://www.rebellionrider.com/alter-drop-table-ddl-with-execute-immediate-in-oracle-database/
 
@@ -176,16 +167,18 @@ END;
 /
 
 
-14. How to Insert DML With Bind Variable: USING Clause Of Execute Immediate Statement?
+How to Insert DML With Bind Variable: USING Clause Of Execute Immediate Statement?
 ======================================================================================
 http://www.rebellionrider.com/insert-dml-with-bind-variable-by-applying-using-clause-of-execute-immediate/
 
-15. What is a bind variable?
+
+12. What is a bind variable?
 ----------------------------
 We can define bind variable as the variable that we create in SQL*Plus and then reference in PL/SQL. Furthermore we can declare a Bind variable anywhere in the host environment. 
 Therefore bind variables are also known as host variable.
 
-INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
+
+13. Example of INSERT DATA INTO TABLE WITH EXECUTE IMMEDIATE STATEMENT:
 --------------------------------------------------------
 SET SERVEROUTPUT ON;
 DECLARE
