@@ -6,11 +6,13 @@
 02. How to do DML/DDL dynamic SQL in Oracle Database? (Topic: Native Dynamic SQL)
 03. What/Why/(When to use) is NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
 04. How to select and show BULK DATA with Bulk Collect statement? (Topic: Bulk collection)
-05. What/(When to use) are PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)
-
-
-
-
-What/Why is Trigger? When to use what trigger/Type of trigger?
+05. When to use these Collection Functions:-- (Topic: Collection Methode)
+                          A) Count  B) Exists C) First, Last D) Limit E) Prior, Next
+                      Collection Procedures:--
+                          A) Delete B) Extend C) Trim
+06. What/Why/(When To use) is a FORALL statement?
+07. What/(When to use) are PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
+08. What/Why is Trigger? When to use what trigger/Type of trigger?
+09. Why/How to create a PL/SQL Packages? What a packege contain?
 
 
