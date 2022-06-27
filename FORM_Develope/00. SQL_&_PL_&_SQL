@@ -15,5 +15,3 @@ ALTER TABLE table_name ADD column_name datatype;            /New Clumn Add
 ALTER TABLE table_name MODIFY COLUMN column_name datatype;  /Datatype change
 
 
-
-
