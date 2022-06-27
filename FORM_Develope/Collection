@@ -1,8 +1,12 @@
 http://www.rebellionrider.com/introduction-to-pl-sql-collections-in-oracle-database/
 
+01. What are PL/SQL Collections, Types of PL/SQL?
+01.1> How/Why To Create Nested Table As Database Object and User-Define Datatype?
+02. What/Why/(When to use) is VARRAYs? VARRAY's Formate.
+03. What/Why/(When to use) Associative Array? ASSOCIATIVE ARRY Formate.
 
 
-What are PL/SQL Collections in Oracle Database?
+01.What are PL/SQL Collections in Oracle Database?
 -----------------------------------------------
 In simple language we can say that, an array in Oracle Database is called Collection.
 A homogeneous single dimension data structure which is made up of elements of same datatype is called collection in Oracle Database.
