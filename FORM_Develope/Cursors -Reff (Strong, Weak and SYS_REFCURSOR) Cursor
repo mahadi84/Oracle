@@ -1,25 +1,42 @@
 
 
+
+01. What is PL/SQL Strong Ref Cursors?
+02. Can we use Strong Ref Cursor with any SELECT statement?
+03. Can we use any PL/SQL datatypes for declaring our Strong Ref Cursor?
+04. Example of Strong Ref Cursors With Table Based Record Datatype.
+05. What/Why PL/SQL Weak Ref Cursor?
+06. Can we use Weak Ref Cursor with any SELECT statement or not?
+07. How to create Weak Ref Cursor?
+08. What is PL/SQL SYS_REFCURSOR?
+09. How will it being a pre-defined ref cursor helps us?
+10. How to create PL/SQL SYS_REFCURSOR?
+
+
+
+
+
+
 Strong Ref Cursors With Table Based Record Datatype:
 http://www.rebellionrider.com/strong-ref-cursors-with-table-based-record-datatype/
 
-What is PL/SQL Strong Ref Cursors?
+01. What is PL/SQL Strong Ref Cursors?
 ----------------------------------
 A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database. 
 Because of fixed return type, strong ref cursors can only be used selectively. 
 For instance with those SELECT statements that return the result whose datatype matches with the one that you have fixed during cursor’s declaration.
 
-Can we use Strong Ref Cursor with any SELECT statement?
+02. Can we use Strong Ref Cursor with any SELECT statement?
 -------------------------------------------------------
 No, we cannot use Strong Ref Cursors with any SELECT statement. This is because of the fixed ‘Return Type’.
 Nonetheless it can only be used with those SELECT statements that return the result whose datatype matches with the ‘Return Clause’ of the cursor.
 
-Can we use any PL/SQL datatypes for declaring our Strong Ref Cursor?
+03. Can we use any PL/SQL datatypes for declaring our Strong Ref Cursor?
 -------------------------------------------------------------------
 No, we cannot. Moreover, the return type of a strong ref cursor must always be a Record Datatype.  
 It can either be a Table Based Record datatype or a User Defined Record Datatype.
 
-Example of Strong Ref Cursors With Table Based Record Datatype
+04. Example of Strong Ref Cursors With Table Based Record Datatype
 ---------------------------------------------------------------
 A Strong Ref Cursor with Table Based Record Datatype:
 
@@ -65,7 +82,8 @@ END;
 =============================WEAK REF. CURSOR=========================
 http://www.rebellionrider.com/how-to-create-pl-sql-weak-ref-cursor-in-oracle-database/
 
-What/Why PL/SQL Weak Ref Cursor?
+
+05. What/Why PL/SQL Weak Ref Cursor?
 ---------------------------
 
 A ref cursor which does not have a fixed return type is called a Weak Ref Cursor.
@@ -78,13 +96,13 @@ But this definitely requires an extra step of creating a user defined record dat
 So, don’t we have any alternative way of fetching data of different datatype using ref cursor which doesn’t require the creation of user defined record datatype? 
 Can’t we create a ref cursor which doesn’t have a fixed return type? Let’s find out the answers of these questions in this blog.
 
-Can we use Weak Ref Cursor with any SELECT statement or not?
+06. Can we use Weak Ref Cursor with any SELECT statement or not?
 ------------------------------------------------------------
 Yes, we can. Because weak ref cursors don’t have a fixed return type like strong ref cursors thus they are open to all types of SELECT statements. 
 This also makes them most frequently used ref cursors in comparison to others.
 
 
-How to create Weak Ref Cursor?
+07. How to create Weak Ref Cursor?
 ------------------------------
 SET SERVEROUTPUT ON;
 DECLARE
@@ -107,11 +125,11 @@ END;
 =================== SYS_REFCURSOR =======================
 http://www.rebellionrider.com/how-to-create-pl-sql-sys_refcursor-in-oracle-database/
 
-What is PL/SQL SYS_REFCURSOR?
+08. What is PL/SQL SYS_REFCURSOR?
 ------------------------------
 SYS_REFCURSOR is a predefined weak ref cursor which comes built-in with the Oracle database software.
 
-How will it being a pre-defined ref cursor helps us?
+09. How will it being a pre-defined ref cursor helps us?
 ----------------------------------------------------
 SYS_REFCURSOR is a predefined weak ref cursor which means we do not have to define it into our code like we did with the explicit weak ref cursor 
 in the previous tutorial. As we learnt in that tutorial that creating a weak ref cursor is a two-step process. 
@@ -135,7 +153,7 @@ If not, then they have SYS_REFCURSOR always at their disposal.
 
 
 
-How to create PL/SQL SYS_REFCURSOR?
+10. How to create PL/SQL SYS_REFCURSOR?
 ------------------------------------
 SET SERVEROUTPUT ON;
 DECLARE
