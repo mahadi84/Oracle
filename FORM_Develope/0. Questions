@@ -28,7 +28,7 @@ Questions to look for answer:
 
 ANSWERs:
 ========
-01. What is an Exception? Type of Exception?
+00. What is an Exception? Type of Exception?
 --------------------------------------------
 DECLARE 
    c_id customers.id%type := &cc_id; 
@@ -55,6 +55,27 @@ EXCEPTION
    WHEN others THEN 
       dbms_output.put_line('Error!');  
 END;
+
+
+-----------------------------
+01. What is a Record  and its type in datatype?
+------------------------------------------------
+A record is a group of related data items stored in fields, each with its own name and datatype. The fields correspond to table columns. 
+
+Types of Record datatype
+-------------------------
+In Oracle PL/SQL we have three types of Record datatype.
+ A) Table Based Record        
+          Syntex: Variable_ name   table_name%ROWTYPE;
+ B) Cursor Based Record, and   
+          Syntex:    
+          CURSOR cur_RebellionRider IS
+          SELECT first_name, salary FROM employees WHERE employee_id > 200; 
+          var_emp   cur_RebellionRider%ROWTYPE;
+ C) User Defined Record.       
+         Syntex:
+         TYPE rv_dept IS RECORD(f_name  VARCHAR2(20), d_name  departments.department_name%type);
+         var1 rv_dept;
 
 
 
