@@ -5,7 +5,7 @@
 
 00. What is an Exception? Type of Exception?
 01. What is/When to use Cursors, example?
-02. What is a Record in Oracle Database? When to use what Record/Types of Record datatype?
+02. What is a Record? When to use what-Record/Types of Record?
 
 03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
 04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
