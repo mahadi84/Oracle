@@ -31,8 +31,8 @@ Questions to look for answer:
 
 
 ==================================================== ANSWERs =========================================
-00. What is an Exception? Type of Exception?
---------------------------------------------
+----------------------00. What is an Exception? Type of Exception?-----------------------------------------
+
 DECLARE 
    c_id customers.id%type := &cc_id; 
    c_name customerS.Name%type; 
@@ -59,7 +59,7 @@ EXCEPTION
 END;
 
 
------------------------------------------------02. What is Cursor with example?-------------------------------------------
+-----------------------------------------------01. What is Cursor with example?-------------------------------------------
 
 A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
 This includes:
@@ -86,7 +86,7 @@ END;
 
 
 
---------------------------------------01. What is a Record  and its type in datatype?--------------------------------------------------
+--------------------------------------02. What is a Record  and its type in datatype?--------------------------------------------------
 
 A record is a group of related data items stored in fields, each with its own name and datatype. The fields correspond to table columns. 
 
