@@ -43,8 +43,7 @@ BEGIN
       SELECT  name, address INTO  c_name, c_addr 
       FROM customers 
       WHERE id = c_id;
-      DBMS_OUTPUT.PUT_LINE ('Name: '||  c_name);  
-      DBMS_OUTPUT.PUT_LINE ('Address: ' || c_addr); 
+      DBMS_OUTPUT.PUT_LINE ('Name and Address: '||  c_name ' || c_addr);  
    END IF; 
 
 EXCEPTION 
