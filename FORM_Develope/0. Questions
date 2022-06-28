@@ -6,14 +6,17 @@
 00. What is an Exception? Type of Exception?
 01. What is/When to use Cursors, example?
 02. What is a Record in Oracle Database? When to use what Record/Types of Record datatype?
+
 03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
 04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
+
 05. How to select and show BULK DATA with Bulk Collect statement? (Topic: Bulk collection)
 06. When to use these Collection Functions:-- (Topic: Collection Methode)
                           A) Count  B) Exists C) First, Last D) Limit E) Prior, Next
                       Collection Procedures:--
                           A) Delete B) Extend C) Trim
 07. What is/When to use a FORALL statement?
+
 08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 09. What is/When to use Trigger? When to use what trigger/Type of trigger?
 10. Why/How to create a PL/SQL Packages? What a packege contain?
