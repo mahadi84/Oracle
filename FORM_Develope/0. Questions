@@ -4,8 +4,8 @@
 
 
 00. What is an Exception? Type of Exception?
-01. What is a Record in Oracle Database? When to use what Record/Types of Record datatype?
-02. What is/When to use Cursors, example?
+01. What is/When to use Cursors, example?
+02. What is a Record in Oracle Database? When to use what Record/Types of Record datatype?
 03. How to do DML/DDL dynamic SQL in Oracle Database? (Topic: Native Dynamic SQL)
 04. What/Why/(When to use) is NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
 05. How to select and show BULK DATA with Bulk Collect statement? (Topic: Bulk collection)
@@ -26,8 +26,8 @@ Questions to look for answer:
 02. 
 
 
-ANSWERs:
-========
+
+==================================================== ANSWERs =========================================
 00. What is an Exception? Type of Exception?
 --------------------------------------------
 DECLARE 
@@ -56,9 +56,34 @@ EXCEPTION
 END;
 
 
------------------------------
-01. What is a Record  and its type in datatype?
-------------------------------------------------
+-----------------------------------------------02. What is Cursor with example?-------------------------------------------
+A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
+This includes:
+> Rows returned by a query. > Number of rows processed by a query.
+> A pointer to the parsed query in the shared pool.
+> Using cursor you can control the context area as it is a pointer to the same.
+
+EXAMPLE:-----
+DECLARE
+  v_name VARCHAR2(30);
+  v_age  NUMBER(10);
+  CURSOR cur_RebellionRider
+  IS
+  SELECT name, age FROM customers; 
+BEGIN
+  OPEN cur_rebellionrider;
+  LOOP
+    FETCH cur_rebellionrider INTO v_name, v_age; 
+    EXIT WHEN cur_rebellionrider%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(v_name ||' '||v_age); 
+  END LOOP;
+  CLOSE cur_rebellionrider;
+END;
+
+
+
+--------------------------------------01. What is a Record  and its type in datatype?--------------------------------------------------
+
 A record is a group of related data items stored in fields, each with its own name and datatype. The fields correspond to table columns. 
 
 Types of Record datatype
@@ -80,7 +105,7 @@ In Oracle PL/SQL we have three types of Record datatype.
          TYPE rv_dept IS RECORD(f_name  VARCHAR2(20), d_name  departments.department_name%type);
          var1 rv_dept;
 
-
+----------------------------------------------------------------------------------------
 
 
 
