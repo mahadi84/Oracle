@@ -139,15 +139,17 @@ END;
 ----------------------- What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection) ----------------------------
 
 NESTED TABLE (TABLE INSIDE A TABLE):---
-CREATE TABLE Base_Table(
-   tab_id  NUMBER,
-   tab_ele My_NT
-)NESTED TABLE tab_ele STORE AS stor_tab_1;
- /
- INSERT INTO base_table (tab_id, tab_ele) VALUES
- (801,  -- value for 1st colum 
-   My_NT (object_type (1,'Superman') -- values for 2nd column )
- );
+
+CREATE OR REPLACE TYPE nested_table IS TABLE OF VARCHAR2 (10);
+CREATE TABLE my_subject(
+	  sub_id    	NUMBER,
+	  sub_name  	VARCHAR2 (20),
+	  schedule_day    nested_table
+) NESTED TABLE schedule_day STORE AS nested_tab_space;
+
+INSERT INTO my_subject (sub_id, sub_name, sub_schedule_day)
+VALUES (101, 'Maths',nested_table('mon', 'Fri'));
+
  /
  UPDATE base_table SET tab_ele = My_NT(object_type(1,'SpiderMan')) WHERE tab_id = 801; 
  /
