@@ -68,13 +68,16 @@ EXCEPTION
 END;
 
 
------------------------------------------------01. What is Cursor with example?-------------------------------------------
+-----------------------------------------------01. What is/When to use Cursor with example?-------------------------------------------
+
+When we need to keeps track in the result set, 
+to perform multiple operations ROW by ROW, with or without returning to the original table.
 
 A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
 This includes:
-> Rows returned by a query. > Number of rows processed by a query.
-> A pointer to the parsed query in the shared pool.
-> Using cursor you can control the context area as it is a pointer to the same.
+> Rows returned by a query. 
+> Number of rows processed by a query.
+
 
 EXAMPLE:-----
 DECLARE
