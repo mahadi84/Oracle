@@ -19,7 +19,7 @@
 
 08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 09. What is/When to use Trigger? When to use what trigger/Type of trigger?
-10. Why/How to create a PL/SQL Packages? What a packege contain?
+10. Why/How to create and use a PL/SQL Packages? What a packege contain?
 
 
 
@@ -338,12 +338,61 @@ OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 10
     DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
 END;
 
+-------------------------- What is/When to use Trigger? When to use what trigger/Type of trigger?-------------------
+
+What/Why is Trigger? Where/How it works?
+--------------------------------------------
+-Specialized stored programs For *Auditing (Table/Schema/Database) which execute implicitly(পরোক্ষভাবে) when a triggering event(DML,DDL,SYTEM and USER)s occurs.
+-Cannot call and execute them directly instead they only get triggered by events in the database.
+  *Keep an eye on the various changes on Table/Schema/Database). 
+  *Enforce business rules.
+
+CREATE OR REPLACE trigger superheroes_audit
+BEFORE INSERT OR DELETE OR UPDATE ON superheroes
+FOR EACH ROW
+ENABLE
+EXAMLE:----
+
+Audit to a TABLE
+----------------
+DECLARE
+  v_user varchar2 (30);
+  v_date  varchar2(30);
+BEGIN
+  SELECT user, TO_CHAR(sysdate, 'DD/MON/YYYY HH24:MI:SS') INTO v_user, v_date  FROM dual;
+  IF INSERTING THEN
+    INSERT INTO sh_audit (new_name,old_name, user_name, entry_date, operation) 
+    VALUES(:NEW.CUST_NAME, Null , v_user, v_date, 'Insert');
+  ELSIF UPDATING THEN
+    INSERT INTO sh_audit (new_name,old_name, user_name, entry_date, operation) 
+    VALUES(:NEW.CUST_NAME, :OLD.CUST_NAME, v_user, v_date, 'Insert');
+  ELSIF DELETING THEN
+    INSERT INTO sh_audit (new_name,old_name, user_name, entry_date, operation) 
+    VALUES(Null, :OLD.CUST_NAME, v_user, v_date, 'Delete');
+  END IF;
+END;
+
+Audit to Schema(Any user)
 --------------------------
+CREATE OR REPLACE TRIGGER hr_audit_tr 
+AFTER DDL ON SCHEMA
+
+Audit to Database
+------------------
+CREATE OR REPLACE TRIGGER db_audit_tr 
+AFTER DDL ON DATABASE
+
+INSTEAD OF INSERT Trigger- Only works on VIEWS
+----------------------------------------------
+CREATE OR REPLACE TRIGGER tr_Io_Insert
+INSTEAD OF INSERT ON vw_rebellionrider
+FOR EACH ROW
+BEGIN
+  INSERT INTO trainer (full_name) VALUES (:new.full_name);
+END
 
 
-
-
-
+---------------------------------------- 10. Why/How to create and use a PL/SQL Packages? What a packege contain?-----------------------
 
 
 
