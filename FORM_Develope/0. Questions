@@ -151,25 +151,20 @@ INSERT INTO my_subject (sub_id, sub_name, sub_schedule_day)
 VALUES (101, 'Maths',nested_table('mon', 'Fri'));
 
  /
- UPDATE base_table SET tab_ele = My_NT(object_type(1,'SpiderMan')) WHERE tab_id = 801; 
+ UPDATE my_subject SET sub_schedule_day = my_nested_table('Tue', 'Sat') WHERE sub_id = 101;
  /
- Select tab_id, tab_ele FROM base_table;
- /SELECT * FROM TABLE(
-  SELECT tab_ele FROM Base_Table WHERE tab_id = 801
-)
+ UPDATE TABLE  (SELECT sub_schedule_day FROM my_subject   WHERE sub_id = 101) A
+ SET A.COLUMN_VALUE  = 'Thur' WHERE A.COLUMN_VALUE = 'Sat';
+
 VARRY:-------
 An array ( a data structure) as a fixed-size sequential collection of variables of the same type.
 DECLARE
     TYPE r_customer_type IS RECORD(
         customer_name customers.name%TYPE,
-        credit_limit customers.credit_limit%TYPE
-    ); 
-
+        credit_limit customers.credit_limit%TYPE);
     TYPE t_customer_type IS VARRAY(5) 
-        OF r_customer_type;
-    
+        OF r_customer_type;    
     t_customers t_customer_type := t_customer_type();
-
     CURSOR c_customer IS 
         SELECT NAME, credit_limit 
         FROM customers 
@@ -182,7 +177,6 @@ BEGIN
         t_customers(t_customers.LAST).customer_name := r_customer.name;
         t_customers(t_customers.LAST).credit_limit  := r_customer.credit_limit;
     END LOOP;
-
     -- show all customers
     FOR l_index IN t_customers .FIRST..t_customers.LAST 
     LOOP
@@ -193,7 +187,6 @@ BEGIN
             t_customers(l_index).credit_limit
         );
     END LOOP;
-
 END;
 
 ASSOCIATIVE ARRAY:---
