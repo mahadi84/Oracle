@@ -3,7 +3,7 @@
 
 
 
-00. What is an Exception? Type of Exception?
+00. What is an Exception/Run Time Error with example? Type of Exception? Name few debuggin tools for PL/SQL?
 01. What is/When to use Cursors, example?
 02. What is a Record? When to use what-Record/Types of Record?
 
@@ -34,7 +34,14 @@ Questions to look for answer:
 
 ==================================================== ANSWERs =========================================
 ----------------------00. What is an Exception? Type of Exception?-----------------------------------------
+Runtime Error: 
+Runtime errors are errors that occur while code is executing. 
+These errors can arise due to DATA problems or CODE problems. 
+For instance, attempting to assign a 31-character string to a varchar2 (30) variable will cause a runtime error.
 
+Debugging Tool: DBMS_Output.Put_Line()
+
+EXCEPTION:
 DECLARE 
    c_id customers.id%type := &cc_id; 
    c_name customerS.Name%type; 
