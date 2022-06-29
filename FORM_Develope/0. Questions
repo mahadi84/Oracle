@@ -10,7 +10,7 @@
 03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
 04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
 
-05. How to select and show BULK DATA with Bulk Collect statement? (Topic: Bulk collection)
+05. How to select BULK DATA and show ? (Topic: Bulk collection)
 06. When to use these Collection Functions:-- (Topic: Collection Methode)
                           A) Count  B) Exists C) First, Last D) Limit E) Prior, Next
                       Collection Procedures:--
@@ -122,6 +122,97 @@ BEGIN
     EXECUTE IMMEDIATE sql_qry INTO emp_tot;
     DBMS_OUTPUT.PUT_LINE ('Total employees are: '||emp_tot);
 END;
+
+
+----------------------- What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection) ----------------------------
+
+NESTED TABLE (TABLE INSIDE A TABLE):---
+CREATE TABLE Base_Table(
+   tab_id  NUMBER,
+   tab_ele My_NT
+)NESTED TABLE tab_ele STORE AS stor_tab_1;
+ /
+ INSERT INTO base_table (tab_id, tab_ele) VALUES
+ (801,  -- value for 1st colum 
+   My_NT (object_type (1,'Superman') -- values for 2nd column )
+ );
+ /
+ UPDATE base_table SET tab_ele = My_NT(object_type(1,'SpiderMan')) WHERE tab_id = 801; 
+ /
+ Select tab_id, tab_ele FROM base_table;
+ /SELECT * FROM TABLE(
+  SELECT tab_ele FROM Base_Table WHERE tab_id = 801
+)
+VARRY:-------
+An array ( a data structure) as a fixed-size sequential collection of variables of the same type.
+DECLARE
+    TYPE r_customer_type IS RECORD(
+        customer_name customers.name%TYPE,
+        credit_limit customers.credit_limit%TYPE
+    ); 
+
+    TYPE t_customer_type IS VARRAY(5) 
+        OF r_customer_type;
+    
+    t_customers t_customer_type := t_customer_type();
+
+    CURSOR c_customer IS 
+        SELECT NAME, credit_limit 
+        FROM customers 
+        ORDER BY credit_limit DESC 
+        FETCH FIRST 5 ROWS ONLY;
+BEGIN
+    -- fetch data from a cursor
+    FOR r_customer IN c_customer LOOP
+        t_customers.EXTEND;
+        t_customers(t_customers.LAST).customer_name := r_customer.name;
+        t_customers(t_customers.LAST).credit_limit  := r_customer.credit_limit;
+    END LOOP;
+
+    -- show all customers
+    FOR l_index IN t_customers .FIRST..t_customers.LAST 
+    LOOP
+        dbms_output.put_line(
+            'The customer ' ||
+            t_customers(l_index).customer_name ||
+            ' has a credit of ' ||
+            t_customers(l_index).credit_limit
+        );
+    END LOOP;
+
+END;
+
+ASSOCIATIVE ARRAY:---
+Associative arrays are single-dimensional, unbounded, sparse collections of homogeneous elements.
+
+DECLARE
+    -- declare an associative array type
+    TYPE t_capital_type 
+        IS TABLE OF VARCHAR2(100) 
+        INDEX BY VARCHAR2(50);
+    -- declare a variable of the t_capital_type
+    t_capital t_capital_type;
+    -- local variable
+    l_country VARCHAR2(50);
+BEGIN
+    
+    t_capital('USA')            := 'Washington, D.C.';
+    t_capital('United Kingdom') := 'London';
+    t_capital('Japan')          := 'Tokyo';
+    
+    l_country := t_capital.FIRST;
+    
+    WHILE l_country IS NOT NULL LOOP
+        dbms_output.put_line('The capital of ' || 
+            l_country || 
+            ' is ' || 
+            t_capital(l_country));
+        l_country := t_capital.NEXT(l_country);
+    END LOOP;
+END;
+---------------------------------05. How to select BULK DATA and show ? (Topic: Bulk collection)---------
+
+
 
 
 
