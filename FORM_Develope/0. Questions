@@ -237,6 +237,26 @@ BEGIN
     CLOSE exp_cur;
 END;
 
+--------------06. When to use these Collection Functions:-- (Topic: Collection Methode)--------------------------
+
+IF var_nt.count >= 10 THEN
+IF col_var_1.EXISTS (1) THEN
+col_var nt_tab := nt_tab(10, 20, 30, 40, 50);
+DBMS_OUTPUT.PUT_LINE ('First Index of the Nested table is ' || col_var.FIRST/LAST);
+DBMS_OUTPUT.PUT_LINE ('First Index of the Nested table is ' || col_var.PRIOR(2)/NEXT(2));
+
+Porcudure
+---------
+var_tab.DELETE(2,6);
+var_tab.TRIM(2);
+TYPE inblock_vry IS VARRAY ( 5 ) OF NUMBER;
+    vry_obj   inblock_vry := inblock_vry ();
+BEGIN
+    --Insert into VARRAY
+    vry_obj.extend;
+    vry_obj(1) := 10 * 2;
+    
+
 
 --------------------------------- 07. What is/When to use a FORALL statement? ----------------------------
 FORALL statement helps to process bulk data in an optimized manner by sending DML statements. FORALL is the Oracle Reserved Keyword.
