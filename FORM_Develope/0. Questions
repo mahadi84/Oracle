@@ -212,6 +212,136 @@ BEGIN
 END;
 ---------------------------------05. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
+SET SERVEROUTPUT ON;
+DECLARE
+--Create an explicit cursor
+    CURSOR exp_cur IS
+    SELECT first_name FROM employees;
+
+    --Declare collection for holding the data 
+    TYPE nt_fName   IS TABLE OF VARCHAR2 (20);
+    fname   nt_fName;
+BEGIN
+    OPEN exp_cur;
+    LOOP
+        FETCH exp_cur BULK COLLECT INTO fname LIMIT 10;
+        EXIT WHEN fname.count=0;
+        --Print data
+        FOR idx IN fname.FIRST.. fname.LAST
+        LOOP
+            DBMS_OUTPUT.PUT_LINE (idx||' '||fname(idx) );
+        END LOOP; 
+    END LOOP;
+    CLOSE exp_cur;
+END;
+
+
+--------------------------------- 07. What is/When to use a FORALL statement? ----------------------------
+FORALL statement helps to process bulk data in an optimized manner by sending DML statements. FORALL is the Oracle Reserved Keyword.
+Although FORALL statement iterates through all the rows of a collection but it is not a FOR loop.
+
+SET SERVEROUTPUT ON;
+CREATE TABLE tut_77 (
+    Mul_tab    NUMBER(5)
+);
+That is going to be our table which will hold the data. Next we will write the PL/SQL block.
+
+DECLARE
+	-- Declare the collection
+    TYPE My_Array IS TABLE OF NUMBER INDEX BY PLS_INTEGER;
+    col_var My_Array;
+	--Declare a variable for holding the total number of records of the table
+    tot_rec NUMBER;
+BEGIN
+    --Populate the collection
+    FOR i IN 1..10 LOOP
+        col_var (i) := 9*i;
+    END LOOP;
+    -- Write the FORALL statement.
+    FORALL idx IN 1..10
+        INSERT INTO tut_77 (mul_tab)
+        VALUES (col_var (idx));
+    --Get the total number of records from the table     
+    SELECT count (*) INTO tot_rec FROM tut_77;
+    DBMS_OUTPUT.PUT_LINE ('Total records inserted are '||tot_rec);
+END;
+
+
+---------08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?-------------
+STRONG REFF CURSOR:
+------------------
+A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database.
+Can we use Strong Ref Cursor with any SELECT statement? Ans: NO. This is because of the fixed ‘Return Type’.
+
+A Strong Ref Cursor with Table Based Record Datatype:
+
+ DECLARE
+	--Create User-Defined Record Datatype
+    TYPE my_rec IS RECORD (
+        emp_sal employees.salary%TYPE
+        );
+	--Declare Strong Ref Cursor
+    TYPE RefCur IS REF CURSOR RETURN my_rec;
+    cur_var REFCUR;
+	--Another anchored datatype variable for holding data
+    at_var  employees.salary%TYPE;
+BEGIN
+   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO at_var;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
+END;
+
+
+WEEK REFF CURSOR:
+-----------------
+A ref cursor which does not have a fixed return type is called a Weak Ref Cursor.
+07. How to create Weak Ref Cursor?
+------------------------------
+SET SERVEROUTPUT ON;
+DECLARE
+    /*Declare Weak Ref Cursor*/
+    TYPE wk_RefCur IS REF CURSOR;
+    /*Declare Cursor Variable of ref cursor type*/
+    cur_var wk_RefCur;
+    
+     /*Declare two "Anchored Datatype Variable" for holding data from the cursor*/
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+    OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE (f_name ||' '||emp_sal);
+END;
+
+SYS_REFCURSOR
+-------------
+SYS_REFCURSOR is a predefined weak ref cursor which comes built-in with the Oracle database software.
+SYS_REFCURSOR is a predefined weak ref cursor which means we do not have to define it into our code like we did with the explicit weak ref cursor.
+Why would someone declare a weak ref cursor when we already have a predefined one?
+Ans: No, we do not need to create a weak ref cursor explicitly.
+     It is like a personal choice, if someone wants to create a weak ref cursor then they can. 
+     If not, then they have SYS_REFCURSOR always at their disposal. 
+     
+DECLARE
+    --Declare cursor variable of SYS_REFCURSOR type
+    cur_var SYS_REFCURSOR;
+    
+    --Declare variables for holding data
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
+END;
+
+--------------------------
+
+
+
 
 
 
