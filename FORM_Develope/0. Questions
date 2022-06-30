@@ -158,6 +158,20 @@ VALUES (101, 'Maths',nested_table('mon', 'Fri'));
 
 VARRY:-------
 An array ( a data structure) as a fixed-size sequential collection of variables of the same type.
+
+
+DECLARE
+type v_array is varray(3) of number;
+v_data v_array := v_array(1,2,4);
+BEGIN
+FOR i IN 1..v_data.limit LOOP
+--v_data.EXTEND;
+--v_data(i):= 10*i;
+   dbms_output.put_line(v_data(i));
+END LOOP;
+END;
+Example 02
+-----------
 DECLARE
     TYPE r_customer_type IS RECORD(
         customer_name customers.name%TYPE,
