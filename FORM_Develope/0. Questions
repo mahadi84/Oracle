@@ -80,22 +80,23 @@ This includes:
 
 
 EXAMPLE:-----
-DECLARE
-  v_name VARCHAR2(30);
-  v_age  NUMBER(10);
-  CURSOR cur_RebellionRider
-  IS
-  SELECT name, age FROM customers; 
-BEGIN
-  OPEN cur_rebellionrider;
-  LOOP
-    FETCH cur_rebellionrider INTO v_name, v_age; 
-    EXIT WHEN cur_rebellionrider%NOTFOUND;
-    DBMS_OUTPUT.PUT_LINE(v_name ||' '||v_age); 
-  END LOOP;
-  CLOSE cur_rebellionrider;
+DECLARE 
+ CURSOR c_customers is SELECT c_id, c_name, c_add FROM customers; 
+   v_id number(10); 
+   v_name varchar2(50); 
+   v_addr varchar2(100); 
+BEGIN 
+ OPEN c_customers; 
+   LOOP 
+   FETCH c_customers into v_id, v_name, v_addr; 
+      EXIT WHEN c_customers%notfound; 
+      dbms_output.put_line(v_id || ' ' || v_name || ' ' || v_addr); 
+   END LOOP; 
+ CLOSE c_customers;
 END;
 
+/
+desc customers;
 
 
 --------------------------------------02. What is a Record  and its type in datatype?--------------------------------------------------
