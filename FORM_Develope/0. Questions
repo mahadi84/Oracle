@@ -138,99 +138,56 @@ END;
 
 ----------------------- What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection) ----------------------------
 
-NESTED TABLE (TABLE INSIDE A TABLE):---
-
-CREATE OR REPLACE TYPE nested_table IS TABLE OF VARCHAR2 (10);
-CREATE TABLE my_subject(
-	  sub_id    	NUMBER,
-	  sub_name  	VARCHAR2 (20),
-	  schedule_day    nested_table
-) NESTED TABLE schedule_day STORE AS nested_tab_space;
-
-INSERT INTO my_subject (sub_id, sub_name, sub_schedule_day)
-VALUES (101, 'Maths',nested_table('mon', 'Fri'));
-
- /
- UPDATE my_subject SET sub_schedule_day = my_nested_table('Tue', 'Sat') WHERE sub_id = 101;
- /
- UPDATE TABLE  (SELECT sub_schedule_day FROM my_subject   WHERE sub_id = 101) A
- SET A.COLUMN_VALUE  = 'Thur' WHERE A.COLUMN_VALUE = 'Sat';
-
-VARRY:-------
-An array ( a data structure) as a fixed-size sequential collection of variables of the same type.
-
-
+VARRAY:
+-------
 DECLARE
-type v_array is varray(3) of number;
-v_data v_array := v_array(1,2,4);
+TYPE v_arr IS VARRAY(3) OF VARCHAR2(50);
+d_arr v_arr := v_arr (); 
 BEGIN
-FOR i IN 1..v_data.limit LOOP
---v_data.EXTEND;
---v_data(i):= 10*i;
-   dbms_output.put_line(v_data(i));
-END LOOP;
-END;
-Example 02
------------
-DECLARE
-    TYPE r_customer_type IS RECORD(
-        customer_name customers.name%TYPE,
-        credit_limit customers.credit_limit%TYPE);
-    TYPE t_customer_type IS VARRAY(5) 
-        OF r_customer_type;    
-    t_customers t_customer_type := t_customer_type();
-    CURSOR c_customer IS 
-        SELECT NAME, credit_limit 
-        FROM customers 
-        ORDER BY credit_limit DESC 
-        FETCH FIRST 5 ROWS ONLY;
-BEGIN
-    -- fetch data from a cursor
-    FOR r_customer IN c_customer LOOP
-        t_customers.EXTEND;
-        t_customers(t_customers.LAST).customer_name := r_customer.name;
-        t_customers(t_customers.LAST).credit_limit  := r_customer.credit_limit;
-    END LOOP;
-    -- show all customers
-    FOR l_index IN t_customers .FIRST..t_customers.LAST 
-    LOOP
-        dbms_output.put_line(
-            'The customer ' ||
-            t_customers(l_index).customer_name ||
-            ' has a credit of ' ||
-            t_customers(l_index).credit_limit
-        );
-    END LOOP;
+d_arr.EXTEND(3);
+d_arr(1) := 'USA';
+d_arr(2) := 'UK';
+d_arr(3) := 'AUS';
+   FOR i IN 1..d_arr.count LOOP
+   DBMS_OUTPUT.PUT_LINE(d_arr(i));
+   END LOOP;
 END;
 
-ASSOCIATIVE ARRAY:---
-Associative arrays are single-dimensional, unbounded, sparse collections of homogeneous elements.
+NESTED TABLE:
+-------------
 
 DECLARE
-    -- declare an associative array type
-    TYPE t_capital_type 
-        IS TABLE OF VARCHAR2(100) 
-        INDEX BY VARCHAR2(50);
-    -- declare a variable of the t_capital_type
-    t_capital t_capital_type;
-    -- local variable
-    l_country VARCHAR2(50);
+TYPE v_tbl IS TABLE OF VARCHAR2(50);
+d_tbl v_tbl := v_tbl (); 
 BEGIN
-    
-    t_capital('USA')            := 'Washington, D.C.';
-    t_capital('United Kingdom') := 'London';
-    t_capital('Japan')          := 'Tokyo';
-    
-    l_country := t_capital.FIRST;
-    
-    WHILE l_country IS NOT NULL LOOP
-        dbms_output.put_line('The capital of ' || 
-            l_country || 
-            ' is ' || 
-            t_capital(l_country));
-        l_country := t_capital.NEXT(l_country);
-    END LOOP;
+d_tbl.EXTEND(5);
+d_tbl(1) := 'USA';
+d_tbl(2) := 'UK';
+d_tbl(3) := 'AUS';
+   FOR i IN 1..d_tbl.count LOOP
+   DBMS_OUTPUT.PUT_LINE(d_tbl(i));
+   END LOOP;
 END;
+/
+
+ASSOCIATIVE ARRAY:
+-----------------
+DECLARE
+TYPE v_aar IS TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(10);
+d_aar v_aar;
+c_data varchar2(10);
+BEGIN
+d_aar('count1') := 'USA';
+d_aar('count2') := 'UK';
+d_aar('count3') := 'AUS';
+c_data := d_aar.FIRST;
+
+ WHILE c_data IS NOT NULL LOOP
+   DBMS_OUTPUT.PUT_LINE(d_aar(c_data));
+   c_data := d_aar.NEXT(c_data);
+ END LOOP;
+END;
+
 ---------------------------------05. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
 SET SERVEROUTPUT ON;
