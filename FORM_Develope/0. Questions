@@ -173,21 +173,21 @@ END;
 ASSOCIATIVE ARRAY:
 -----------------
 DECLARE
-TYPE v_aar IS TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(10);
-d_aar v_aar;
-c_data varchar2(10);
+    TYPE asa IS
+        TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(20);
+    v_asa  asa;
+    i_asa  VARCHAR2(20);
 BEGIN
-d_aar('count1') := 'USA';
-d_aar('count2') := 'UK';
-d_aar('count3') := 'AUS';
-c_data := d_aar.FIRST;
-
- WHILE c_data IS NOT NULL LOOP
-   DBMS_OUTPUT.PUT_LINE(d_aar(c_data));
-   c_data := d_aar.NEXT(c_data);
- END LOOP;
+    v_asa('white') := '000';
+    v_asa('red') := '111';
+    v_asa('black') := '222';
+        i_asa := v_asa.FIRST;
+    WHILE i_asa IS NOT null 
+    LOOP
+     DBMS_OUTPUT.PUT_LINE(v_asa(i_asa));
+     i_asa:= v_asa.NEXT(i_asa);
+    END LOOP;
 END;
-
 ---------------------------------05. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
 SET SERVEROUTPUT ON;
