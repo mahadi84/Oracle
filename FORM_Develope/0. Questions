@@ -435,18 +435,18 @@ END;
 
 Syntax of PL/SQL Stored Procedures
 ----------------------------------
-CREATE OR REPLACE PROCEDURE emp_sal
-(dep_id NUMBER, sal_raise NUMBER) 
+CREATE OR REPLACE PROCEDURE INSERT_USERS(user_id IN number,
+user_name IN VARCHAR2, password IN VARCHAR2)
 IS
 BEGIN
-  	UPDATE employees 
-SET salary = salary * sal_raise 
-WHERE department_id = dep_id;  
-DBMS_OUTPUT.PUT_LINE ('salary updated successfully');
+INSERT INTO USERS VALUES (user_id,user_name, password );
+DBMS_OUTPUT.PUT_LINE ('New User Registered successfully');
 END;
+
 /
 Calling  Procedure:
-EXECUTE emp_sal(40,2);
+EXECUTE INSERT_USERS(1,'mahadi', '123456');
+
 
 
 
