@@ -4,12 +4,14 @@
 
 
 00. What is an Exception/Run Time Error with example? Type of Exception? Name few debugging tools for PL/SQL?
+
 01. What is/When to use Cursors, example?
 02. What is a Record? When to use what-Record/Types of Record?
     -What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
       (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 
 03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
+
 04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
 05. When to use these Collection Functions:-- (Topic: Collection Methode)
      A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
@@ -19,8 +21,8 @@
 
 08. What is/When to use Trigger? When to use what trigger/Type of trigger?
 09. Why/How to create and use a PL/SQL Packages? What a packege contain?
-10. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
 
+10. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
 11. SYNTEX OF i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
 
 
