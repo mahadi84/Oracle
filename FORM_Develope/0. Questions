@@ -6,21 +6,22 @@
 00. What is an Exception/Run Time Error with example? Type of Exception? Name few debugging tools for PL/SQL?
 01. What is/When to use Cursors, example?
 02. What is a Record? When to use what-Record/Types of Record?
+    -What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
+      (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 
 03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
 04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
-
-05. How to select BULK DATA and show ? (Topic: Bulk collection)
 06. When to use these Collection Functions:-- (Topic: Collection Methode)
-                          A) Count  B) Exists C) First, Last D) Limit E) Prior, Next
-                      Collection Procedures:--
-                          A) Delete B) Extend C) Trim
+     A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
+     
+05. How to select BULK DATA and show ? (Topic: Bulk collection)
 07. What is/When to use a FORALL statement?
 
-08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 09. What is/When to use Trigger? When to use what trigger/Type of trigger?
 10. Why/How to create and use a PL/SQL Packages? What a packege contain?
 11. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
+
+12. Stucure of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
 
 
 
@@ -120,6 +121,80 @@ In Oracle PL/SQL we have three types of Record datatype.
          Syntex:
          TYPE rv_dept IS RECORD(f_name  VARCHAR2(20), d_name  departments.department_name%type);
          var1 rv_dept;
+	 
+---------08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?-------------
+STRONG REFF CURSOR:
+------------------
+A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database.
+Can we use Strong Ref Cursor with any SELECT statement? Ans: NO. This is because of the fixed ‘Return Type’.
+
+A Strong Ref Cursor with Table Based Record Datatype:
+
+ DECLARE
+	--Create User-Defined Record Datatype
+    TYPE my_rec IS RECORD (
+        emp_sal employees.salary%TYPE
+        );
+	--Declare Strong Ref Cursor
+    TYPE RefCur IS REF CURSOR RETURN my_rec;
+    cur_var REFCUR;
+	--Another anchored datatype variable for holding data
+    at_var  employees.salary%TYPE;
+BEGIN
+   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO at_var;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
+END;
+
+
+WEEK REFF CURSOR:
+-----------------
+A ref cursor which does not have a fixed return type is called a Weak Ref Cursor.
+07. How to create Weak Ref Cursor?
+------------------------------
+SET SERVEROUTPUT ON;
+DECLARE
+    /*Declare Weak Ref Cursor*/
+    TYPE wk_RefCur IS REF CURSOR;
+    /*Declare Cursor Variable of ref cursor type*/
+    cur_var wk_RefCur;
+    
+     /*Declare two "Anchored Datatype Variable" for holding data from the cursor*/
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+    OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE (f_name ||' '||emp_sal);
+END;
+
+SYS_REFCURSOR
+-------------
+SYS_REFCURSOR is a predefined weak ref cursor which comes built-in with the Oracle database software.
+SYS_REFCURSOR is a predefined weak ref cursor which means we do not have to define it into our code like we did with the explicit weak ref cursor.
+Why would someone declare a weak ref cursor when we already have a predefined one?
+Ans: No, we do not need to create a weak ref cursor explicitly.
+     It is like a personal choice, if someone wants to create a weak ref cursor then they can. 
+     If not, then they have SYS_REFCURSOR always at their disposal. 
+     
+DECLARE
+    --Declare cursor variable of SYS_REFCURSOR type
+    cur_var SYS_REFCURSOR;
+    
+    --Declare variables for holding data
+    f_name  employees.first_name%TYPE;
+    emp_sal employees.salary%TYPE;
+BEGIN
+OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
+    FETCH cur_var INTO f_name, emp_sal;
+    CLOSE cur_var;
+    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
+END;
+	 
+	 
+	 
 
 ---------------------------- 03. When to use (DML/DDL) dynamic SQL and Example? ------------------------------------
 
@@ -265,76 +340,6 @@ BEGIN
 END;
 
 
----------08. What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?-------------
-STRONG REFF CURSOR:
-------------------
-A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database.
-Can we use Strong Ref Cursor with any SELECT statement? Ans: NO. This is because of the fixed ‘Return Type’.
-
-A Strong Ref Cursor with Table Based Record Datatype:
-
- DECLARE
-	--Create User-Defined Record Datatype
-    TYPE my_rec IS RECORD (
-        emp_sal employees.salary%TYPE
-        );
-	--Declare Strong Ref Cursor
-    TYPE RefCur IS REF CURSOR RETURN my_rec;
-    cur_var REFCUR;
-	--Another anchored datatype variable for holding data
-    at_var  employees.salary%TYPE;
-BEGIN
-   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO at_var;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
-END;
-
-
-WEEK REFF CURSOR:
------------------
-A ref cursor which does not have a fixed return type is called a Weak Ref Cursor.
-07. How to create Weak Ref Cursor?
-------------------------------
-SET SERVEROUTPUT ON;
-DECLARE
-    /*Declare Weak Ref Cursor*/
-    TYPE wk_RefCur IS REF CURSOR;
-    /*Declare Cursor Variable of ref cursor type*/
-    cur_var wk_RefCur;
-    
-     /*Declare two "Anchored Datatype Variable" for holding data from the cursor*/
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-    OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE (f_name ||' '||emp_sal);
-END;
-
-SYS_REFCURSOR
--------------
-SYS_REFCURSOR is a predefined weak ref cursor which comes built-in with the Oracle database software.
-SYS_REFCURSOR is a predefined weak ref cursor which means we do not have to define it into our code like we did with the explicit weak ref cursor.
-Why would someone declare a weak ref cursor when we already have a predefined one?
-Ans: No, we do not need to create a weak ref cursor explicitly.
-     It is like a personal choice, if someone wants to create a weak ref cursor then they can. 
-     If not, then they have SYS_REFCURSOR always at their disposal. 
-     
-DECLARE
-    --Declare cursor variable of SYS_REFCURSOR type
-    cur_var SYS_REFCURSOR;
-    
-    --Declare variables for holding data
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
-END;
 
 -------------------------- What is/When to use Trigger? When to use what trigger/Type of trigger?-------------------
 
@@ -448,5 +453,16 @@ Calling  Procedure:
 EXECUTE INSERT_USERS(1,'mahadi', '123456');
 
 
-
+------------------------------       ---------------------------------------
+DECLARE
+d_count number(20):=0;
+d_result number;
+BEGIN
+ LOOP
+  d_count := d_count + 1;
+  d_result:= 2 * d_count;
+   DBMS_OUTPUT.PUT_LINE (d_result);
+  EXIT WHEN d_result >= 8;
+ END LOOP;
+END;
 
