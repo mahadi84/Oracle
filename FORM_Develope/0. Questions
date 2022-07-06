@@ -479,3 +479,11 @@ d_count := d_count + 1;
 d_result := 2 * d_count;
 DBMS_OUTPUT.PUT_LINE (d_result);
 END LOOP;
+
+
+
+
+
+
+
+
