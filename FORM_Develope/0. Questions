@@ -426,20 +426,18 @@ END [pkg_name];
 FUNCTION SYNTEX:
 ----------------
 --Function Header
-CREATE OR REPLACE FUNCTION circle_area (radius NUMBER) 
+CREATE OR REPLACE FUNCTION ADD_TWO(num1 IN number, num2 IN number)
 RETURN NUMBER IS
---Declare a constant and a variable
-pi  	CONSTANT NUMBER(7,2) :=	3.141;
-area 	NUMBER(7,2);
+result number;
 BEGIN
-  --Area of Circle pi*r*r;
-  area := pi * (radius * radius);
-  RETURN area; 
+result := num1+num2;
+RETURN result;
 END;
 /
 Call above Fuction:
 BEGIN
- DBMS_OUTPUT.PUT_LINE (circle_area(20));
+ show : = ADD_TWO(20, 25);
+ DBMS_OUTPUT.PUT_LINE (show);
 END;
 
 Syntax of PL/SQL Stored Procedures
@@ -457,7 +455,7 @@ Calling  Procedure:
 EXECUTE INSERT_USERS(1,'mahadi', '123456');
 
 
---------  11. Stucure of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP; -------------------------------
+--------  11. SYNTEX of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP; -------------------------------
 
 
 DECLARE
