@@ -4,27 +4,28 @@
 
 
 00. When does an Exception need/occures? Type of Exception?
-001. Explain data types in PL/SQL?
 
-01. What is a Record? When to use what-Record/Types of Record?
-02. What is/When to use Cursors, example?
+01. Explain data types in PL/SQL?
+
+02. What is a Record? When to use what-Record/Types of Record?
+03. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
+04. When to use these Collection Functions:-- (Topic: Collection Methode)
+     A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
+
+05. What is/When to use Cursors, example?
     -What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
       (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 
-03. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
+06. When to use (DML/DDL) dynamic SQL and Example? (Topic: Native Dynamic SQL)
+    
+07. How to select BULK DATA and show ? (Topic: Bulk collection)
+08. What is/When to use a FORALL statement?
 
-04. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
-05. When to use these Collection Functions:-- (Topic: Collection Methode)
-     A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
-     
-06. How to select BULK DATA and show ? (Topic: Bulk collection)
-07. What is/When to use a FORALL statement?
+09. What is/When to use Trigger? When to use what trigger/Type of trigger?
+10. Why/How to create and use a PL/SQL Packages? What a packege contain?
 
-08. What is/When to use Trigger? When to use what trigger/Type of trigger?
-09. Why/How to create and use a PL/SQL Packages? What a packege contain?
-
-10. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
-11. SYNTEX OF i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
+11. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
+12. SYNTEX OF i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
 
 
 
@@ -293,7 +294,7 @@ BEGIN
 
 
 
----------------------------------06. How to select BULK DATA and show ? (Topic: Bulk collection)---------
+---------------------------------07. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
 SET SERVEROUTPUT ON;
 DECLARE
@@ -319,7 +320,7 @@ BEGIN
 END;
 
 
---------------------------------- 07. What is/When to use a FORALL statement? ----------------------------
+--------------------------------- 08. What is/When to use a FORALL statement? ----------------------------
 FORALL statement helps to process bulk data in an optimized manner by sending DML statements. FORALL is the Oracle Reserved Keyword.
 Although FORALL statement iterates through all the rows of a collection but it is not a FOR loop.
 
@@ -351,7 +352,7 @@ END;
 
 
 
---------------------------08. What is/When to use Trigger? When to use what trigger/Type of trigger?-------------------
+--------------------------09. What is/When to use Trigger? When to use what trigger/Type of trigger?-------------------
 
 What/Why is Trigger? Where/How it works?
 --------------------------------------------
@@ -405,7 +406,7 @@ BEGIN
 END
 
 
----------------------------------------- 09. Why/How to create and use a PL/SQL Packages? What a packege contain?-----------------------
+---------------------------------------- 10. Why/How to create and use a PL/SQL Packages? What a packege contain?-----------------------
 
 What/Why are PL/SQL Packages?
 ---------------------------------
@@ -423,7 +424,7 @@ END [pkg_name];
 
 
 
---------------------------------------------10. How to create and use as FUNCTION and PROCEDURE?--------------------------------------
+--------------------------------------------11. How to create and use as FUNCTION and PROCEDURE?--------------------------------------
 
 -Similer A self-contained sub-program that is meant to do some specific well defined task. 
 -Also Can be stored into the database as a database object and can be reused.
@@ -461,7 +462,7 @@ Calling  Procedure:
 EXECUTE INSERT_USERS(1,'mahadi', '123456');
 
 
---------  11. SYNTEX of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP; -------------------------------
+--------  12. SYNTEX of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP; -------------------------------
 
 
 DECLARE
