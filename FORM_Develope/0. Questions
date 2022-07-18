@@ -6,8 +6,8 @@
 00. When does an Exception need/occures? Type of Exception?
 001. Explain data types in PL/SQL?
 
-01. What is/When to use Cursors, example?
-02. What is a Record? When to use what-Record/Types of Record?
+01. What is a Record? When to use what-Record/Types of Record?
+02. What is/When to use Cursors, example?
     -What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
       (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 
@@ -79,37 +79,8 @@ PL/SQL has MAINLY two kinds of data types:
 REFERENCE TYPES:-- is used to hold pointer values which generally stores address of other program items EX: REF CURSOR AND REFS
 
 
------------------------------------------------01. What is/When to use Cursor with example?-------------------------------------------
 
-When To perform multiple operations ROW by ROW(in the result set), with or without returning to the original table.
-
-A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
-This includes:
-> Rows returned by a query. 
-> Number of rows processed by a query.
-
-
-EXAMPLE:-----
-DECLARE 
- CURSOR c_customers is SELECT c_id, c_name, c_add FROM customers; 
-   v_id number(10); 
-   v_name varchar2(50); 
-   v_addr varchar2(100); 
-BEGIN 
- OPEN c_customers; 
-   LOOP 
-   FETCH c_customers into v_id, v_name, v_addr; 
-      EXIT WHEN c_customers%notfound; 
-      dbms_output.put_line(v_id || ' ' || v_name || ' ' || v_addr); 
-   END LOOP; 
- CLOSE c_customers;
-END;
-
-/
-desc customers;
-
-
---------------------------------------02. What is a Record  and its type in datatype?--------------------------------------------------
+--------------------------------------01. What is a Record  and its type in datatype?--------------------------------------------------
 
 A record is a group of related data items stored in fields, each with its own name and datatype. The fields correspond to table columns. 
 
@@ -202,7 +173,34 @@ OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 10
     DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
 END;
 	 
-	 
+-----------------------------------------------02. What is/When to use Cursor with example?-------------------------------------------
+
+When To perform multiple operations ROW by ROW(in the result set), with or without returning to the original table.
+
+A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
+This includes:
+> Rows returned by a query. 
+> Number of rows processed by a query.
+
+
+EXAMPLE:-----
+DECLARE 
+ CURSOR c_customers is SELECT c_id, c_name, c_add FROM customers; 
+   v_id number(10); 
+   v_name varchar2(50); 
+   v_addr varchar2(100); 
+BEGIN 
+ OPEN c_customers; 
+   LOOP 
+   FETCH c_customers into v_id, v_name, v_addr; 
+      EXIT WHEN c_customers%notfound; 
+      dbms_output.put_line(v_id || ' ' || v_name || ' ' || v_addr); 
+   END LOOP; 
+ CLOSE c_customers;
+END;
+
+/
+desc customers;	 
 	 
 
 ---------------------------- 03. When to use (DML/DDL) dynamic SQL and Example? ------------------------------------
