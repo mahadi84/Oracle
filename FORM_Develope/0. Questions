@@ -80,7 +80,7 @@ REFERENCE TYPES:-- is used to hold pointer values which generally stores address
 
 
 
---------------------------------------01. What is a Record  and its type in datatype?--------------------------------------------------
+----------------------------------- 01.What is a Record? When to use what-Record/Types of Record? ----------------------------------------
 
 A record is a group of related data items stored in fields, each with its own name and datatype. The fields correspond to table columns. 
 
