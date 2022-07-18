@@ -3,7 +3,8 @@
 
 
 
-00. What is an Exception/Run Time Error with example? Type of Exception? Name few debugging tools for PL/SQL?
+00. When does an Exception need/occures? Type of Exception?
+001. Explain data types in PL/SQL?
 
 01. What is/When to use Cursors, example?
 02. What is a Record? When to use what-Record/Types of Record?
@@ -69,6 +70,13 @@ EXCEPTION
    WHEN others THEN 
       dbms_output.put_line('Error!');  
 END;
+
+----------------------------001. Explain data types in PL/SQL?-----------------------------------------
+PL/SQL has two kinds of data types: 
+SCALAR TYPES:--  Are types that store single values such as number, varchar, Boolean, character, and datetime
+COMPOSITE TYPES:-- Are types that store multiple values, for example, record and collection.
+                 Record: 
+		 Collection:
 
 
 -----------------------------------------------01. What is/When to use Cursor with example?-------------------------------------------
