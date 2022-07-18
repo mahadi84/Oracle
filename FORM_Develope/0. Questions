@@ -1,7 +1,7 @@
 
 
 
-
+--What/Why PL/SQL?
 
 00. When does an Exception need/occures? Type of Exception?
 
@@ -27,6 +27,8 @@
 11. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
 12. SYNTEX OF i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
 
+13. IF..ELSE vs CASE statement?
+
 
 
 
@@ -35,6 +37,13 @@ Questions to look for answer:
 01. Why I use EXCEPTION while I can do same job with DBMS_OUTPUT.PUT_LINE()?
 02. 
 
+Why do we use PL/SQL instead of SQL?
+------------------------------------
+-Procedural Extension Language of SQL
+PL/SQL allows us to transfer an entire block of statements to the database at once. 
+This reduces traffic over the network and increases processing speed.
+This in turn increases the productivity of the programmers as they can create, transform and update data with high speed and accuracy. 
+On the other hand, we can execute a single statement in SQL at a time. 
 
 
 ==================================================== ANSWERs =========================================
@@ -486,7 +495,28 @@ DBMS_OUTPUT.PUT_LINE (d_result);
 END LOOP;
 
 
+----------13. IF...ELSE vs CASE?------------------
 
+DECLARE
+  grade CHAR(1);
+BEGIN
+  grade := 'B';
+  
+   --------IF ELSE-------
+  IF grade = 'A' THEN  DBMS_OUTPUT.PUT_LINE('Excellent');
+  ELSIF grade = 'B' THEN   DBMS_OUTPUT.PUT_LINE('Very Good');
+  ELSE  DBMS_OUTPUT.PUT_LINE('No such grade');
+  END IF;
+   -------------
+
+  CASE grade
+    WHEN 'A' THEN DBMS_OUTPUT.PUT_LINE('Excellent');
+    WHEN 'B' THEN DBMS_OUTPUT.PUT_LINE('Very Good');
+    ELSE DBMS_OUTPUT.PUT_LINE('No such grade');
+  END CASE;
+ 
+
+END;
 
 
 
