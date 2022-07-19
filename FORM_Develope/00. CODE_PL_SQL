@@ -1,15 +1,22 @@
+
+
+
 01. CREATE and CHECK table's COLUMN name and DATA Type?
 02. INSERT/UPDATE/DELETE
 03. Change/Add-Table/Cloumn/Data Type?
+
 04. IF..ELSE vs CASE
-05. ASSOCIATIVE ARRAY
-06. NESTED TABLE
-07. VARRY
+05. ASSOCIATIVE ARRAY with while loop
+06. NESTED TABLE with for loop
+07. VARRY with for loop
+
 08. CURSOR BASED RECORD
 09. TABLE(ROW & COL) BASED RECORD
 10. USER DEFINED RECORD
 
 
+
+--------------------------------------------------------------
 
 01. 
 create table cust(id number, name varchar2(50));
