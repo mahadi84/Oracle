@@ -1,17 +1,143 @@
+01. CREATE and CHECK table's COLUMN name and DATA Type?
+02. INSERT/UPDATE/DELETE
+03. Change/Add-Table/Cloumn/Data Type?
+04. IF..ELSE vs CASE
+05. ASSOCIATIVE ARRAY
+06. NESTED TABLE
+07. VARRY
+08. CURSOR BASED RECORD
+09. TABLE(ROW & COL) BASED RECORD
+10. USER DEFINED RECORD
 
 
 
+01. 
+create table cust(id number, name varchar2(50));
+insert into cust values(1, 'Mahadi');
+insert into cust values(2, 'Hasan');
+insert into cust values(3, 'Bappy');
 DESC superheroes;   / To check table's COLUMN name and DATA Type
 
+
+02.
 INSERT INTO tbl_name(col1,col2) VALUES('value1', 'value2');
 UPDATE tbl_name SET col1='value1' where id=1;
 DELETE FROM superheroes WHERE cust_name = 'PUBALI';
 
-Change/Add-Table/Cloumn/Data Type:
+03. Change/Add-Table/Cloumn/Data Type:
 ----------------------------------
 ALTER TABLE table_name RENAME to new_table_name;            /Table name Change
 ALTER TABLE table_name RENAME COLUMN old_name TO new_name;  /Column name Change
 ALTER TABLE table_name ADD column_name datatype;            /New Clumn Add
 ALTER TABLE table_name MODIFY COLUMN column_name datatype;  /Datatype change
+
+
+
+------04. IF..ELSE vs CASE----------
+
+DECLARE
+d varchar2(50);
+BEGIN
+d := 'B';
+-- IF    d = 'A' THEN dbms_output.put_line('Excelent');
+-- ELSIF d = 'B' THEN dbms_output.put_line('GOOD');
+-- ELSE  dbms_output.put_line('NO MATCH FOUND');
+-- END IF;
+CASE
+WHEN d = 'A' THEN dbms_output.put_line('Excelent');
+WHEN d = 'B' THEN dbms_output.put_line('GOOD');
+ELSE dbms_output.put_line('NO DATA FOUND');
+END CASE;
+END;
+
+----------05. ASSOCIATIVE ARRAY---------
+DECLARE
+    TYPE age IS TABLE OF NUMBER INDEX BY VARCHAR(25); 
+    age_empl age; 
+    employee VARCHAR(25); 
+BEGIN
+    -- adding employee details to the table
+    age_empl('Sam') := 30; 
+    age_empl('Venu') := 35; 
+    -- printing the table contents in the console
+    employee := age_empl.FIRST; 
+    WHILE employee IS NOT null LOOP 
+         dbms_output.put_line ('Employee name is ' || employee || ' and age is ' || TO_CHAR(age_empl(employee))); 
+         employee := age_empl.NEXT(employee); 
+    END LOOP; 
+END; 
+
+
+------------06. NESTED TABLE------------
+
+DECLARE
+    TYPE subject IS TABLE OF VARCHAR(15); 
+    TYPE teacher IS TABLE OF VARCHAR2(20);
+    subjectnames subject; 
+    subjectteacher teacher; 
+BEGIN 
+    -- adding subject and its teachers to the table
+    subjectnames := subject('PLSQL', 'PHP', 'PYTHON'); 
+    subjectteacher:= teacher('ZAHID', 'MONIR', 'RASHID'); 
+
+    FOR i IN subjectteacher.FIRST..subjectteacher.LAST LOOP 
+         dbms_output.put_line('Subject:'||subjectnames(i)||', Teacher:' || subjectteacher(i)); 
+    end loop; 
+END;
+
+-----------------07.VARRY-------------
+
+DECLARE
+TYPE vr_name IS VARRAY(4) OF NUMBER;
+v_data vr_name := vr_name();
+BEGIN
+v_data := vr_name(1,2,3,4);
+FOR i IN v_data.first..v_data.last LOOP
+dbms_output.put_line(i);
+END LOOP;
+END;
+
+-----------------08.CURSOR BASED RECORD------------
+
+DECLARE
+cursor cur_cust IS SELECT * FROM cust;
+v_data cur_cust%ROWTYPE;
+BEGIN
+OPEN cur_cust;
+LOOP
+FETCH cur_cust into v_data;
+EXIT when cur_cust%NOTFOUND;
+dbms_output.put_line(v_data.id || v_data.name);
+END LOOP;
+CLOSE cur_cust;
+END;
+
+-----------------09. TABLE(ROW & COL) BASED RECORD------------
+
+DECLARE
+v_data cust%ROWTYPE;
+BEGIN
+SELECT * into v_data FROM cust where id=2;
+dbms_output.put_line(v_data.id || v_data.name);
+END;
+---COL--
+DECLARE
+v_name cust.name%TYPE;
+BEGIN
+SELECT name into v_name FROM cust where id=2;
+dbms_output.put_line( v_name);
+END;
+
+
+-----------------10 USER DEFINED RECORD------------
+
+DECLARE
+TYPE r_name IS RECORD( v_id number, v_name varchar2(50));
+v_data r_name;
+BEGIN
+SELECT * into v_data FROM cust where id=2;
+dbms_output.put_line( v_data.v_id || v_data.v_name);
+END;
+
 
 
