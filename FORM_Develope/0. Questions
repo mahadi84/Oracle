@@ -2,6 +2,7 @@
 
 
 --What is/Advantage of PL/SQL? Why do we use PL/SQL instead of SQL?
+--What is PL/SQL identifier?
 
 00. Why does ERROR occur? How to indentify using user define function?
     -How can we force a user input 500 tk must as initial ammount, otherwise SHOW 'Initial amount must be equal or greater than 500'
@@ -47,6 +48,14 @@ By grouping SQL statements, a stored PROCEDURE allows them to be executed with a
   -REDUCES network traffic, and 
   -IMPROVE round-trip response time.
 ** Other hand, SQL execute a single statement at a time. 
+
+PL/SQL Identifiers:
+-------------------
+-Are variables, exceptions, cursors, procedures, constants and reserved words.
+-Consist of a letter should not exceed 30 characters.
+-NOT case-sensitive, By default. 
+-Cannot use a reserved keyword as an identifier.
+-Optionally followed by more letters, numerals, dollar signs, underscores, and number signs. 
 
 
 ==================================================== ANSWERs =========================================
