@@ -2,7 +2,7 @@
 
 
 --What is/Advantage of PL/SQL? Why do we use PL/SQL instead of SQL?
---What is PL/SQL identifier?
+--What is PL/SQL Identifier and Delimeter?
 
 00. Why does ERROR occur? How to indentify using user define function?
     -How can we force a user input 500 tk must as initial ammount, otherwise SHOW 'Initial amount must be equal or greater than 500'
@@ -57,6 +57,12 @@ PL/SQL Identifiers:
 -Cannot use a reserved keyword as an identifier.
 -Optionally followed by more letters, numerals, dollar signs, underscores, and number signs. 
 
+PL/SQL Delimeter:
+-----------------
+A symbol with a special meaning.
+Delimiter:  Description:
+:=          Assignment operator
+<=, >=	    Relational operators
 
 ==================================================== ANSWERs =========================================
 
