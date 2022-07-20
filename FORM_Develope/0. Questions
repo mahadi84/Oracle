@@ -10,7 +10,7 @@
 01. Explain data types in PL/SQL?
 
 02. What is a Record? When to use what-Record/Types of Record?
-03. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection)
+03. What is/When to use NESTED TABLE/ASSOCIATIVE Array/VARRAYs/? (Topic: Collection)
 04. When to use these Collection Functions:-- (Topic: Collection Methode)
      A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
 
@@ -170,6 +170,8 @@ END;
 	
 
 ----------------------- 03. What is/When to use ASSOCIATIVE Array/NESTED TABLE/VARRAYs? (Topic: Collection) ----------------------------
+
+**Nested tables can be stored in a database column and the Associative Array cannot.
 
 A) ASSOCIATIVE ARRAY
 --------------------
