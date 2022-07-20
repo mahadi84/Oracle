@@ -1,7 +1,7 @@
 
 
 
---What/Why PL/SQL?
+--What is/Advantage of PL/SQL? Why do we use PL/SQL instead of SQL?
 
 00. Why does ERROR occur? How to indentify using user define function?
     -How can we force a user input 500 tk must as initial ammount, otherwise SHOW 'Initial amount must be equal or greater than 500'
@@ -41,10 +41,12 @@ Questions to look for answer:
 Why do we use PL/SQL instead of SQL?
 ------------------------------------
 -Procedural Extension Language of SQL
-PL/SQL allows us to transfer an entire block of statements to the database at once. 
-This reduces traffic over the network and increases processing speed.
-This in turn increases the productivity of the programmers as they can create, transform and update data with high speed and accuracy. 
-On the other hand, we can execute a single statement in SQL at a time. 
+By grouping SQL statements, a stored PROCEDURE allows them to be executed with a single call. 
+  This minimizes the use of 
+  -SLOW networks, 
+  -REDUCES network traffic, and 
+  -IMPROVE round-trip response time.
+** Other hand, SQL execute a single statement at a time. 
 
 
 ==================================================== ANSWERs =========================================
