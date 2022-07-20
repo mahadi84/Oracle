@@ -48,11 +48,17 @@ On the other hand, we can execute a single statement in SQL at a time.
 
 
 ==================================================== ANSWERs =========================================
-----------------------00. What is an Exception? Type of Exception?-----------------------------------------
-Runtime Error: 
-Runtime errors are errors that occur while code is executing. 
+
+----------------------00. Why does ERROR occur? How to indentify using user define function?-----------------------------------------
+Error occur while code is executing. 
 These errors can arise due to DATA problems or CODE problems. 
 For instance, attempting to assign a 31-character string to a varchar2 (30) variable will cause a runtime error.
+
+PL/SQL allows you to define your own exceptions according to the need of your program. 
+A user-defined exception must be declared and then raised explicitly.
+
+
+
 
 Debugging Tool: DBMS_Output.Put_Line()
 
@@ -87,7 +93,8 @@ PL/SQL has MAINLY two kinds of data types:
 01. SCALAR TYPES:--  store single values, have 4 different categories- Number, Character and String, Boolean and Date and Time etc.
 02. COMPOSITE TYPES:-- store multiple values(data structure). Example, record and collection.
 
-REFERENCE TYPES:-- is used to hold pointer values which generally stores address of other program items EX: REF CURSOR AND REFS
+REFERENCE TYPES:-- is used to hold pointer values which generally stores address of other program items EX: REF CURSOR AND REFS.
+LARGE OBJECT (LOB) TYPE:-- refer to large data items such as text, graphic images, video clips, and sound waveforms. Type Ex: BLOB, CLOB, NCLOB, BFILE
 
 
 
