@@ -32,12 +32,9 @@
 13. IF..ELSE vs CASE statement?
 
 
+--------------------------------------------------------------------------------
 
 
-Questions to look for answer:
------------------------------
-01. Why I use EXCEPTION while I can do same job with DBMS_OUTPUT.PUT_LINE()?
-02. 
 
 Why do we use PL/SQL instead of SQL?
 ------------------------------------
