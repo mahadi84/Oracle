@@ -175,6 +175,8 @@ END;
 
 A) ASSOCIATIVE ARRAY
 --------------------
+Associative arrays are used to store key value pairs.
+
 DECLARE
     TYPE age IS TABLE OF NUMBER INDEX BY VARCHAR(25); 
     age_empl age; 
