@@ -3,7 +3,8 @@
 
 --What/Why PL/SQL?
 
-00. When does an Exception need/occures? Type of Exception?
+00. Why does ERROR occur? How to indentify using user define function?
+    -How can we force a user input 500 tk must as initial ammount, otherwise SHOW 'Initial amount must be equal or greater than 500'
 
 01. Explain data types in PL/SQL?
 
@@ -97,74 +98,100 @@ A record is a group of related data items stored in fields, each with its own na
 Types of Record datatype
 -------------------------
 In Oracle PL/SQL we have three types of Record datatype.
- A) Table Based Record        
-          Syntex: Variable_ name   table_name%ROWTYPE;
- B) Cursor Based Record, and   
-          Syntex:    
-          CURSOR cur_RebellionRider IS
-          SELECT first_name, salary FROM employees WHERE employee_id > 200; 
-          var_emp   cur_RebellionRider%ROWTYPE;
-           BEGIN
-           OPEN cur_RebellionRider;
-           FETCH cur_RebellionRider INTO var_emp;
-           DBMS_OUTPUT.PUT_LINE (var_emp.first_name);
- C) User Defined Record.       
-         Syntex:
-         TYPE rv_dept IS RECORD(f_name  VARCHAR2(20), d_name  departments.department_name%type);
-         var1 rv_dept;
+ 
+A) CURSOR BASED RECORD------------
+
+DECLARE
+cursor cur_cust IS SELECT * FROM cust;
+v_data cur_cust%ROWTYPE;
+BEGIN
+OPEN cur_cust;
+LOOP
+FETCH cur_cust into v_data;
+EXIT when cur_cust%NOTFOUND;
+dbms_output.put_line(v_data.id || v_data.name);
+END LOOP;
+CLOSE cur_cust;
+END;
+
+B) TABLE(ROW & COL) BASED RECORD------------
+
+DECLARE
+v_data cust%ROWTYPE;
+BEGIN
+SELECT * into v_data FROM cust where id=2;
+dbms_output.put_line(v_data.id || v_data.name);
+END;
+---COL--
+DECLARE
+v_name cust.name%TYPE;
+BEGIN
+SELECT name into v_name FROM cust where id=2;
+dbms_output.put_line( v_name);
+END;
+
+
+c) USER DEFINED RECORD------------
+
+DECLARE
+TYPE r_name IS RECORD( v_id number, v_name varchar2(50));
+v_data r_name;
+BEGIN
+SELECT * into v_data FROM cust where id=2;
+dbms_output.put_line( v_data.v_id || v_data.v_name);
+END;
 	
 
------------------------ 03. What is/When to use NESTED TABLE/VARRAYs/ASSOCIATIVE Array? (Topic: Collection) ----------------------------
+----------------------- 03. What is/When to use ASSOCIATIVE Array/NESTED TABLE/VARRAYs? (Topic: Collection) ----------------------------
 
-VARRAY:
--------
+A) ASSOCIATIVE ARRAY
+--------------------
 DECLARE
-TYPE v_arr IS VARRAY(3) OF VARCHAR2(50);
-d_arr v_arr := v_arr (); 
+    TYPE age IS TABLE OF NUMBER INDEX BY VARCHAR(25); 
+    age_empl age; 
+    employee VARCHAR(25); 
 BEGIN
-d_arr.EXTEND(3);
-d_arr(1) := 'USA';
-d_arr(2) := 'UK';
-d_arr(3) := 'AUS';
-   FOR i IN 1..d_arr.count LOOP
-   DBMS_OUTPUT.PUT_LINE(d_arr(i));
-   END LOOP;
+    -- adding employee details to the table
+    age_empl('Sam') := 30; 
+    age_empl('Venu') := 35; 
+    -- printing the table contents in the console
+    employee := age_empl.FIRST; 
+    WHILE employee IS NOT null LOOP 
+         dbms_output.put_line ('Employee name is ' || employee || ' and age is ' || TO_CHAR(age_empl(employee))); 
+         employee := age_empl.NEXT(employee); 
+    END LOOP; 
+END; 
+
+
+B) NESTED TABLE
+---------------
+
+DECLARE
+    TYPE subject IS TABLE OF VARCHAR(15); 
+    TYPE teacher IS TABLE OF VARCHAR2(20);
+    subjectnames subject; 
+    subjectteacher teacher; 
+BEGIN 
+    -- adding subject and its teachers to the table
+    subjectnames := subject('PLSQL', 'PHP', 'PYTHON'); 
+    subjectteacher:= teacher('ZAHID', 'MONIR', 'RASHID'); 
+
+    FOR i IN subjectteacher.FIRST..subjectteacher.LAST LOOP 
+         dbms_output.put_line('Subject:'||subjectnames(i)||', Teacher:' || subjectteacher(i)); 
+    end loop; 
 END;
 
-NESTED TABLE:
--------------
+C) VARRY
+----------
 
 DECLARE
-TYPE v_tbl IS TABLE OF VARCHAR2(50);
-d_tbl v_tbl := v_tbl (); 
+TYPE vr_name IS VARRAY(4) OF NUMBER;
+v_data vr_name := vr_name();
 BEGIN
-d_tbl.EXTEND(5);
-d_tbl(1) := 'USA';
-d_tbl(2) := 'UK';
-d_tbl(3) := 'AUS';
-   FOR i IN 1..d_tbl.count LOOP
-   DBMS_OUTPUT.PUT_LINE(d_tbl(i));
-   END LOOP;
-END;
-/
-
-ASSOCIATIVE ARRAY:
------------------
-DECLARE
-    TYPE asa IS
-        TABLE OF VARCHAR2(50) INDEX BY VARCHAR2(20);
-    v_asa  asa;
-    i_asa  VARCHAR2(20);
-BEGIN
-    v_asa('white') := '000';
-    v_asa('red') := '111';
-    v_asa('black') := '222';
-        i_asa := v_asa.FIRST;
-    WHILE i_asa IS NOT null 
-    LOOP
-     DBMS_OUTPUT.PUT_LINE(v_asa(i_asa));
-     i_asa:= v_asa.NEXT(i_asa);
-    END LOOP;
+v_data := vr_name(1,2,3,4);
+FOR i IN v_data.first..v_data.last LOOP
+dbms_output.put_line(i);
+END LOOP;
 END;
 
 --------------04. When to use these Collection Functions:-- (Topic: Collection Methode)--------------------------
