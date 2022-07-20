@@ -416,11 +416,25 @@ END;
 --------------------------09. What is/When to use Trigger? When to use what trigger/Type of trigger?-------------------
 
 What/Why is Trigger? Where/How it works?
---------------------------------------------
--Specialized stored programs For *Auditing (Table/Schema/Database) which execute implicitly(পরোক্ষভাবে) when a triggering event(DML,DDL,SYTEM and USER)s occurs.
--Cannot call and execute them directly instead they only get triggered by events in the database.
-  *Keep an eye on the various changes on Table/Schema/Database). 
-  *Enforce business rules.
+----------------------------------------
+Triggers are stored programs, which are automatically executed or fired implicitly(পরোক্ষভাবে) 
+when any of the following events occur:-
+A database manipulation (DML) statement (DELETE, INSERT, or UPDATE)
+A database definition (DDL) statement (CREATE, ALTER, or DROP).
+A database operation (SERVERERROR, LOGON, LOGOFF, STARTUP, or SHUTDOWN).
+Triggers can be defined on the table, view, schema, or database with which the event is associated.
+
+Benefits of Triggers
+---------------------
+Triggers can be written for the following purposes −
+ > Event logging and storing information on table access
+ > Generating some derived column values automatically
+ > Auditing
+ > Synchronous replication of tables
+ > Imposing security authorizations
+ > Preventing invalid transactions
+
+
 
 CREATE OR REPLACE trigger superheroes_audit
 BEFORE INSERT OR DELETE OR UPDATE ON superheroes
