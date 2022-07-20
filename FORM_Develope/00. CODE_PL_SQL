@@ -14,9 +14,11 @@
 09. TABLE(ROW & COL) BASED RECORD
 10. USER DEFINED RECORD
 
+11. FUNCTION vs PROCEDURE
 
 
---------------------------------------------------------------
+
+=====================================================
 
 01. 
 create table cust(id number, name varchar2(50));
@@ -145,6 +147,40 @@ BEGIN
 SELECT * into v_data FROM cust where id=2;
 dbms_output.put_line( v_data.v_id || v_data.v_name);
 END;
+
+----------------11. FUNCTION vs PROCEDURE-----------
+FUNCTION SYNTEX:
+----------------
+--Function Header
+CREATE OR REPLACE FUNCTION ADD_TWO(num1 IN number, num2 IN number)
+RETURN NUMBER IS
+result number;
+BEGIN
+result := num1+num2;
+RETURN result;
+END;
+/
+Call above Fuction:
+BEGIN
+ show : = ADD_TWO(20, 25);
+ DBMS_OUTPUT.PUT_LINE (show);
+END;
+
+PROCEDURE SYNTEX:
+-----------------
+CREATE OR REPLACE PROCEDURE INSERT_USERS(user_id IN number,
+user_name IN VARCHAR2, password IN VARCHAR2)
+IS
+BEGIN
+INSERT INTO USERS VALUES (user_id,user_name, password );
+DBMS_OUTPUT.PUT_LINE ('New User Registered successfully');
+END;
+
+/
+Calling  Procedure:
+EXECUTE INSERT_USERS(1,'mahadi', '123456');
+
+
 
 
 
