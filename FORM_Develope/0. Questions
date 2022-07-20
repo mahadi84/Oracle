@@ -63,6 +63,9 @@ A symbol with a special meaning.
 Delimiter:  Description:
 :=          Assignment operator
 <=, >=	    Relational operators
+||          Concatenation operator for joining two strings
+
+
 
 ==================================================== ANSWERs =========================================
 
