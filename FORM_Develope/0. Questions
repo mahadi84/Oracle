@@ -14,7 +14,7 @@
 04. When to use these Collection Functions:-- (Topic: Collection Methode)
      A) Count  B) Exists C) First, Last D) Limit E) Prior, Next ----> Procedures:- A) Delete B) Extend C) Trim
 
-05. What is/When to use Cursors, example?
+05. What is/When to use Cursors, example? IMPLICITE vs EXPLICITE cursor?
     -What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
       (Topic: Cursors -Reff (Strong, Weak and SYS_REFCURSOR) Cursor)?
 
@@ -135,11 +135,30 @@ This includes:
 > Rows returned by a query. 
 > Number of rows processed by a query.
 
+There are two types of cursor:
+------------------------------
+Implicit Cursors:--------
+Implicit cursors are automatically created when select statements are executed.	
+They are capable of fetching a single row at a time. 
+SYNTEX:---
+BEGIN
+SELECT col INTO var FROM table WHERE something;
+END
 
-desc customers;	 
+Explicit Cursors:--------
+Explicit cursors needs to be defined explicitly by the user by providing a name.
+Explicit cursors can fetch multiple rows.
+SYNTEX:---
+DECLARE   
+  CURSOR cur IS SELECT col FROM table WHERE something; 
+BEGIN
+  OPEN cur;
+  FETCH cur INTO var;
+  CLOSE cur;
+END;
 	 
 What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
-------------------
+------------------------------------------------------------------
 STRONG REFF CURSOR:
 ------------------
 A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database.
