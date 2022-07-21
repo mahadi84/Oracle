@@ -27,9 +27,6 @@
 10. Why/How to create and use a PL/SQL Packages? What a packege contain?
 
 11. FUNCTION VS PROCEDURE, How to create and use as FUNCTION and PROCEDURE?
-12. SYNTEX OF i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP;
-
-13. IF..ELSE vs CASE statement?
 
 
 --------------------------------------------------------------------------------
@@ -76,35 +73,6 @@ A user-defined exception must be declared and then raised explicitly.
 
 
 
-
-Debugging Tool: DBMS_Output.Put_Line()
-
-EXCEPTION:
-DECLARE 
-   c_id customers.id%type := &cc_id; 
-   c_name customerS.Name%type; 
-   c_addr customers.address%type;  
-   -- user defined exception 
-   ex_invalid_id  EXCEPTION; 
-BEGIN 
-   IF c_id <= 0 THEN 
-      RAISE ex_invalid_id; 
-   ELSE 
-      SELECT  name, address INTO  c_name, c_addr 
-      FROM customers 
-      WHERE id = c_id;
-      DBMS_OUTPUT.PUT_LINE ('Name and Address: '||  c_name ' || c_addr);  
-   END IF; 
-
-EXCEPTION 
-   WHEN ex_invalid_id THEN 
-      dbms_output.put_line('ID must be greater than zero!'); 
-   WHEN no_data_found THEN 
-      dbms_output.put_line('No such customer!'); 
-   WHEN others THEN 
-      dbms_output.put_line('Error!');  
-END;
-
 ----------------------------01. Explain data types in PL/SQL?-----------------------------------------
 PL/SQL has MAINLY two kinds of data types: 
 01. SCALAR TYPES:--  store single values, have 4 different categories- Number, Character and String, Boolean and Date and Time etc.
@@ -124,46 +92,10 @@ Types of Record datatype
 In Oracle PL/SQL we have three types of Record datatype.
  
 A) CURSOR BASED RECORD------------
-
-DECLARE
-cursor cur_cust IS SELECT * FROM cust;
-v_data cur_cust%ROWTYPE;
-BEGIN
-OPEN cur_cust;
-LOOP
-FETCH cur_cust into v_data;
-EXIT when cur_cust%NOTFOUND;
-dbms_output.put_line(v_data.id || v_data.name);
-END LOOP;
-CLOSE cur_cust;
-END;
-
 B) TABLE(ROW & COL) BASED RECORD------------
-
-DECLARE
-v_data cust%ROWTYPE;
-BEGIN
-SELECT * into v_data FROM cust where id=2;
-dbms_output.put_line(v_data.id || v_data.name);
-END;
----COL--
-DECLARE
-v_name cust.name%TYPE;
-BEGIN
-SELECT name into v_name FROM cust where id=2;
-dbms_output.put_line( v_name);
-END;
+C) USER DEFINED RECORD------------
 
 
-c) USER DEFINED RECORD------------
-
-DECLARE
-TYPE r_name IS RECORD( v_id number, v_name varchar2(50));
-v_data r_name;
-BEGIN
-SELECT * into v_data FROM cust where id=2;
-dbms_output.put_line( v_data.v_id || v_data.v_name);
-END;
 	
 
 ----------------------- 03. What is/When to use ASSOCIATIVE Array/NESTED TABLE/VARRAYs? (Topic: Collection) ----------------------------
@@ -171,56 +103,9 @@ END;
 **Nested tables can be stored in a database column and the Associative Array cannot.
 
 A) ASSOCIATIVE ARRAY
---------------------
-Associative arrays are used to store key value pairs.
-
-DECLARE
-    TYPE age IS TABLE OF NUMBER INDEX BY VARCHAR(25); 
-    age_empl age; 
-    employee VARCHAR(25); 
-BEGIN
-    -- adding employee details to the table
-    age_empl('Sam') := 30; 
-    age_empl('Venu') := 35; 
-    -- printing the table contents in the console
-    employee := age_empl.FIRST; 
-    WHILE employee IS NOT null LOOP 
-         dbms_output.put_line ('Employee name is ' || employee || ' and age is ' || TO_CHAR(age_empl(employee))); 
-         employee := age_empl.NEXT(employee); 
-    END LOOP; 
-END; 
-
-
 B) NESTED TABLE
----------------
-
-DECLARE
-    TYPE subject IS TABLE OF VARCHAR(15); 
-    TYPE teacher IS TABLE OF VARCHAR2(20);
-    subjectnames subject; 
-    subjectteacher teacher; 
-BEGIN 
-    -- adding subject and its teachers to the table
-    subjectnames := subject('PLSQL', 'PHP', 'PYTHON'); 
-    subjectteacher:= teacher('ZAHID', 'MONIR', 'RASHID'); 
-
-    FOR i IN subjectteacher.FIRST..subjectteacher.LAST LOOP 
-         dbms_output.put_line('Subject:'||subjectnames(i)||', Teacher:' || subjectteacher(i)); 
-    end loop; 
-END;
-
 C) VARRY
-----------
 
-DECLARE
-TYPE vr_name IS VARRAY(4) OF NUMBER;
-v_data vr_name := vr_name();
-BEGIN
-v_data := vr_name(1,2,3,4);
-FOR i IN v_data.first..v_data.last LOOP
-dbms_output.put_line(i);
-END LOOP;
-END;
 
 --------------04. When to use these Collection Functions:-- (Topic: Collection Methode)--------------------------
 
@@ -251,71 +136,18 @@ This includes:
 > Number of rows processed by a query.
 
 
-EXAMPLE:-----
-DECLARE 
- CURSOR c_customers is SELECT c_id, c_name, c_add FROM customers; 
-   v_id number(10); 
-   v_name varchar2(50); 
-   v_addr varchar2(100); 
-BEGIN 
- OPEN c_customers; 
-   LOOP 
-   FETCH c_customers into v_id, v_name, v_addr; 
-      EXIT WHEN c_customers%notfound; 
-      dbms_output.put_line(v_id || ' ' || v_name || ' ' || v_addr); 
-   END LOOP; 
- CLOSE c_customers;
-END;
-
-/
 desc customers;	 
 	 
 What are/When to use PL/SQL Strong/Weak/SYS_REFCURSOR Ref Cursors? 
 ------------------
+STRONG REFF CURSOR:
+------------------
 A ref cursor which has fixed return type is called a Strong Ref Cursor in Oracle Database.
 Can we use Strong Ref Cursor with any SELECT statement? Ans: NO. This is because of the fixed ‘Return Type’.
-
-A Strong Ref Cursor with Table Based Record Datatype:
-
- DECLARE
-	--Create User-Defined Record Datatype
-    TYPE my_rec IS RECORD (
-        emp_sal employees.salary%TYPE
-        );
-	--Declare Strong Ref Cursor
-    TYPE RefCur IS REF CURSOR RETURN my_rec;
-    cur_var REFCUR;
-	--Another anchored datatype variable for holding data
-    at_var  employees.salary%TYPE;
-BEGIN
-   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO at_var;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
-END;
-
 
 WEEK REFF CURSOR:
 -----------------
 A ref cursor which does not have a fixed return type is called a Weak Ref Cursor.
-07. How to create Weak Ref Cursor?
-------------------------------
-SET SERVEROUTPUT ON;
-DECLARE
-    /*Declare Weak Ref Cursor*/
-    TYPE wk_RefCur IS REF CURSOR;
-    /*Declare Cursor Variable of ref cursor type*/
-    cur_var wk_RefCur;
-    
-     /*Declare two "Anchored Datatype Variable" for holding data from the cursor*/
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-    OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE (f_name ||' '||emp_sal);
-END;
 
 SYS_REFCURSOR
 -------------
@@ -326,19 +158,6 @@ Ans: No, we do not need to create a weak ref cursor explicitly.
      It is like a personal choice, if someone wants to create a weak ref cursor then they can. 
      If not, then they have SYS_REFCURSOR always at their disposal. 
      
-DECLARE
-    --Declare cursor variable of SYS_REFCURSOR type
-    cur_var SYS_REFCURSOR;
-    
-    --Declare variables for holding data
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
-END;
 
 ---------------------------- 06. When to use (DML/DDL) dynamic SQL and Example? ------------------------------------
 
@@ -358,30 +177,8 @@ END;
 
 ---------------------------------07. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
-SET SERVEROUTPUT ON;
-DECLARE
---Create an explicit cursor
-    CURSOR exp_cur IS
-    SELECT first_name FROM employees;
 
-    --Declare collection for holding the data 
-    TYPE nt_fName   IS TABLE OF VARCHAR2 (20);
-    fname   nt_fName;
-BEGIN
-    OPEN exp_cur;
-    LOOP
-        FETCH exp_cur BULK COLLECT INTO fname LIMIT 10;
-        EXIT WHEN fname.count=0;
-        --Print data
-        FOR idx IN fname.FIRST.. fname.LAST
-        LOOP
-            DBMS_OUTPUT.PUT_LINE (idx||' '||fname(idx) );
-        END LOOP; 
-    END LOOP;
-    CLOSE exp_cur;
-END;
-
-
+    
 --------------------------------- 08. What is/When to use a FORALL statement? ----------------------------
 FORALL statement helps to process bulk data in an optimized manner by sending DML statements. FORALL is the Oracle Reserved Keyword.
 Although FORALL statement iterates through all the rows of a collection but it is not a FOR loop.
@@ -506,86 +303,6 @@ END [pkg_name];
 -Also Can be stored into the database as a database object and can be reused.
 -BUT UNLIKE PL/SQL FUNCTIONS A STORED PROCEDURE DOES NOT RETURN ANY VALUE.
 
-FUNCTION SYNTEX:
-----------------
---Function Header
-CREATE OR REPLACE FUNCTION ADD_TWO(num1 IN number, num2 IN number)
-RETURN NUMBER IS
-result number;
-BEGIN
-result := num1+num2;
-RETURN result;
-END;
-/
-Call above Fuction:
-BEGIN
- show : = ADD_TWO(20, 25);
- DBMS_OUTPUT.PUT_LINE (show);
-END;
-
-Syntax of PL/SQL Stored Procedures
-----------------------------------
-CREATE OR REPLACE PROCEDURE INSERT_USERS(user_id IN number,
-user_name IN VARCHAR2, password IN VARCHAR2)
-IS
-BEGIN
-INSERT INTO USERS VALUES (user_id,user_name, password );
-DBMS_OUTPUT.PUT_LINE ('New User Registered successfully');
-END;
-
-/
-Calling  Procedure:
-EXECUTE INSERT_USERS(1,'mahadi', '123456');
-
-
----------------------  12. SYNTEX of i) LOOP ii) WHILE LOOP iiii) FOR LOOP iv) CURSOR LOOP; -------------------------------
-
-
-DECLARE
-d_count number(20):=0;
-d_result number;
-BEGIN
- LOOP                                -- LOOP
-  d_count := d_count + 1;
-  d_result:= 2 * d_count;
-   DBMS_OUTPUT.PUT_LINE (d_result);
-  EXIT WHEN d_result >= 8;
- END LOOP;
-END;
- -------                                 
- FOR i IN 1..10 LOOP      -----FOR LOOP----------           
-   DBMS_OUTPUT.PUT_LINE (i);
- END LOOP;
- -------
- WHILE d_count <= 5 LOOP  ----------------WHILE LOOP-----
-d_count := d_count + 1;
-d_result := 2 * d_count;
-DBMS_OUTPUT.PUT_LINE (d_result);
-END LOOP;
-
-
-----------13. IF...ELSE vs CASE?------------------
-
-DECLARE
-  grade CHAR(1);
-BEGIN
-  grade := 'B';
-  
-   --------IF ELSE-------
-  IF grade = 'A' THEN  DBMS_OUTPUT.PUT_LINE('Excellent');
-  ELSIF grade = 'B' THEN   DBMS_OUTPUT.PUT_LINE('Very Good');
-  ELSE  DBMS_OUTPUT.PUT_LINE('No such grade');
-  END IF;
-   -------------
-
-  CASE grade
-    WHEN 'A' THEN DBMS_OUTPUT.PUT_LINE('Excellent');
-    WHEN 'B' THEN DBMS_OUTPUT.PUT_LINE('Very Good');
-    ELSE DBMS_OUTPUT.PUT_LINE('No such grade');
-  END CASE;
- 
-
-END;
 
 
 
