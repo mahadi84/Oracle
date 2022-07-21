@@ -90,7 +90,6 @@ DECLARE
     subjectnames subject; 
     subjectteacher teacher; 
 BEGIN 
-    -- adding subject and its teachers to the table
     subjectnames := subject('PLSQL', 'PHP', 'PYTHON'); 
     subjectteacher:= teacher('ZAHID', 'MONIR', 'RASHID'); 
 
@@ -112,7 +111,6 @@ END LOOP;
 END;
 
 -----------------08.CURSOR BASED RECORD------------
-
 DECLARE
 cursor cur_cust IS SELECT * FROM cust;
 v_data cur_cust%ROWTYPE;
