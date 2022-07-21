@@ -25,8 +25,8 @@ create table cust(id number, first_name varchar2(50), last_name varchar2(50));
 insert into cust values(1, 'Mahadi', 'Hasan');
 insert into cust values(2, 'Mahafuj', 'Hasan');
 insert into cust values(3, 'Jahid', 'Hasan');
-insert into cust values(3, 'Laiba', 'Hasan');
-insert into cust values(3, 'Mehjabin', 'Hasan');
+insert into cust values(4, 'Laiba', 'Hasan');
+insert into cust values(5, 'Mehjabin', 'Hasan');
 select * from cust;  
 DESC cust;   / To check table's COLUMN name and DATA Type
 
