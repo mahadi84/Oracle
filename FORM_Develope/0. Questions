@@ -128,9 +128,11 @@ BEGIN
 
 -----------------------------------------------05. What is/When to use Cursor with example?-------------------------------------------
 
-When To perform multiple operations ROW by ROW(in the result set), with or without returning to the original table.
+WHEN: 
+-To perform multiple operations ROW by ROW(in the result set), with or without returning to the original table.
+-To loop over a predetermined number of rows one at a time
 
-A cursor is a pointer that points to a result of a query.
+A cursor is a pointer that points to a result of a query. 
 A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
 This includes:
 > Rows returned by a query. 
