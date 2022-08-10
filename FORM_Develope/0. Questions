@@ -130,10 +130,18 @@ BEGIN
 
 When To perform multiple operations ROW by ROW(in the result set), with or without returning to the original table.
 
+A cursor is a pointer that points to a result of a query.
 A special memory region inside the Process Global Area (PGA) which helps oracle server in processing an SQL statement
 This includes:
 > Rows returned by a query. 
 > Number of rows processed by a query.
+
+Whenever Oracle executes an SQL statement such as SELECT INTO, INSERT, UPDATE, and DELETE, it automatically creates an implicit cursor.
+Ex: SELECT username INTO v_uname from CUST;
+
+IMPLICITE is FASTER than EXPLICIT(cursor with DECLARE, OPEN, FETCH, and CLOSE) but
+The implicit cursor is not elegant when the query returns zero or multiple rows which cause NO_DATA_FOUND or TOO_MANY_ROWS exception respectively.
+
 
 There are two types of cursor:
 ------------------------------
