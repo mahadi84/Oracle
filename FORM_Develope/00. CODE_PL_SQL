@@ -115,18 +115,25 @@ END;
 
 -----------------08.CURSOR BASED RECORD------------
 DECLARE
-cursor cur_cust IS SELECT * FROM cust;
-v_data cur_cust%ROWTYPE;
+cursor my_cust IS SELECT * FROM cust;
+v_datamyr_cust%ROWTYPE;
 BEGIN
-OPEN cur_cust;
+OPEN my_cust;
 LOOP
-FETCH cur_cust into v_data;
-EXIT when cur_cust%NOTFOUND;
+FETCH my_cust into v_data;
+EXIT when my_cust%NOTFOUND;
 dbms_output.put_line(v_data.id || v_data.name);
 END LOOP;
-CLOSE cur_cust;
+CLOSE my_cust;
 END;
-
+------------CURSOR with LOOP------------
+BEGIN
+  FOR my_cur IN (SELECT id, first_name FROM cust)
+  LOOP
+     dbms_output.put_line( my_cur.id '||' my_cur.first_name );
+  END LOOP;
+END;
+----------------
 
 STRONG REFF CURSOR:
 ------------------
