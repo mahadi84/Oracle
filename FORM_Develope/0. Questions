@@ -206,11 +206,12 @@ END;
 
 ---------------------------------07. How to select BULK DATA and show ? (Topic: Bulk collection)---------
 
+BULK COLLECT: These are SELECT statements that retrieve multiple rows with a single fetch, thereby improving the speed of data retrieval.
 
     
 --------------------------------- 08. What is/When to use a FORALL statement? ----------------------------
-FORALL statement helps to process bulk data in an optimized manner by sending DML statements. FORALL is the Oracle Reserved Keyword.
-Although FORALL statement iterates through all the rows of a collection but it is not a FOR loop.
+FORALL: These are INSERT, UPDATE, and DELETE operations that use collections to change multiple rows of data very quickly.
+But it is not a FOR loop.
 
 SET SERVEROUTPUT ON;
 CREATE TABLE tut_77 (
