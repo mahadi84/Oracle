@@ -1,0 +1,789 @@
+
+
+
+Question #1
+
+The STUDENTS table exists in your schema.
+Examine the DECLARE section of a PL/SQL block:
+
+DECLARE
+TYPE studentcur_t IS REF CURSOR RETURN cust%ROWTYPE;
+TYPE teachercur_t IS REF CURSOR;
+
+cursor1 studentcur_t;
+cursor1 teachercur_t;
+cursor3 SYS_REFCURSOR;
+
+CURSOR stcur  IS SELECT * FROM students;
+
+Which two blocks are valid?
+
+A.	BEGIN 
+OPEN cursor3 FOR SELECT * FROM students; 
+cursor1 :=cursor3; 
+END;
+
+B.	BEGIN 
+OPEN stcur; 
+cursor1 :=stcur; 
+END;
+
+C.	BEGIN 
+OPEN cursor1 FOR SELECT * FROM students; 
+stcur :=cursor1;
+END;
+
+D.	BEGIN 
+OPEN stcur; 
+cursor3 :=stcur;
+END;
+
+E.	BEGIN 
+OPEN cursor1 FOR SELECT * FROM students; 
+cursor2 :=cursor1;
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+Question #2
+Examine the code:
+ 
+
+CREATE PACKAGE pkg IS
+    TYPE rec_typ IS RECORD (id INTEGER, first_name VARCHAR2(50));
+    TYPE tab_typ IS TABLE OF rec_type INDEX BY PLS_INTERGER;
+     x tab_typ;
+END pkg;
+/
+CREATE FUNCTION f(x pkg.tab_typ) RETURN VARCHAR2 IS
+     r VARCHAR2(100);
+BEGIN
+  FOR I IN 1..x.COUNT LOOP
+  r:=r || '' || x(i).id || x(i).first_name;
+  END LOOP;
+  RETURN r;
+END f;
+
+Which two subprograms will be created successfully?
+
+A.
+CREATE FUNCTION p4 (y pkg.tab_typ) 
+RETURN pkg.tab_typ IS 
+BEGIN 
+EXECUTE IMMEDIATE SELECT pdt_id, pdt_name
+FROM TABLE (:b) BULK COLLECT INTO pkg.x USING y; 
+RETURN pkg.x; 
+END p4;
+
+B. 
+CREATE PROCEDURE p1 (y IN OUT pkg.tab_typ) IS 
+BEGIN 
+EXECUTE IMMEDIATE SELECT f (:b) FROM DUAL INTO y USING pkg.x; 
+END p1;
+
+C. 
+CREATE PROCEDURE p2 (v IN OUT VARCHAR2) IS
+BEGIN 
+EXECUTE IMMEDIATE SELECT f (:b) FROM DUAL INTO v USING pkg.x;
+END p2;
+
+D. 
+CREATE FUNCTION p3 RETURN pkg. tab_typ IS 
+BEGIN 
+EXECUTE IMMEDIATE SELECT f (:b) FROM DUAL INTO pkg.x; 
+END p3;
+
+E. 
+CREATE PROCEDURE p5 (y pkg. rec_typ) IS 
+BEGIN 
+EXECUTE IMMEDIATE SELECT pdt_name 
+FROM TABLE (:b) BULK COLLECT INTO y USING pkg.x;
+
+
+
+
+
+Question #3
+Examine the section of code taken from a PL/SQL program:
+ 
+PLSQL_OPTIMIZE_LEVEL PARAMETER is set to 3.
+Which two statements are true?
+A.	Calls to TESTPROC will always be inlined as it is compiled with    
+  PLSQL_OPTIMIZE_LEVEL=3.
+B. Calls to TESTPROC are never inlined in both lines commented as Call1 and Call 2.
+C. Calls to TESTPROC are not inlined in the line commented as Call 1.
+D. Calls to TESTPROC are inlined in both lines commented as Call 1 and Call 2.
+E. Calls to TESTPROC might be inlined in the line commented as Call 2.
+
+Question #4
+Which statement is true about the DBMS_PARALLEL_EXECUTE package?
+A. DBMS_PARALLEL_EXECUTE is a SYS-owned package and can be accessed only by a user with DBA privileges.
+B. To execute chunks in parallel, users must have CREATE JOB system privilege.
+C. No specific system privileges are required to create or run parallel execution tasks.
+D. Only DBAs can create or run parallel execution tasks.
+E. Users with CREATE TASK privilege can create or run parallel execution tasks.
+
+Question #5
+Which two statements are true regarding edition-based redefinition (EBR)?
+A. There is no default edition defined in the database.
+B. EBR does not let you upgrade the database components of an application while in use.
+C. You never use EBR to copy the database objects and redefine the copied objects in isolation.
+D. Editions are non-schema objects.
+E. When you change an editioned object, all of its dependents remain valid.
+F. Tables are not editionable objects.
+
+
+
+
+
+
+
+
+Question #6
+Which two blocks of code execute successfully?
+A. 
+DECLARE 
+SUBTYPE new_one IS BINARY_INTERGER RANGE 0..9; 
+my_val new_one;
+BEGIN my_val :=0; 
+END;
+
+B. 
+DECLARE 
+SUBTYPE new_string IS VARCHAR2 (5) NOT NULL; 
+my_str_new_string; 
+BEGIN my_str := abc; 
+END;
+
+C. 
+DECLARE 
+SUBTYPE new_one IS NUMBER (2, 1);
+ my_val new_one; 
+BEGIN my_val :=12.5; 
+END;
+
+D. 
+DECLARE 
+SUBTYPE new_one IS INTEGER RANGE 1..10 NOT NULL; 
+my_val new_one; 
+BEGIN my_val :=2; 
+END;
+
+E. 
+DECLARE 
+SUBTYPE new_one IS NUMBER (1, 0); 
+my_val new_one; 
+BEGIN my_val := -1;
+
+Question #7
+Which statement is correct about DBMS_LOB.SETOPTIONS and DBMS_LOB.GETOPTIONS for SecureFiles?
+A. DBMS_LOB.GETOPTIONS can only be used for BLOB data types.
+B. DBMS_LOB.SETOPTIONS can perform operations on individual SecureFiles but not an entire column.
+C. DBMS_LOB. SETOPTIONS can set option types COMPRESS, DUPLICATE, and ENCRYPT.
+D. If a table was not created with compression specified in the store as securefile clause then DBMS_LOB.SETOPTIONS can be used to enable it later.
+
+
+
+
+
+
+
+Question #8
+You are designing and developing a complex database application built using many dynamic SQL statements. Which option could expose your code to SQL injection attacks?
+A. Using bind variables instead of directly concatenating parameters into dynamic SQL statements
+B. Using automated tools to generate code
+C. Not validating parameters which are concatenated into dynamic SQL statements
+D. Validating parameters before concatenating them into dynamic SQL statements
+E. Having excess database privileges
+
+Question #9
+Examine this code executed as SYS:
+ 
+Examine this code executed as SPIDER and the error message received upon execution:
+ 
+What is the reason for this error?
+A. The procedure needs to be granted the DYNAMIC_TABLE_ROLE role.
+B. The EXECUTE IMMEDIATE clause is not supported with roles.
+C. Privileges granted through roles are never in effect when running definer’s rights procedures.
+D. The user SPIDER needs to be granted the CREATE TABLE privilege and the procedure needs to be granted the DYNAMIC_TABLE_ROLE.
+
+
+
+Question #10
+Which codes executes successfully?
+
+A. 
+CREATE PACKAGE pkg AS 
+TYPE rec_typ IS RECORD (price NUMBER, inc_pct NUMBER); 
+PROCEDURE calc_price (price_rec IN OUT rec_typ);
+END pkg; 
+/ 
+CREATE PACAKGE BODY pkg AS 
+PROCEDURE calc_price (price_rec IN OUT rec_typ) AS 
+BEGIN 
+price_rec.price := price_rec.price + (price_rec.price * price_rec.inc_pct)/100; 
+END calc_price; 
+END pkg; 
+/
+DECLARE 
+1_rec pkg. rec_typ; 
+BEGIN 
+1_rec_price :=100; 
+1_rec.inc_pct :=50;
+EXECUTE IMMEDIATE 
+BEGIN 
+pkg. calc_price (:rec); 
+END;
+USING IN OUT 1_rec; 
+END;
+
+B. 
+CREATE PACKAGE pkg AS 
+TYPE rec_typ IS RECORD (price NUMBER, inc_pct NUMBER); 
+END pkg; 
+/ 
+CREATE PROCEDURE calc_price (price_rec IN OUT pkg. rec_typ) AS 
+BEGIN 
+price_rec.price := price_rec.price + (price_rec.price * price_rec.inc_pct)/100; 
+END 
+/ 
+DECLARE 
+1_rec pkg.rec_typ; 
+BEGIN 
+EXECUTE IMMEDIATE 
+BEGIN 
+calc_price (:rec); 
+END; 
+USING IN OUT 1_rec (100, 50); 
+END;
+
+ C.
+CREATE PACKAGE pkg AS 
+TYPE rec_typ IS RECORD (price NUMBER, inc_pct NUMBER); 
+END pkg; 
+/ 
+CREATE PROCEDURE calc_price (price_rec IN OUT pkg. rec_typ) AS 
+BEGIN 
+price_rec.price := price_rec.price + (price_rec.price * price_rec.inc_pct)/100; 
+END ; 
+/ 
+DECLARE 
+1_rec pkg.rec_typ; 
+BEGIN 
+1_rec_price :=100; 
+1_rec.inc_pct :=50; 
+EXECUTE IMMEDIATE 
+BEGIN 
+calc_price (1_rec); 
+END;
+END;
+
+D.
+DECLARE 
+TYPE rec_typ IS RECORD (price NUMBER, inc_pct NUMBER); 
+1_rec rec-typ;
+PROCEDURE calc_price (price_rec IN OUT rec_typ) AS 
+BEGIN 
+price_rec.price := price-rec.price+ (price_rec.price * price_rec.inc_pct)/100; 
+END;
+BEGIN 
+1_rec_price :=100; 
+1_rec.inc_pct :=50; 
+EXECUTE IMMEDIATE 
+BEGIN
+calc_price (:rec); 
+END; 
+USING IN OUT 1_rec;
+
+
+Question #11
+Examine this function header:
+
+FUNCTION calc_new_sal (emp_id NUMBER) RETURN NUMBER;
+You want to ensure that whenever this PL/SQL function is invoked with the same parameter value across active sessions, the result is not recomputed.
+If a DML statement is modifying a table which this function depends upon, the function result must be recomputed at that point in time for all sessions calling this function.
+Which two actions should you perform?
+
+A. Ensure RESULT_CACHE_MAX_SIZE is greater than 0.
+B. Enable the result cache by using DBMS_RESULT_CACHE.BYPASS (FALSE).
+C. Add the deterministic clause to the function definition.
+D. Add the RELIES_ON clause to the function definition.
+E. Add the RESULT_CACHE clause to the function definition.
+
+
+
+
+
+
+
+
+
+
+Question #12
+Examine this block:
+ 
+Which two will be correct after line 5?
+A. va. LAST and va. LIMIT will return the same value.
+B. va. LAST and va. COUNT will return the same value.
+C. va. LIMIT and va. COUNT will return the same value.
+D. va. LIMIT and va. NEXT (199) will return the same value.
+E. va. LAST will return 200.
+F. va. NEXT (199) will return NULL.
+
+
+
+
+
+
+Question #13
+ 
+
+Examine this code:
+ 
+
+You want to display the contents of CREATE_LIST.
+Which two lines need to be corrected in the PL/SQL block?
+A. Line 2
+B. Line 3
+C. Line 5
+D. Line 6
+E. Line 7
+
+
+
+
+
+
+Question #14
+Examine the following SQL statement:
+ALTER SESSION SET PLSQL_OPTIMIZE_LEVEL=3;
+What is the result of executing this statements?
+A. The PL/SQL optimize level for some existing PL/SQL units will be changed as an immediate result.
+B. The PL/SQL optimize level for subsequently complied PL/SQL units will be set to 3 and inlining will be enabled.
+C. The PL/SQL optimize level for subsequently compiled PL/SQL units will be set to 3 and inlining will be disabled.
+D. This statement will fail because PLSQL_OPTIMIZE_LEVEL can only be set at the system level,
+
+Question #15
+Which two statements describe actions developers can take to make their application less vulnerable to security attacks?
+A. Include the AUTHID DEFINER clause in stored program units.
+B. Do not concatenate unchecked user input into dynamically constructed SQL statements.
+C. Switch from using DBMS_SQL to EXECUTE IMMEDIATE.
+D. Include the AUTHID CURRENT_USER clause in stored program units.
+E. Increase the amount of code that is accessible to users by default.
+
+Question #16
+Examine this code:
+ 
+What is the correct statement to get the value of attribute ACCOUNT_MGR after the procedure has been executed?
+A. SELECT USERENV (‘ACCOUNT_MGR’) FROM dual;
+B. SELECT SYS_CONTEXT (‘USERENV’, ‘ACCOUNT_MGR’) FROM dual;
+C. SELECT SYS_CONTEXT (‘ORDER_CTX’, ‘ACCOUNT_MGR’) FROM dual;
+D. SELECT SYS_CONTEXT (‘ACCOUNT_MGR’, ‘ORDER_CTX’) FROM dual;
+E. SELECT USERENV (‘ORDER_CTX’) FROM dual;
+
+Question #17
+Which data dictionary view contains the list of procedures and functions defined within package specification that you can execute?
+A. ALL_SOURCE
+B. ALL_DEPENDENCIES
+C. ALL_OBJECTS
+D. ALL_PROCEDURES
+E. ALL_PLSQL_OBJECT_SETTINGS
+
+Question #18
+Examine this code:
+ 
+Examine this DML statement executed in the SCOTT schema:
+UPDATE emp SET comm = 1000 WHERE deptno= 20;
+What is the outcome after executing this statement?
+A. COMM is set to 1000 for all records in the EMP table where DEPTNO = 30.
+B. The statement executes successfully but no rows are updated.
+C. COMM is set to 1000 for all records in the EMP table where DEPTNO=20.
+D. The statement fails with error ORA-28115: policy with check option violation.
+
+Question #19
+Identify the two correct scenarios where a function can be optimized using the function result cache feature.
+A. A function which inserts multiple records into a DEPARTMENTS table as part of one-time data setup for an HR application.
+B. A function which accesses multiple tables and calculates the commission to be given to a sales representative based on the number of products sold by that representative.
+C. A function which deletes all the records from an EMPLOYEES_AUDIT table based on their LOG_DATE.
+D. A function which updates the SALARY of all the employees in an EMPLOYEES table by a fixed percentage based on their DESIGNATION.
+E. A function which calculates the factorial of a given number without accessing any table.
+
+Question #20
+Select the correct statement regarding BEQUEATH CURRENT_USER.
+
+A. If a view references a PL/SQL function then BEQUEATH CURRENT_USER allows the function to execute with DBA privileges, regardless of the invoking users privileges.
+B. The BEQUEATH CURRENT_USER clause allows invoker’s rights functions referenced in a view to execute with the privileges of the invoking user.
+C. Any view calling a PL/SQL function with BEQUEATH CURRENT_USER in effect will execute with the privileges of the function owner.
+D. With the BEQUEATH CURRENT_USER clause, a definer’s rights function referenced in a view executes with the privileges of the view owner, not the function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------ANSWERS--------------------------------
+---------------01----------------------
+dendevelop
+AE - is correct answer
+   upvoted 10 times
+
+Benjmaz
+A is the only correct answer. D would have qualified if it had an "END" statement. Note that code block should be in between the BEGIN and END statements
+   upvoted 1 times
+ 
+Dana
+I think that the correct answer is AE. "D" will return an "expression is of wrong type" error. Please re-check this!
+   upvoted 4 times
+ 
+dendevelop
+Reason: You cannot assign a value to an explicit cursor, use it in an expression. stcur is explicit cursor in our example
+   upvoted 4 times
+
+---------------------------------02------------------------- 
+JustinasSLT
+ A,C are correct but you need to add Quotation marks, like: EXECUTE IMMEDIATE 'SELECT pdt_id, pdt_name FROM TABLE (:b)' BULK COLLECT INTO pkg.x USING y;
+   upvoted 1 times
+ 
+Nisha1
+AC is working without Using Clause
+   upvoted 1 times
+ 
+CosminCof
+ AC are the right answers; It wouldnt work if you dont use USING clause because there is a bind variable called ":b"
+   upvoted 1 times
+
+---------------------03----------------------
+PLSQL_OPTIMIZE_LEVEL 
+-Used to compile PL/SQL library units.
+-Parameter Type INTEGER
+-Range of Values 0 to 3
+-Default value 2
+-Basic NO
+
+chaoyuim
+C , E see here : https://docs.oracle.com/cd/B28359_01/appdev.111/b28370/inline_pragma.htm#LNPLS01362
+   upvoted 7 times
+ 
+-----------------------04------------------------
+ DBMS_PARALLEL_EXECUTE package 
+-allows a workload associated with a base table to be broken down into smaller chunks which can be run in parallel.
+Correct Answer: B 
+---------------------05---------------
+Edition-Based Redefinition (EBR):
+-Enables online application upgrade with uninterrupted availability of the application. 
+-When the installation of an upgrade is complete, the pre-upgrade application and the post-upgrade application can be used at the same time. 
+-allows hot rollover from the pre-upgrade version to the post-upgrade version, with zero downtime.
+-EBR is available for use in all editions of Oracle Database without the need to license it.
+ 
+CosminCof
+DF are the correct answers: 
+A- Default edition is ORABASE and sure can be modified; 
+B- The purpose of an edition objects is to make downtime shorter while you want to upgrade the database while in use; 
+C- You use EBR to redefine an object and isolate that object in his EDITION space; 
+E- IF you changed an edition object all of its dependents become invalid
+   upvoted 1 times
+
+-------------------------06---------------------- 
+Nisha1
+AE 
+A : successfully completed but some keyword should be in lower case DECLARE SUBTYPE new_one IS binary_integer range 0..9; my_val new_one; BEGIN my_val :=0; dbms_output.put_line(my_val); END; 
+B : PLS-00218: a variable declared NOT NULL must have an initialization assignment 
+C : ORA-06502: PL/SQL: numeric or value error: number precision too large 
+D : PLS-00218: a variable declared NOT NULL must have an initialization assignment E : Correct
+   upvoted 11 times
+ 
+Josephgreenson
+A : successfully completed but some keyword should be in lower case DECLARE SUBTYPE new_one IS binary_integer range 0..9; my_val new_one; BEGIN my_val :=0; dbms_output.put_line(my_val); END; 
+B : PLS-00218: a variable declared NOT NULL must have an initialization assignment
+C : ORA-06502: PL/SQL: numeric or value error: number precision too large
+D : PLS-00218: a variable declared NOT NULL must have an initialization assignment E : Correct
+   upvoted 1 times
+  
+
+
+peguynya
+A,E are corrects but in A you just have to write integer not interger, and in E just add the END keyword
+   upvoted 1 times
+ 
+ 
+Swetank123
+Correct Answer is AE not AD because subtype which is not null should be initialized in D option.
+
+--------------------07----------------
+jcamt
+ Oracle recommends that you enable compression, deduplication, or encryption through the CREATE TABLE statement. If you enable these features through the ALTER TABLE statement, all SecureFiles LOB data in the table is read, modified, and written; this causes the database to lock the table during a potentially lengthy operation.
+   upvoted 1 times
+ 
+tassicek
+ Is B because DUPLICATE is oposite of DEDUPLICATE ... https://docs.oracle.com/cd/E11882_01/appdev.112/e18294/adlob_smart.htm#ADLOB46109
+   upvoted 3 times
+ 
+Zayas
+ I think B is the correct answer. GETOPTIONS() and SETOPTIONS() work on individual SecureFiles LOBs.
+   upvoted 4 times
+ 
+orakell
+ The correct answer is C. The linked reference explicitly says the opposite of D.
+ 
+orakell
+On second thought I think B sounds better. The documentation says SETOPTIONS works on individual SecureFiles and doesn't say anything about working on entire columns. I don't think it's C anymore since the option is called DEDUPLICATE, not DUPLICATE.
+
+--------08--------------------------
+ 
+orakell
+ The question asks which option COULD expose code. The answer is C.
+   upvoted 10 times
+ 
+CosminCof
+ The answers are C and E. C->validation with DBMS_ASSERT E->SQL injection can be made by an user with a variety of privilleges
+   upvoted 2 times
+ 
+peguynya
+The correct answer is C . A is not correct because the use of bind variables protect the Db form sql injection.
+   upvoted 2 times
+ 
+peguynya
+The correct answer is C. A is not corrst because the using of bindings variables protect the Db from sql injection
+   upvoted 2 times
+ 
+Swetank123
+bind variables protect against sql injection So, correct answer ic C.
+   upvoted 4 times
+
+--------------------09--------------------------
+
+Josephgreenson
+ C is correct.
+   upvoted 1 times
+ 
+CosminCof
+B is the correct answer
+   upvoted 1 times
+ 
+Adela_bg
+It's C
+   upvoted 3 times
+
+
+
+--------------------10--------------------------
+
+Josephgreenson
+ 
+A is correct, B gives error due to l_rec(100,50), PLS-00308: this construct is not allowed as the origin of an assignment
+   upvoted 1 times
+ 
+CosminCof
+ A is the correct answer: 
+B- You can’t use PL/SQL data types and record type into the USING clause; 
+C- Would be correct if you use in the EXECUTE IMMEDIATE statement a bind variable for the function call and if you use clause USING IN OUT; in this situation function calc_price needs an IN OUT parameter, so using EXECUTE IMMEDIATE with a call to this function without a bind variable the compiler will give an error because it can’t return the result into the IN OUT variable. 
+D- Here the USING clause of EXECUTE IMMEDIATE its using a RECORD type which is forbidden (as an explanation for the A answer, which is right, is good to use a record variable which is create under a package, because it becomes an SQL type and can be called from an SQL environment)
+   upvoted 2 times
+ 
+jcamt
+ I verified in PL/SQL and ALL the sentences executes but all have error, the only who has less error is the B answer but the anonymous block has pragma error
+   upvoted 1 times
+ 
+peguynya
+ B is correct, A is not correct because of this error (1_rec_price) it should be 1_rec.price
+   upvoted 1 times
+ 
+kahabe59
+A is correct. l_rec(100, 50) is not a correct assignment
+   upvoted 1 times
+  
+GuyFabrice
+ No A is not a correct answer Look at this : DECLARE 1_rec pkg. rec_typ; BEGIN 1_rec_price :=100; 1_rec.inc_pct :=50; Warning : 1_rec_price don't exist. The correct code is : 1_rec.price := 100; So the correct answer is B
+   upvoted 1 times
+ 
+Josephgreenson
+ 1_rec_price must be a typo mistake in question.
+   upvoted 1 times
+ 
+protonik2020
+Next time take time to check Your opinion. There is no posibility to use l_rec(100,50) as IN OUT param)
+   upvoted 1 times
+
+
+----------------11--------------
+yurijk
+ A and E
+
+---------------------12------------------
+Swetank123
+Correct Answer will B and F because limit will be 200 count will be 100 and last will be 100 and next(199) will return null.
+   upvoted 7 times
+ 
+szefco
+Confirm: B and F are correct answers: 
+DECLARE TYPE va$ IS VARRAY(200) OF NUMBER;
+ va va$ := va$(); 
+BEGIN
+ va.EXTEND(100); 
+dbms_output.put_line('va.LIMIT = ' || va.LIMIT); 
+dbms_output.put_line('va.LAST = ' || va.LAST); 
+dbms_output.put_line('va.COUNT = ' || va.COUNT);
+ dbms_output.put_line('va.NEXT(199) = ' || va.next(199)); 
+end; 
+Statement processed. va.LIMIT = 200 va.LAST = 100 va.COUNT = 100 va.NEXT(199) =
+   upvoted 4 times
+
+-------------13----------------------------
+Benjmaz
+ 1 year, 6 months ago
+Line 2, 6 and 7. Correct code should look like this 
+DECLARE v_yrl yearly_list.list1 := yearly_list.init_list1(); 
+location NUMBER := 1; 
+BEGIN 
+WHILE location IS NOT NULL LOOP DBMS_OUTPUT.PUT_LINE(v_yrl(location));
+ location := v_yrl.NEXT(location);
+ END LOOP; END;
+   upvoted 1 times
+ 
+sudhirdavim
+A and E are correct answer.
+   upvoted 1 times
+ 
+CosminCof
+AE correct answer
+   upvoted 1 times
+ 
+
+jcamt
+ 
+verified 2 and 6, the error in 2 is PLS-00103: Encountered the symbol ")" and the 6 the error is DBMS_PUTPUT
+   upvoted 1 times
+ 
+DmitryPDN
+ Line 2 is wrong because new variable requires type for itself. Line 7 is wrong since collection attribute next requires as input parameter the index of existing element from which we want to find next one like this array.next(curr_index).
+   upvoted 2 times
+ 
+yurijk
+Line 2, line 7 -> A, E
+   upvoted 3 times
+ 
+orakell
+ Line 3 is fine. Line 2 needs a lot of fixing, but I suspect this question has more issues in it.
+   upvoted 3 times
+
+---------------------------14----------------------
+ 
+DmitryPDN
+ B is the correct answer.
+   upvoted 6 times
+ 
+sudhirdavim
+B is correct answer.
+   upvoted 1 times
+ 
+CosminCof
+B is the correct answer
+   upvoted 1 times
+ 
+jcamt
+the answer is B https://www.oracle.com/technical-resources/articles/database/sql-11g-plsql.html
+   upvoted 1 times
+ 
+certyk
+Correct: B
+   upvoted 1 times
+ 
+Adela_bg
+ I think B
+   upvoted 1 times
+ 
+orakell
+Why disabled? Level 3 doesn't disable inlining. Level 3 makes inlining automatic more or less.
+   upvoted 2 times
+
+------------------------------------15---------------------
+BD are correct answer.
+
+------------------------16-------------------------
+ 
+orakell
+C, not B. Try it.
+   upvoted 8 times
+ 
+CosminCof
+C is the correct answer
+   upvoted 3 times
+ 
+peguynya
+the answer is C because SYS_CONTEXT(CONTEXT_NAME, PARAM1) returns the value of the parameter associated to the context namespace.
+   upvoted 1 times
+
+-----------------------17-----------------------
+Correct Answer: D 
+
+-------------18----------------------
+sudhirdavim
+ It is choice B for me as well when tested this script as it is.
+   upvoted 2 times
+ 
+Adela_bg
+ D - For INSERT and UPDATE statements only, setting update_check to TRUE causes the server to check the policy against the value after INSERT or UPDATE. The check applies only to the security relevant columns that are included in the policy definition. In other words, the INSERT or UPDATE operation will fail only if the security relevant column that is defined in the policy is added or updated in the INSERT or UPDATE statement.
+   upvoted 1 times
+ 
+protonik2020
+no, check first. Runing code show's B, becouse function return is added to a where clausule and there is no update at all
+   upvoted 1 times
+ 
+chaoyuim
+https://oracle-base.com/articles/8i/virtual-private-databases
+   upvoted 1 times
+ 
+orakell
+ 2 years, 7 months ago
+Choice B happens when I run this code.
+   upvoted 3 times
+
+----------------------------------19------------------------------------
+
+CosminCof
+ 1 year, 7 months ago
+It's B and E
+   upvoted 2 times
+ 
+jcamt
+ 1 year, 9 months ago
+B and E because D has a data integrity problem when execute the update https://oracle-base.com/articles/11g/cross-session-plsql-function-result-cache-11gr1#:~:text=The%20cross%2Dsession%20PL%2FSQL,function%20with%20the%20same%20parameters.
+   upvoted 3 times
+ 
+olkaolka
+ 2 years ago
+I think D,E Not B because there may be a different amount of sold products. Not C LOG_DATE changes constantly
+   upvoted 1 times
+ 
+protonik2020
+ 1 year, 11 months ago
+why D ? Cache for update ?
+   upvoted 1 times
+ 
+orakell
+ 2 years, 8 months ago
+B and E
+   upvoted 3 times
+
+-----------------------20---------------------
+Correct Answer: B
+
