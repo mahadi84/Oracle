@@ -37,7 +37,7 @@ Consequently it will slowdown the performance of your database.
  -------------------------------------------------------------------------------
 You can always use LIMIT clause along with the Bulk Collect to limit the number of rows fetched from the database. 
 But this is only possible when we are using the Bulk Collect clause with PL/SQL Cursors.
-Nonetheless, we will discuss about this in detail in the next tutorial.
+
 
 
 01.C) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
