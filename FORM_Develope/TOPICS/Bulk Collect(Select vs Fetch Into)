@@ -4,7 +4,7 @@
 ** Learning small concepts could help you in gaining experience which could lead to a better query writing skill. 
 
 
-01. What Bulk Collection?
+01. WHAT/WHY Bulk Collection?
     A) What should I do if my SELECT statement is retrieving SMALL or HUGE number of rows?
     B) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
 02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
