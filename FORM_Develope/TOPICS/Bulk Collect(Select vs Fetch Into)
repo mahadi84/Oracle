@@ -1,6 +1,5 @@
-A well structured query, written today could save you from catastrophic events in the future.
-Query performance is something we all seek, but very few truly find it. 
-Learning small concepts could help you in gaining experience which could lead to a better query writing skill. 
+**A well structured query, written today could save you from catastrophic events in the future.
+**Learning small concepts could help you in gaining experience which could lead to a better query writing skill. 
 
 
 01. What/Why/Where Bulk Collection?
@@ -37,6 +36,7 @@ However Limit Clause can only be used with Bulk Collect clause, when the latter 
 No, as of now PL/SQL Collections are the only supportive datatypes for Bulk Data Processing with Bulk Collect Clause in Oracle Database. 
 In case if you try to store the data retrieved using Bulk Collect clause into a variable of datatype 
 such as Char, Number or Varchar2 you will get an error which will read something like this:
+    “PLS-00497: Cannot mix between single row and multi-row (BULK) in INTO list”
 
 SYNTEX:
 -------
@@ -130,11 +130,6 @@ There is a shortcoming with this approach also and that is:
 If you execute this same program again, then this FETCH-INTO statement with LIMIT clause will not append the collection with next 10 records. 
 Rather, it will truncate the table and populate the nested table again from the index no.1.
 My dear friend Connor McDonald has done a blog explaining how you can overcome this problem using MULTISET. Go ahead and checkout his article.
-
-
-
-
-
 
 
 
