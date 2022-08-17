@@ -27,33 +27,27 @@ Bulk collect is all about reducing context switches and improving the performanc
 Bulk collect clause can be used with SELECT-INTO, FETCH-INTO and RETURN-INTO clauses.
 With the help of Bulk Collect Statement we can SELECT, INSERT, UPDATE or DELETE large data sets from database objects such as Tables or Views.
 
- 01.A) When should we use Bulk Collect with Select-Into statement?
------------------------------------------------------------
-When you are certain that the returning result of your SELECT statement is small then you should use Bulk Collect clause with Select-Into statement. 
-Otherwise your bulk collect clause will make your Select-Into statement a memory hogging monster. 
-Consequently it will slowdown the performance of your database. 
+    01.A) When should we use Bulk Collect with Select-Into statement?
+    -----------------------------------------------------------
+    When you are certain that the returning result of your SELECT statement is small then you should use Bulk Collect clause with Select-Into statement. 
+    Otherwise your bulk collect clause will make your Select-Into statement a memory hogging monster. 
+    Consequently it will slowdown the performance of your database. 
 
- 01.B)What should I do if my SELECT statement is retrieving huge number of rows?
- -------------------------------------------------------------------------------
-You can always use LIMIT clause along with the Bulk Collect to limit the number of rows fetched from the database. 
-But this is only possible when we are using the Bulk Collect clause with PL/SQL Cursors.
+    01.B)What should I do if my SELECT statement is retrieving huge number of rows?
+    -------------------------------------------------------------------------------
+    You can always use LIMIT clause along with the Bulk Collect to limit the number of rows fetched from the database. 
+    But this is only possible when we are using the Bulk Collect clause with PL/SQL Cursors.
 
-
-
-01.C) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
-----------------------------------------------------------------------------------
-If we are using Bulk Collect Clause with a SQL statement such as SELECT-INTO it uses an implicit cursor. 
-On the other hand whenever we use Bulk Collect clause with the FETCH statement it uses an explicit cursor.
-
+    01.C) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
+    ----------------------------------------------------------------------------------
+    If we are using Bulk Collect Clause with a SQL statement such as SELECT-INTO it uses an implicit cursor. 
+    On the other hand whenever we use Bulk Collect clause with the FETCH statement it uses an explicit cursor.
 
 
 02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
 --------------------------------------------------------------------------------
 When we use Bulk Collect clause with SELECT-INTO statement it uses implicit cursor to perform the task of bulk data processing. 
 However Limit Clause can only be used with Bulk Collect clause, when the latter is using Explicit Cursor for data processing.
-
-
-
 
 
 03. Can we store the result returned by the bulk collect clause into a variable of primitive datatype?
