@@ -6,7 +6,6 @@
 
 01. WHAT/WHY Bulk Collection?
     A) What should I do if my SELECT statement is retrieving SMALL or HUGE number of rows?
-    B) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
 02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
 03. Can we store the result returned by the bulk collect clause into a variable of primitive (NON-COLLLECTION) datatype, If do, what errors shows?
 04. Example: How to use PL/SQL Bulk Collect with FETCH-INTO statement?
@@ -36,11 +35,6 @@ With the help of Bulk Collect Statement we can SELECT, INSERT, UPDATE or DELETE 
     If returs HUGE Number of Rows:---
     You can always use LIMIT clause along with the Bulk Collect to limit the number of rows fetched from the database. 
     But this is only possible when we are using the Bulk Collect clause with PL/SQL Cursors.
-
-    01.B) When does Bulk Collect Clause uses an Implicit Cursor and when an Explicit Cursor?
-    ----------------------------------------------------------------------------------
-    If we are using Bulk Collect Clause with a SQL statement such as SELECT-INTO it uses an implicit cursor. 
-    On the other hand whenever we use Bulk Collect clause with the FETCH statement it uses an explicit cursor.
 
 
 02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
