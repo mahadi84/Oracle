@@ -8,10 +8,8 @@
     A) What should I do if my SELECT statement is retrieving SMALL or HUGE number of rows?
 02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
 03. Can we store the result returned by the bulk collect clause into a variable of primitive (NON-COLLLECTION) datatype, If do, what errors shows?
-04. Example: How to use PL/SQL Bulk Collect with FETCH-INTO statement?
-05. EXAMPLE: How to use LIMIT clause with Bulk Collect statement?
-06. What is the right amount of rows we can fetch?
-
+04. How to use PL/SQL BULK COLLECT INTO Collect with FETCH-INTO statement with LIMIT clause with Example?
+05. What is the right amount of rows we can fetch?
 
 
 =====================================================
@@ -75,32 +73,6 @@ END;
 ==============================FETCH INTO================================
 How To Use PL/SQL Bulk Collect Clause With FETCH INTO Statement?
 http://www.rebellionrider.com/how-to-use-pl-sql-bulk-collect-clause-with-fetch-into-statement/
-
-
-04. Example: How to use PL/SQL Bulk Collect with FETCH-INTO statement?
-------------------------------------------------------------------
-SET SERVEROUTPUT ON;
-DECLARE
---Create an explicit cursor
-    CURSOR exp_cur IS
-    SELECT first_name FROM employees;
-
-    --Declare collection for holding the data 
-    TYPE nt_fName   IS TABLE OF VARCHAR2 (20);
-    fname   nt_fName;
-BEGIN
-    OPEN exp_cur;
-    LOOP
-        FETCH exp_cur BULK COLLECT INTO fname;
-        EXIT WHEN fname.count=0;
-        --Print data
-        FOR idx IN fname.FIRST.. fname.LAST
-        LOOP
-            DBMS_OUTPUT.PUT_LINE (idx||' '||fname(idx) );
-        END LOOP; 
-    END LOOP;
-    CLOSE exp_cur;
-END;
 
 
 ====================Bulk Collect With LIMIT============================
