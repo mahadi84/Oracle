@@ -82,8 +82,8 @@ PL/SQL Bulk Collect With LIMIT Clause:
 http://www.rebellionrider.com/pl-sql-bulk-collect-with-limit-clause-in-oracle-database/
 
 
-05. EXAMPLE: How to use LIMIT clause with Bulk Collect statement 
-----------------------------------------------------------------
+04. How to use PL/SQL BULK COLLECT INTO Collect with FETCH-INTO statement with LIMIT clause with Example?
+---------------------------------------------------------------------------------------------------------
 So always remember the LIMIT clause can only be used when you are using BULK COLLECT with FETCH-INTO statement.
 It cannot be used when you are using bulk collect with SELECT-INTO statement.
 
@@ -108,7 +108,7 @@ END;
 
 
 
-06. what is the right amount of rows we can fetch?
+05. what is the right amount of rows we can fetch?
 ----------------------------------------------
 There is a shortcoming with this approach also and that is: 
 If you execute this same program again, then this FETCH-INTO statement with LIMIT clause will not append the collection with next 10 records. 
