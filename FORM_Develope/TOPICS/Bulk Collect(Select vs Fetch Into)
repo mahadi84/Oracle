@@ -6,7 +6,7 @@
 
 01. WHAT/WHY Bulk Collection?
     A) What should I do if my SELECT statement is retrieving SMALL or HUGE number of rows?
-02. Why can’t we limit the data fetched using Bulk Collect in SELECT-INTO statement?
+02. Why can’t we LIMIT the data fetched using Bulk Collect in SELECT-INTO statement?
 03. Can we store the result returned by the bulk collect clause into a variable of primitive (NON-COLLLECTION) datatype, If do, what errors shows?
 04. How to use PL/SQL BULK COLLECT INTO Collect with FETCH-INTO statement with LIMIT clause with Example?
 05. What is the right amount of rows we can fetch?
