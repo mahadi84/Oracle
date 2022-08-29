@@ -223,18 +223,126 @@ BEGIN
 END;
 
 PROCEDURE SYNTEX:
------------------
-CREATE OR REPLACE PROCEDURE INSERT_USERS(user_id IN number,
-user_name IN VARCHAR2, password IN VARCHAR2)
+===================
+CREATE OR REPLACE PROCEDURE UPDATE_SAL
+(P_EMP_ID IN NUMBER, P_AMOUNT IN NUMBER)
 IS
-BEGIN
-INSERT INTO USERS VALUES (user_id,user_name, password );
-DBMS_OUTPUT.PUT_LINE ('New User Registered successfully');
-END;
 
-/
-Calling  Procedure:
-EXECUTE INSERT_USERS(1,'mahadi', '123456');
+BEGIN
+
+  UPDATE employees
+  set salary=salary+P_AMOUNT
+  where employee_id=P_EMP_ID;
+ commit;
+ 
+exception
+WHEN OTHERS THEN
+DBMS_OUTPUT.PUT_LINE (SQLCODE);
+DBMS_OUTPUT.PUT_LINE (SQLERRM);
+
+END;
+===
+--What is inside a Procedure
+select * from user_source
+where name='UPDATE_SAL'
+order by line;
+
+
+--Procedure Info Like create date
+select * from user_objects
+where object_name='UPDATE_SAL';
+
+--Call the PROCEDURE alone
+execute UPDATE_SAL (100,50);
+
+--Drop the procedure
+drop procedure UPDATE_SAL;
+
+====
+
+
+create or replace procedure query_emp
+(p_emp_id employees.employee_id%type, 
+ p_f_name out employees.first_name%type, 
+ p_sal out employees.salary%type
+ )is
+
+begin
+   select first_name,salary
+   into p_f_name,p_sal
+   from
+   employees
+   where employee_id=p_emp_id;
+
+exception
+when others then 
+dbms_output.put_line(sqlcode);
+dbms_output.put_line(sqlerrm);
+
+end;
+
+===
+--you should declare 2 bind variables
+
+variable b_first_name varchar2(100)
+variable b_sal number
+
+execute query_emp(105,:b_first_name,:b_sal )
+print b_first_name b_sal ;
+===
+--2 the other way to print the out parameter
+
+declare
+v_first_name employees.first_name%type;
+v_sal employees.salary%type;
+begin
+ 
+query_emp(105,v_first_name,v_sal );
+ dbms_output.put_line(v_first_name);
+  dbms_output.put_line(v_sal);
+
+end;
+===
+create or replace PROCEDURE p(x boolean)
+is
+begin
+
+    if x then
+    DBMS_OUTPUT.PUT_LINE('x is true');
+    end if;
+end;
+
+===
+declare
+v boolean;
+begin
+v:=true;
+p(v);
+
+end;
+===
+create or replace PROCEDURE test_plsql_records
+( rec in DEPARTMENTS%rowtype )
+is
+begin
+insert into DEPARTMENTS values rec;
+
+end;
+
+====
+declare
+v DEPARTMENTS%rowtype;
+begin
+v.DEPARTMENT_ID:=3;
+v.DEPARTMENT_NAME:='v dept';
+
+test_plsql_records (v);
+end;
+
+select * from DEPARTMENTS
+
+
+
 
 
 -------------12. Exception--------------------
