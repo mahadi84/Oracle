@@ -32,7 +32,7 @@ insert into emp values(2, 'Mahafuj', 'Hasan', 1500);
 insert into emp values(3, 'Jahid', 'Hasan', 2000);
 insert into emp values(4, 'Laiba', 'Hasan', 5000);
 insert into emp values(5, 'Mehjabin', 'Hasan', 5500);
-select * from cust;  
+select * from emp;  
 DESC cust;   / To check table's COLUMN name and DATA Type
 
 
