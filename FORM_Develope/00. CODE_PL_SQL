@@ -26,12 +26,12 @@
 =====================================================
 
 01. 
-create table emp(emp_id number, first_name varchar2(50), last_name varchar2(50), salary number);
-insert into emp values(1, 'Mahadi', 'Hasan', 1000);
-insert into emp values(2, 'Mahafuj', 'Hasan', 1500);
-insert into emp values(3, 'Jahid', 'Hasan', 2000);
-insert into emp values(4, 'Laiba', 'Hasan', 5000);
-insert into emp values(5, 'Mehjabin', 'Hasan', 5500);
+create table emp(emp_id number, dept_id number, first_name varchar2(50), last_name varchar2(50), salary number);
+insert into emp values(1, 200, 'Mahadi', 'Hasan', 1000);
+insert into emp values(2, 300, 'Mahafuj', 'Hasan', 1500);
+insert into emp values(3, 200, 'Jahid', 'Hasan', 2000);
+insert into emp values(4, 300, 'Laiba', 'Hasan', 5000);
+insert into emp values(5, 200, 'Mehjabin', 'Hasan', 5500);
 select * from emp;  
 DESC cust;   / To check table's COLUMN name and DATA Type
 
