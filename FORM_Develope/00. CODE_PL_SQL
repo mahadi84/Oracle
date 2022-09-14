@@ -224,23 +224,26 @@ END;
 
 PROCEDURE SYNTEX:
 ===================
-CREATE OR REPLACE PROCEDURE UPDATE_SAL
-(P_EMP_ID IN NUMBER, P_AMOUNT IN NUMBER)
-IS
 
+CREATE OR REPLACE PROCEDURE sal_upd(p_dept_id number, p_pt number) IS
+v_pt number := p_pt/100;
 BEGIN
+UPDATE emp
+SET salary=salary+salary*v_pt
+-- for update
+WHERE dept_id= p_dept_id;
 
-  UPDATE employees
-  set salary=salary+P_AMOUNT
-  where employee_id=P_EMP_ID;
- commit;
- 
-exception
-WHEN OTHERS THEN
-DBMS_OUTPUT.PUT_LINE (SQLCODE);
-DBMS_OUTPUT.PUT_LINE (SQLERRM);
+COMMIT;
+
+EXCEPTION
+  WHEN NO_DATA_FOUND THEN
+  DBMS_OUTPUT.PUT_LINE ('No Row updated');
+  WHEN OTHERS THEN
+  DBMS_OUTPUT.PUT_LINE (SQLCODE);
+  DBMS_OUTPUT.PUT_LINE (SQLERRM);
 
 END;
+
 ===
 --What is inside a Procedure
 select * from user_source
