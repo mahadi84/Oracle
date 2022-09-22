@@ -163,6 +163,7 @@ END;
 +++++++++++++++++++++END REF CURSOR+++++++++++++++++++++++++++++++
 
 ================07. BULK COLLECT (SELECT/UPDATE) WITH COLLECTION=========================
+---------------Associative Array ---------------
 DECLARE
 TYPE assArray IS TABLE OF VARCHAR2(100) INDEX BY BINARY_INTEGER;
 vN assArray;
@@ -174,7 +175,7 @@ for i IN vN.first..vS.last loop
 DBMS_OUTPUT.PUT_LINE(vN(i) || ' - ' || vS(i));
 end loop;
 END;
-----------------------------BULK UPDATE(NESTED LOOP) WITH RETURNING INTO------------------------------
+----------------------------BULK UPDATE(NESTED ARRAY) WITH RETURNING INTO------------------------------
 declare
 type emp_t  is table of ename_test%rowtype;
 emp_table emp_t:=emp_t();
@@ -259,9 +260,7 @@ select * bulk collect into emp_table from ename_test ;
 end;
 
 
-
-
---------- CURSOR with bulk and LIMIT------------------
+--------- CURSOR  IN BULK and LIMIT------------------
 declare
 type emp_t is table of employees%rowtype;
 emp_table emp_t;
