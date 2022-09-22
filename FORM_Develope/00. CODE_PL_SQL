@@ -6,20 +6,9 @@
 03. Change/Add-Table/Cloumn/Data Type?
 
 04. IF..ELSE vs CASE
-05. ASSOCIATIVE ARRAY with while loop
-06. NESTED TABLE with for loop
-07. VARRY with for loop
+05. PACKGE CRUD (FUNCTION and PROCEDURE)
+06. CURSOR and (Why)REF CURSOR (dynamic sql with multi row query with REF CURSOR)?
 
-08. CURSOR BASED RECORD
-09. TABLE(ROW & COL) BASED RECORD
-10. USER DEFINED RECORD
-
-11. FUNCTION vs PROCEDURE
-12. Exception
-
-13. How to select BULK DATA and show?
-
-12: How it insert result of select statement into table of records (associative array) WITH BULK SELECTION?
 
 
 
@@ -67,359 +56,109 @@ ELSE dbms_output.put_line('NO DATA FOUND');
 END CASE;
 END;
 
-----------05. ASSOCIATIVE ARRAY---------
+
+
+=================== 05. PACKGE CRUD (FUNCTION and PROCEDURE) ============
+create sequence emp_seq;
+
+CREATE OR REPLACE PACKAGE crud_emp IS
+   procedure insert_emp(first_name varchar2, dept_id number, salary number);
+   procedure delete_emp(p_emp_id number);
+   function  get_emp(p_emp_id number) return varchar2;
+END;
+
+-----PKG-BODY----
+CREATE OR REPLACE PACKAGE BODY crud_emp IS
+   procedure insert_emp(first_name varchar2, dept_id number, salary number) is
+   begin
+        insert into emp values(emp_seq.nextval, first_name, dept_id, salary);
+        commit;
+        
+        exception 
+        when others then 
+        dbms_output.put_line(sqlcode);
+        dbms_output.put_line(sqlerrm);
+   end;
+   
+   procedure delete_emp(p_emp_id number) is
+   begin
+        delete from emp  where emp_id =p_emp_id ;
+          commit;
+          
+        exception 
+        when others then 
+        dbms_output.put_line(sqlcode);
+        dbms_output.put_line(sqlerrm);
+   end;
+   
+   function  get_emp(p_emp_id number) return varchar2 is
+   v_name emp.first_name%type;
+   begin
+        select first_name into v_name from emp where emp_id=p_emp_id;
+        return v_name;
+        
+        exception
+        when others then 
+        return null;
+   end; 
+END;
++++++++++++++++++++++END PKG+BODY+++++++++++++++++++++++++++++++
+
+================== 06. CURSOR and REF CURSOR===================
 DECLARE
-    TYPE age IS TABLE OF NUMBER INDEX BY VARCHAR(25); 
-    age_empl age; 
-    employee VARCHAR(25); 
-BEGIN
-    -- adding employee details to the table
-    age_empl('Sam') := 30; 
-    age_empl('Venu') := 35; 
-    -- printing the table contents in the console
-    employee := age_empl.FIRST; 
-    WHILE employee IS NOT null LOOP 
-         dbms_output.put_line ('Employee name is ' || employee || ' and age is ' || TO_CHAR(age_empl(employee))); 
-         employee := age_empl.NEXT(employee); 
-    END LOOP; 
-END; 
-
-
-------------06. NESTED TABLE------------
-
-DECLARE
-    TYPE subject IS TABLE OF VARCHAR(15); 
-    TYPE teacher IS TABLE OF VARCHAR2(20);
-    subjectnames subject; 
-    subjectteacher teacher; 
-BEGIN 
-    subjectnames := subject('PLSQL', 'PHP', 'PYTHON'); 
-    subjectteacher:= teacher('ZAHID', 'MONIR', 'RASHID'); 
-
-    FOR i IN subjectteacher.FIRST..subjectteacher.LAST LOOP 
-         dbms_output.put_line('Subject:'||subjectnames(i)||', Teacher:' || subjectteacher(i)); 
-    end loop; 
-END;
-
------------------07.VARRY-------------
-
-DECLARE
-TYPE vr_name IS VARRAY(4) OF NUMBER;
-v_data vr_name := vr_name();
-BEGIN
-v_data := vr_name(1,2,3,4);
-FOR i IN v_data.first..v_data.last LOOP
-dbms_output.put_line(i);
-END LOOP;
-END;
-
------------------08.CURSOR BASED RECORD------------
-DECLARE
-cursor my_cust IS SELECT * FROM cust;
-v_datamyr_cust%ROWTYPE;
-BEGIN
-OPEN my_cust;
-LOOP
-FETCH my_cust into v_data;
-EXIT when my_cust%NOTFOUND;
-dbms_output.put_line(v_data.id || v_data.name);
-END LOOP;
-CLOSE my_cust;
-END;
-------------CURSOR with LOOP------------
-BEGIN
-  FOR my_cur IN (SELECT id, first_name FROM cust)
-  LOOP
-     dbms_output.put_line( my_cur.id '||' my_cur.first_name );
-  END LOOP;
-END;
-----------------
-
-STRONG REFF CURSOR:
-------------------
- DECLARE
-    TYPE my_rec IS RECORD (emp_sal employees.salary%TYPE);
-    TYPE RefCur IS REF CURSOR RETURN my_rec;
-    cur_var REFCUR;
-    at_var  employees.salary%TYPE;
-BEGIN
-   OPEN cur_var FOR SELECT salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO at_var;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE ('Salary of the employee is '||at_var);
-END;
-
-
-WEEK REFF CURSOR:
------------------
-DECLARE
-    TYPE wk_RefCur IS REF CURSOR;
-    cur_var wk_RefCur;
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-    OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE (f_name ||' '||emp_sal);
-END;
-
-SYS_REFCURSOR
--------------
-DECLARE
-    cur_var SYS_REFCURSOR;
-    f_name  employees.first_name%TYPE;
-    emp_sal employees.salary%TYPE;
-BEGIN
-OPEN cur_var FOR SELECT first_name, Salary FROM employees WHERE employee_id = 100;
-    FETCH cur_var INTO f_name, emp_sal;
-    CLOSE cur_var;
-    DBMS_OUTPUT.PUT_LINE(f_name ||' '||emp_sal);
-END
-
------------------09. TABLE(ROW & COL) BASED RECORD------------
-
-DECLARE
-v_data cust%ROWTYPE;
-BEGIN
-SELECT * into v_data FROM cust where id=2;
-dbms_output.put_line(v_data.id || v_data.name);
-END;
----COL--
-DECLARE
-v_name cust.name%TYPE;
-BEGIN
-SELECT name into v_name FROM cust where id=2;
-dbms_output.put_line( v_name);
-END;
-
-
------------------10 USER DEFINED RECORD------------
-
-DECLARE
-TYPE r_name IS RECORD( v_id number, v_name varchar2(50));
-v_data r_name;
-BEGIN
-SELECT * into v_data FROM cust where id=2;
-dbms_output.put_line( v_data.v_id || v_data.v_name);
-END;
-
-----------------11. FUNCTION vs PROCEDURE-----------
-FUNCTION SYNTEX:
-----------------
---Function Header
-CREATE OR REPLACE FUNCTION ADD_TWO(num1 IN number, num2 IN number)
-RETURN NUMBER IS
-result number;
-BEGIN
-result := num1+num2;
-RETURN result;
-END;
-/
-Call above Fuction:
-BEGIN
- show : = ADD_TWO(20, 25);
- DBMS_OUTPUT.PUT_LINE (show);
-END;
-
-PROCEDURE SYNTEX:
-===================
-
-CREATE OR REPLACE PROCEDURE sal_upd(p_dept_id number, p_pt number) IS
-v_pt number := p_pt/100;
-BEGIN
-UPDATE emp
-SET salary=salary+salary*v_pt
--- for update
-WHERE dept_id= p_dept_id;
-
-COMMIT;
-
-EXCEPTION
-  WHEN NO_DATA_FOUND THEN
-  DBMS_OUTPUT.PUT_LINE ('No Row updated');
-  WHEN OTHERS THEN
-  DBMS_OUTPUT.PUT_LINE (SQLCODE);
-  DBMS_OUTPUT.PUT_LINE (SQLERRM);
-
-END;
-
-===
---What is inside a Procedure
-select * from user_source
-where name='UPDATE_SAL'
-order by line;
-
-
---Procedure Info Like create date
-select * from user_objects
-where object_name='UPDATE_SAL';
-
---Call the PROCEDURE alone
-execute UPDATE_SAL (100,50);
-
---Drop the procedure
-drop procedure UPDATE_SAL;
-
-====
-
-
-create or replace procedure query_emp
-(p_emp_id employees.employee_id%type, 
- p_f_name out employees.first_name%type, 
- p_sal out employees.salary%type
- )is
-
-begin
-   select first_name,salary
-   into p_f_name,p_sal
-   from
-   employees
-   where employee_id=p_emp_id;
-
-exception
-when others then 
-dbms_output.put_line(sqlcode);
-dbms_output.put_line(sqlerrm);
-
-end;
-
-===
---you should declare 2 bind variables
-
-variable b_first_name varchar2(100)
-variable b_sal number
-
-execute query_emp(105,:b_first_name,:b_sal )
-print b_first_name b_sal ;
-===
---2 the other way to print the out parameter
-
-declare
-v_first_name employees.first_name%type;
-v_sal employees.salary%type;
-begin
- 
-query_emp(105,v_first_name,v_sal );
- dbms_output.put_line(v_first_name);
-  dbms_output.put_line(v_sal);
-
-end;
-===
-create or replace PROCEDURE p(x boolean)
-is
-begin
-
-    if x then
-    DBMS_OUTPUT.PUT_LINE('x is true');
-    end if;
-end;
-
-===
-declare
-v boolean;
-begin
-v:=true;
-p(v);
-
-end;
-===
-create or replace PROCEDURE test_plsql_records
-( rec in DEPARTMENTS%rowtype )
-is
-begin
-insert into DEPARTMENTS values rec;
-
-end;
-
-====
-declare
-v DEPARTMENTS%rowtype;
-begin
-v.DEPARTMENT_ID:=3;
-v.DEPARTMENT_NAME:='v dept';
-
-test_plsql_records (v);
-end;
-
-select * from DEPARTMENTS
-
-
-
-
-
--------------12. Exception--------------------
-EXCEPTION:
-DECLARE 
-   c_id customers.id%type := &cc_id; 
-   c_name customerS.Name%type; 
-   c_addr customers.address%type;  
-   -- user defined exception 
-   ex_invalid_id  EXCEPTION; 
-BEGIN 
-   IF c_id <= 0 THEN 
-      RAISE ex_invalid_id; 
-   ELSE 
-      SELECT  name, address INTO  c_name, c_addr 
-      FROM customers 
-      WHERE id = c_id;
-      DBMS_OUTPUT.PUT_LINE ('Name and Address: '||  c_name ' || c_addr);  
-   END IF; 
-
-EXCEPTION 
-   WHEN ex_invalid_id THEN 
-      dbms_output.put_line('ID must be greater than zero!'); 
-   WHEN no_data_found THEN 
-      dbms_output.put_line('No such customer!'); 
-   WHEN others THEN 
-      dbms_output.put_line('Error!');  
-END;
-
-----------------13. How to select BULK DATA and show?--------------------------------------
-
-SET SERVEROUTPUT ON;
-DECLARE
---Create an explicit cursor
-    CURSOR exp_cur IS
-    SELECT first_name FROM employees;
-
-    --Declare collection for holding the data 
-    TYPE nt_fName   IS TABLE OF VARCHAR2 (20);
-    fname   nt_fName;
-BEGIN
-    OPEN exp_cur;
-    LOOP
-        FETCH exp_cur BULK COLLECT INTO fname LIMIT 10;
-        EXIT WHEN fname.count=0;
-        --Print data
-        FOR idx IN fname.FIRST.. fname.LAST
+CURSOR myCur IS SELECT * FROM tbl; 
+    v VARCHAR2(100);
+    n NUMBER;
+BEGIN   
+    --FOR i IN myCur(Parameter) LOOP   
+    OPEN myCur;
         LOOP
-            DBMS_OUTPUT.PUT_LINE (idx||' '||fname(idx) );
-        END LOOP; 
-    END LOOP;
-    CLOSE exp_cur;
-END;
+            EXIT WHEN myCur%notfound;
+            FETCH myCur INTO v, n  ;
+            END LOOP;
+        CLOSE myCur;
+END
+=========REF CURSOR======
 
-
---------------: How it insert result of select statement into table of records (associative array)?------------
-
-DECLARE
-type cust_record is RECORD(
-                          cust_id cust.id%type,
-                          cust_first_name cust.first_name%type,
-                          cust_last_name  cust.last_name%type
-                         );
-    type cust_record_table is table of cust_record index by pls_integer;
-         v_data cust_record_table;
+-- the ref cursor can be opend many times with dif query
+TYPE refCur IS REF CURSOR;
+     vData refCur;
 BEGIN
-select *
-bulk collect into v_data 
-from cust;
-    for i in v_data.first..v_data.last loop
-      dbms_output.put_line (' ID ' || v_data(i).cust_id || ' Name: ' || v_data(i).cust_first_name);
-    end loop;
+   OPEN refCur FOR  SELECT * FROM tbl_name;
+   LOOP
+      fetch refCur INTO vData 
+      exit when refCur%notfound;
+      dbms_output.put_line(vData.first_name);
+    END LOOP;
 END;
 
+---------dynamic sql with multi row query with REF CURSOR----------
+CREATE OR REPLACE PROCEDURE emp_list  (p_dept_id number default null ) IS
+TYPE  c_emp_dept IS REF CURSOR;
+d_cur c_emp_dept;
+
+v_empno emp.emp_id%type;
+v_first_name emp.first_name%type;
+
+v_sql varchar2(1000):='select emp_id, first_name from emp';
+
+BEGIN
+   if p_dept_id is null then
+   OPEN d_cur for v_sql;
+   else
+   v_sql:=v_sql||'  where dept_id=:id';
+   OPEN d_cur for v_sql using p_dept_id;
+   end if;
+     
+     loop
+      fetch d_cur into v_empno, v_first_name;
+      exit when d_cur%notfound;
+      dbms_output.put_line(v_empno||' '||v_first_name);
+    end loop;
+ CLOSE d_cur; 
+END;
+
++++++++++++++++++++++END REF CURSOR+++++++++++++++++++++++++++++++
 
 
 
