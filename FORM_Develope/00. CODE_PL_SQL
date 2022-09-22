@@ -9,6 +9,8 @@
 05. PACKGE CRUD (FUNCTION and PROCEDURE)
 06. CURSOR and (Why)REF CURSOR (dynamic sql with multi row query with REF CURSOR)?
 
+07. BULK COLLECT (SELECT/UPDATE) WITH COLLECTION
+
 
 
 
@@ -160,6 +162,56 @@ END;
 
 +++++++++++++++++++++END REF CURSOR+++++++++++++++++++++++++++++++
 
+================07. BULK COLLECT (SELECT/UPDATE) WITH COLLECTION=========================
+DECLARE
+TYPE assArray IS TABLE OF VARCHAR2(100) INDEX BY BINARY_INTEGER;
+vN assArray;
+vS assArray;
 
+BEGIN
+
+SELECT first_name, salary bulk collect INTO vN, vS from emp;
+
+for i IN vN.first..vS.last loop
+DBMS_OUTPUT.PUT_LINE(vN(i) || ' - ' || vS(i));
+end loop;
+
+END;
+----------------------------BULK UPDATE------------------------------
+declare
+type ename_t  is table of varchar2(100);
+ename_table ename_t:=ename_t();
+c number:=0;
+errors number;
+begin
+ 
+ select first_name bulk collect into ename_table 
+  from ename;
+
+  forall i in ename_table.first.. ename_table.last save exceptions
+  update ename
+  set first_name=first_name||' to be added:)' --14 char
+  where first_name=ename_table(i);
+
+  exception 
+  when others then
+   errors := sql%bulk_exceptions.count;
+ dbms_output.put_line ('The total number of errors occured are '|| errors);
+          for j in 1..errors loop
+            dbms_output.put_line ('The error iteration is  '
+                                 || sql%bulk_exceptions(j).error_index
+                                  || ' and the error code is '
+                                || sql%bulk_exceptions(j).error_code
+                                 || ' and the error message is '
+                                 || sqlerrm ( -sql%bulk_exceptions(j).error_code)
+                                );
+        end loop;
+
+end;
+
+select * from ename
+
+
+=============================================
 
 
