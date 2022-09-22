@@ -26,7 +26,7 @@
 =====================================================
 
 01. 
-create table emp(emp_id number, dept_id number, first_name varchar2(50), salary number, constraint student_pk primary key (student_id));
+create table emp(emp_id number, dept_id number, first_name varchar2(50), salary number, constraint emp_pk primary key (emp_id));
 insert into emp values(1, 200, 'Mahadi', 1000);
 insert into emp values(2, 300, 'Mahafuj', 1500);
 insert into emp values(3, 200, 'Jahid', 2000);
