@@ -165,12 +165,11 @@ END;
 ================07. BULK COLLECT (SELECT/UPDATE) WITH COLLECTION=========================
 ---------------Associative Array ---------------
 DECLARE
-TYPE assArray IS TABLE OF VARCHAR2(100) INDEX BY BINARY_INTEGER;
+TYPE assArray IS TABLE OF ename_test%rowtype INDEX BY BINARY_INTEGER;
 vN assArray;
-vS assArray;
 
 BEGIN
-SELECT first_name, salary bulk collect INTO vN, vS from emp;
+SELECT first_name, salary bulk collect INTO vN from emp;
 for i IN vN.first..vS.last loop
 DBMS_OUTPUT.PUT_LINE(vN(i) || ' - ' || vS(i));
 end loop;
@@ -199,7 +198,7 @@ end;
 ------------------With Exception-----------------
 
 declare
-type ename_t  is table of varchar2(100);
+type ename_t  is table of emp%rowtype;
 ename_table ename_t:=ename_t();
 c number:=0;
 errors number;
