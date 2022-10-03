@@ -7,7 +7,7 @@ Start/shutdown a database as admin
  ----------------------------
 $ sqlplus                 
 Username: sys as sysdba     
-Password: ********
+Password: 123456
 SQL>startup;
 SQL>shutdown  abort | immediate | transactional
 
