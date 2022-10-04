@@ -67,7 +67,7 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
 
 To check SERVERS(Admin,Form,Report,Ohs):--------
        Go to : http://localhost:7001/em
-       User: Domain user name(Usually weblogic and password weblogic123)
+       User: Domain user name(Usually weblogic and password weblogic1 or weblogic123)
        Pass: Domain password (Usually password weblogic123)
 
 To check if FORMs installed properly:
