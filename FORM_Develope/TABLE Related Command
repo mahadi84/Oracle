@@ -48,6 +48,8 @@ end;
 
 select * from database_properties
 --see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
+
+
 03. Change/Add-Table/Cloumn/Data Type:
 ----------------------------------
 -- Add a new column with a column-level constraint
