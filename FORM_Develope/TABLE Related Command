@@ -58,8 +58,8 @@ SELECT table_name FROM user_tables ORDER BY table_name;   (Logged in as a user I
 
 
 
-03. Change/Add-Table/Cloumn/Data Type:
-----------------------------------
+03. Change/Add-Table/Cloumn/Data Type: FOR CLEAR DEFINATION: (https://www.techonthenet.com/oracle/primary_keys.php)
+-------------------------------------------------------------------------------------------------------------------
 -- Add a new column with a column-level constraint to an existing table
 -- An exception will be thrown if the table contains any rows
 -- since the newcol will be initialized to NULL in all existing rows in the table
