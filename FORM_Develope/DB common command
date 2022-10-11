@@ -1,0 +1,59 @@
+
+====================== DATABASE RELATED ======================
+
+Start/shutdown a database as admin
+ ----------------------------
+$ sqlplus                 
+Username: sys as sysdba     
+Password: 123456
+SQL>startup;
+SQL>shutdown  abort | immediate | transactional
+
+Connect to database
+-------------------
+$sqlplus / as sysdba
+SQL> connect pdb1admin/welcome@pdb1
+SQL> sqlplus pdb1admin/welcome@pdb1           ( If DB is already running)
+SQL>connect system/system@test.com:1521/orcl.com;
+
+------------------------
+ 
+show con_name;                                                 (Check DB Where I'm in, now)
+show pdbs;                                                     (Check how many pluggable database exist)
+alter session set container=pdbName/cdb$root;                  (Change connection to CDB/PDB)
+alter pluggable database PDBname/all open/close;               (Open/Close pluggable DB)
+alter pluggable database <pluggable_database_name> save state; --pluggable database to open automatically
+
+
+SELECT NAME FROM V$DATABASE;
+SELECT DB_NAME, INSTANCE_NAME, STATUS, DATABASE_STATUS FROM V$INSTANCE;
+
+
+
+
+========================= USER RELATED =======================
+
+SHOW user;
+CREATE user scott identified by scott1234# profile orclpdbprofile;
+ALTER user scott PROFILE test_pass;                             (To add extra profile)
+CREATE user c##jane identified by jane container=all;           (To create common user who can access both CDB and PDB)
+GRANT DBA TO User_Name;                                         (makes the user a DB Administrator)
+ALTER user USERNAME account unlock;
+SELECT * username from all_users/dba_users;
+
+***To list all users in the Specific PDB:
+-----------------------------------------
+set pagesize 200
+col USERNAME format a25  
+col PDB_NAME format a15
+SELECT USERNAME,a.CON_ID,PDB_NAME,CREATED from CDB_USERS a ,dba_pdbs b where 1=1 and a.CON_ID = 5;
+
+
+ADMIN TO CHECK USER INFO.
+-------------------------
+SELECT * FROM dba_users WHERE username=upper('pubali');
+select privilege, admin_option FROM dba_sys_privs WHERE grantee = upper('user_name/role_name');
+select * from dba_profiles where profile='PDBPROFILE';
+select * from dba_tablespaces where tablespace_name=upper('TS1');
+
+
