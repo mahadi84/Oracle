@@ -11,12 +11,43 @@ insert into emp values(5, 200, 'Mehjabin', 5500);
 select * from emp;  
 DESC cust;   / To check table's COLUMN name and DATA Type
 
+SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
+==============================================================================
+select * from user_constraints where table_name='EMP_X';
+
+create table emp_x
+( empid number primary key,
+  name varchar2(10) not null,
+  gender varchar(1),
+  deptno number,
+  address varchar2(100),
+constraint emp_x_uk1 unique  (name),
+constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
+constraint emp_x_chq1  check ( gender in ('M','F') )
+);
+
+
 
 02.
 INSERT INTO tbl_name(col1,col2) VALUES('value1', 'value2');
 UPDATE tbl_name SET col1='value1' where id=1;
 DELETE FROM superheroes WHERE cust_name = 'PUBALI';
 
+
+
+SQL LOOP
+-----------
+
+begin
+ for i in 1..1000000
+ loop
+ insert into ALEX.EMP values (i,'just test name', 'just test comments');
+ end loop;
+ commit;
+end;
+
+select * from database_properties
+--see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
 03. Change/Add-Table/Cloumn/Data Type:
 ----------------------------------
 -- Add a new column with a column-level constraint
@@ -87,36 +118,6 @@ select rowid,id,name,comments from HRMS2.TEST where id=10;   (Here HRMS2 is tabl
 SELECT table_name FROM user_tables ORDER BY table_name;   (Logged in as a user ID)
 
 
-SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
-==============================================================================
-select * from user_constraints where table_name='EMP_X';
 
-create table emp_x
-( empid number,
-  name varchar2(10) not null,
-  gender varchar(1),
-  deptno number,
-  address varchar2(100),
-constraint emp_x_pk primary key (empid),
-constraint emp_x_uk1 unique  (name),
-constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
-constraint emp_x_chq1  check ( gender in ('M','F') )
-);
-
-
-
-SQL LOOP
------------
-
-begin
- for i in 1..1000000
- loop
- insert into ALEX.EMP values (i,'just test name', 'just test comments');
- end loop;
- commit;
-end;
-
-select * from database_properties
---see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
 
 
