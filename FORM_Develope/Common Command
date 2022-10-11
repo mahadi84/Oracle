@@ -58,18 +58,29 @@ select * from dba_tablespaces where tablespace_name=upper('TS1');
 
 ====================== TABLE RELATED =============================
 
-To list all tables in a PDB created by user:
----------------------------------------------
-delete from ALEX.EMP;
-truncate table ALEX.EMP;
-drop table ALEX.EMP;
+01.
+create table emp(emp_id number, dept_id number, first_name varchar2(50), salary number, constraint emp_pk primary key (emp_id));
+insert into emp values(1, 200, 'Mahadi', 1000);
+insert into emp values(2, 300, 'Mahafuj', 1500);
+insert into emp values(3, 200, 'Jahid', 2000);
+insert into emp values(4, 300, 'Laiba',  5000);
+insert into emp values(5, 200, 'Mehjabin', 5500);
+select * from emp;  
+DESC cust;   / To check table's COLUMN name and DATA Type
 
-CREATE TABLE HRMS.EMP ( emp_id number, name varchar2(10) not null, );
-INSERT INTO   HRMS.EMP VALUES (1,'ford');
-SELECT * from HRMS.emp;
 
-alter table hrms.emp add (salary number);
-update hrms.employees set salary =500 where employee_id=1;
+02.
+INSERT INTO tbl_name(col1,col2) VALUES('value1', 'value2');
+UPDATE tbl_name SET col1='value1' where id=1;
+DELETE FROM superheroes WHERE cust_name = 'PUBALI';
+
+03. Change/Add-Table/Cloumn/Data Type:
+----------------------------------
+ALTER TABLE table_name RENAME to new_table_name;            /Table name Change
+ALTER TABLE table_name RENAME COLUMN old_name TO new_name;  /Column name Change
+ALTER TABLE table_name ADD column_name datatype;            /New Clumn Add
+ALTER TABLE table_name MODIFY COLUMN column_name datatype;  /Datatype change
+
 
 
 set pagesize 200
