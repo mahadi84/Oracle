@@ -1,1 +1,122 @@
 
+====================== TABLE RELATED =============================
+
+01.
+create table emp(emp_id number, dept_id number, first_name varchar2(50), salary number, constraint emp_pk primary key (emp_id));
+insert into emp values(1, 200, 'Mahadi', 1000);
+insert into emp values(2, 300, 'Mahafuj', 1500);
+insert into emp values(3, 200, 'Jahid', 2000);
+insert into emp values(4, 300, 'Laiba',  5000);
+insert into emp values(5, 200, 'Mehjabin', 5500);
+select * from emp;  
+DESC cust;   / To check table's COLUMN name and DATA Type
+
+
+02.
+INSERT INTO tbl_name(col1,col2) VALUES('value1', 'value2');
+UPDATE tbl_name SET col1='value1' where id=1;
+DELETE FROM superheroes WHERE cust_name = 'PUBALI';
+
+03. Change/Add-Table/Cloumn/Data Type:
+----------------------------------
+-- Add a new column with a column-level constraint
+-- to an existing table
+-- An exception will be thrown if the table
+-- contains any rows
+-- since the newcol will be initialized to NULL
+-- in all existing rows in the table
+ALTER TABLE CITIES ADD COLUMN REGION VARCHAR(26)
+CONSTRAINT NEW_CONSTRAINT CHECK (REGION IS NOT NULL);
+
+-- Add a new unique constraint to an existing table
+-- An exception will be thrown if duplicate keys are found
+ALTER TABLE SAMP.DEPARTMENT
+ADD CONSTRAINT NEW_UNIQUE UNIQUE (DEPTNO);
+
+-- add a new foreign key constraint to the
+-- Cities table. Each row in Cities is checked
+-- to make sure it satisfied the constraints.
+-- if any rows don't satisfy the constraint, the
+-- constraint is not added
+ALTER TABLE CITIES ADD CONSTRAINT COUNTRY_FK
+Foreign Key (COUNTRY) REFERENCES COUNTRIES (COUNTRY);
+
+-- Add a primary key constraint to a table
+-- First, create a new table
+CREATE TABLE ACTIVITIES (CITY_ID INT NOT NULL,
+SEASON CHAR(2), ACTIVITY VARCHAR(32) NOT NULL);
+-- You will not be able to add this constraint if the
+-- columns you are including in the primary key have
+-- null data or duplicate values.
+ALTER TABLE Activities ADD PRIMARY KEY (city_id, activity);
+
+-- Drop the city_id column if there are no dependent objects:
+ALTER TABLE Cities DROP COLUMN city_id RESTRICT;
+-- Drop the city_id column, also dropping all dependent objects:
+ALTER TABLE Cities DROP COLUMN city_id CASCADE;
+
+-- Drop a primary key constraint from the CITIES table
+
+ALTER TABLE Cities DROP CONSTRAINT Cities_PK;
+-- Drop a foreign key constraint from the CITIES table
+ALTER TABLE Cities DROP CONSTRAINT COUNTRIES_FK;
+-- add a DEPTNO column with a default value of 1
+ALTER TABLE SAMP.EMP_ACT ADD COLUMN DEPTNO INT DEFAULT 1;
+-- increase the width of a VARCHAR column
+ALTER TABLE SAMP.EMP_PHOTO ALTER PHOTO_FORMAT SET DATA TYPE VARCHAR(30);
+-- change the lock granularity of a table
+ALTER TABLE SAMP.SALES LOCKSIZE TABLE;
+
+-- Remove the NOT NULL constraint from the MANAGER column
+ALTER TABLE Employees ALTER COLUMN Manager NULL;
+-- Add the NOT NULL constraint to the SSN column
+ALTER TABLE Employees ALTER COLUMN ssn NOT NULL;
+
+-- Change the default value for the SALARY column
+ALTER TABLE Employees ALTER COLUMN Salary DEFAULT 1000.0
+ALTER TABLE Employees ALTER COLUMN Salary DROP DEFAULT
+
+
+set pagesize 200
+col PDB_NAME format a25  
+col OWNER format a25  
+col TABLE_NAME format a15
+SELECT p.PDB_NAME, t.OWNER, t.TABLE_NAME FROM DBA_PDBS p, CDB_TABLES t WHERE p.PDB_ID = 5 AND t.OWNER IN('TEST') AND p.PDB_ID = t.CON_ID ORDER BY p.PDB_ID;
+
+select rowid,id,name,comments from HRMS2.TEST where id=10;   (Here HRMS2 is table and TEST is an User)
+SELECT table_name FROM user_tables ORDER BY table_name;   (Logged in as a user ID)
+
+
+SET CONSTRAINT Like primary key, unique, foreign key, check AND How to CHECK
+==============================================================================
+select * from user_constraints where table_name='EMP_X';
+
+create table emp_x
+( empid number,
+  name varchar2(10) not null,
+  gender varchar(1),
+  deptno number,
+  address varchar2(100),
+constraint emp_x_pk primary key (empid),
+constraint emp_x_uk1 unique  (name),
+constraint emp_x_fk1 foreign key (deptno) references dept_x(deptno),
+constraint emp_x_chq1  check ( gender in ('M','F') )
+);
+
+
+
+SQL LOOP
+-----------
+
+begin
+ for i in 1..1000000
+ loop
+ insert into ALEX.EMP values (i,'just test name', 'just test comments');
+ end loop;
+ commit;
+end;
+
+select * from database_properties
+--see GLOBAL_DB_NAME,DEFAULT_PERMANENT_TABLESPACE,DEFAULT_TEMP_TABLESPACE
+
+
