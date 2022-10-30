@@ -1,0 +1,17 @@
+
+STEP:01
+==========
+Add/modify the parameters in your <devsuite_home>/forms/server/formsweb.cfg file:
+# Forms applet parameter
+width=100%
+# Forms applet parameter
+height=100%
+
+
+
+STEP:02
+===========
+in pre_form trigger
+set_window_property(FORMS_MDI_WINDOW,WINDOW_STATE,MAXIMIZE);
+set_window_property('WINDOW',WINDOW_STATE,MAXIMIZE);
+
