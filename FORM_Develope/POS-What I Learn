@@ -1,0 +1,76 @@
+
+
+----------------FORMS---------------------
+
+01. How many ways are there creating a form? Advantage and Disadvantage?
+     -Automaticaly with DataBlock (Create table first and Next,Next,Next)
+     -Fully Manual(Drag and Drop)
+     -Programatically (Create table, Procedure and Create a DataBlock next,choose and next)
+02. Shortcut key for:
+    >Layout Editor(Canvas) >Propertise Platte > Group/Ungroup
+    >LOV data show
+
+03. How to create:
+    >Dynamic LOV >Select Item >Check Box
+    >Radio Group
+
+
+04. What would be the FONT SIZE, FIELD HEIGHT?
+    - Default: Font Size: 9, Field Height: 16
+
+05. What is the difference between LOv and LIST item?
+    -A list item can have only ONE COLUMN, 
+    -Whereas LOV can have ONE or MORE columns. 
+     (To show LOV: F9 is used for 6i..for 9i and 10g you need to use control L)
+
+
+
+--------------TIGGERs-----------------
+
+
+
+
+---------------Validation------------
+01. Should I validate form data twice? -One for item trigger -One before insert/Update?
+02. Name all tigger that we can user to validate a field.
+03. How to validate(And show MSG to fill up the form)
+    >LOV Data >Check Box >Radio Group >Mobile number >Email Address
+    
+
+--------------COMMON FUNCTIONs---------
+Go to next field -next_item;
+Clear the form -clear_form;
+
+
+
+
+----------------TABLE----------------
+
+01. TABLE NAME was very difficult to choose like 
+      - product_category(meaningfull, but Exceed 15chr)
+      - pos_product_category(with software name, very meaningfull, easy to understand, but Exceed 15chr)
+      - pos_prod_cate (Not exceed 15char, but not much meaningfull) 
+      
+02. Create, Check and Delete CONSTRAINT like PK and FK.
+      - CONSTRAINT Name MUST be unique in ALL TABLE
+      - Check with SQL DEVELOPTER
+      - drop table USER_INFO cascade constraints;
+
+03. How to RENAME existing TABLE name.
+    - alter table pubali.subject rename to sub;
+
+
+04. Adding and Deleting new column into a existing (empty/non-empty) table and alter default/not null value as well.
+      - alter table pubali.pos_user_info add user_full_name varchar2(50) not null;
+      - alter table pubali.pos_user_info drop column user_full_name;
+      - ALTER TABLE pubali.pos_user_info modify  user_status varchar2(3) default 'N';
+      -(NON-EMPTY TABLE)
+      -
+
+05. UNABLE to INSERT DATA into the TABLE.
+      - INSERT INTO does not work with form that is created by DATABLOCK.
+      
+06. I made Most of the Fields in the table NOT NULL, is it ok?
+
+
+
