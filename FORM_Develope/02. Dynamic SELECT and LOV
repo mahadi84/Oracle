@@ -1,0 +1,47 @@
+How to create Dynamic SELECT ITEM
+==================================
+https://sites.google.com/site/craigsoraclestuff/oracle-forms---how-to-s/forms-howto-dynamically-populate-a-poplist
+
+DECLARE
+rg_name VARCHAR2(40) := 'db_table_name';   //Change the table name
+rg_id RecordGroup;
+status NUMBER;
+
+BEGIN
+rg_id := Find_Group( rg_name );
+if
+not id_null(rg_id) then
+delete_group(rg_id);
+else
+rg_id := Create_Group_From_Query( rg_name, 'SELECT tbl_column_name, to_char(tbl_column_id) From tbl_name'); //Change tbl column and column id and the tbl name
+end if;
+status := Populate_Group( rg_name );
+populate_list('list_field_name', rg_id);
+END;
+
+
+
+How to create Dynamic LOV
+=========================
+DECLARE
+LV BOOLEAN;
+CURSOR C_CITY IS SELECT CITY_ID, CITY FORM PUBALI.CITY_INFO
+WHERE LTRIM(RTRIM(CITY))= LTRIM(RTRIM(:CITY));
+V_CITY_ID PUBALI.CITY.CODE%TYPE;
+
+BEGIN
+IF :PUBALI.CITY IS NULL THEN
+ LV:= SHOW_LOV('LOV_CITY');
+END IF;
+OPEN C_CITY;
+FETCH C_CITY INTO V_CITY_ID,:PUBALI.CITY_INFO
+CLOSE C_CITY;
+
+IF V_CITY_ID IS NULL THEN
+ :MSG:= 'CITY ID NOT FOUND.';
+RAISE FORM_TRIGGER_FAILURE;
+END IF;
+GO_ITEM('PUBALI.CITY');
+END;
+
+
