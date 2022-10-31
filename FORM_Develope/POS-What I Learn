@@ -1,6 +1,6 @@
 
 
-----------------FORMS---------------------
+----------------FORMS------------------------
 
 01. How many ways are there creating a form? Advantage and Disadvantage?
      -Automaticaly with DataBlock (Create table first and Next,Next,Next)
@@ -32,14 +32,14 @@
     >LOV Data >Check Box >Radio Group >Mobile number >Email Address
     
 
---------------COMMON FUNCTIONs---------
+--------------COMMON FUNCTIONs-----------------
 Go to next field -next_item;
 Clear the form -clear_form;
 
 
 
 
-----------------TABLE----------------
+----------------TABLE-------------------------
 
 01. TABLE NAME was very difficult to choose like 
       - product_category(meaningfull, but Exceed 15chr)
