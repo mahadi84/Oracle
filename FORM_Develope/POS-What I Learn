@@ -25,12 +25,7 @@
 
 
 
---------------TIGGERs-----------------
-
-
-
-
----------------Validation------------
+---------------Validation & TIGGERs------------
 01. Should I validate form data twice? -One for item trigger -One before insert/Update?
 02. Name all tigger that we can user to validate a field.
 03. How to validate(And show MSG to fill up the form)
