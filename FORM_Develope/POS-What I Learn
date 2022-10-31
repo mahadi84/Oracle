@@ -30,7 +30,16 @@
 02. Name all tigger that we can user to validate a field.
 03. How to validate(And show MSG to fill up the form)
     >LOV Data >Check Box >Radio Group >Mobile number >Email Address
-    
+04. How to Show validation error message with Alert
+    https://stackoverflow.com/questions/52396085/show-the-error-message-in-a-popup-alert-rather-then-on-status-bar
+    BEGIN
+    IF( Condition )THEN
+        --Show the error as popup alert message box
+        MESSAGE('This is an error.');
+        MESSAGE('');
+        RAISE FORM_TRIGGER_FAILURE;
+    END IF;
+END;
 
 --------------COMMON FUNCTIONs-----------------
 Go to next field -next_item;
