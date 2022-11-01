@@ -78,11 +78,15 @@ END;
 
 TRIGGERs:
 ---------
-FORM level trigger:
+FORM Level:----
 WHEN-NEW-FORM-INSTANCE     (Use:like Global varible pass form to form Ex: :uname := :global.aa)
 
-BLOCK level trigger:
+BLOCK Level:-----
 PRE-INSERT                 (Ex: select nvl(max(u_id,1000)+1 into :id from pubali.emp_info;)
+
+ITEM Level:-----
+KEY-NEXT-ITEM             (Ex: validate if item value is NULL)
+
 
 
 
