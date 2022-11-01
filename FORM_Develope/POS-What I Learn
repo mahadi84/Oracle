@@ -1,5 +1,39 @@
 
 
+--------------COMMON FUNCTIONs-----------------
+
+clear_form('no_validate');
+clear_form('commit');
+
+
+commit;
+commit_form;
+forms_ddl('commit');
+
+next_item;
+next_record;
+
+go_item('item_name');
+go_block('block_name');
+
+show_lov('lov_name');
+show_alert('alert_name');
+
+call_form('form_name');
+open_form('form_name');
+new_form();
+
+LTRIM(RTRIM(:ITEM));
+
+set_item_property(item_name, enabled, property_false)
+get_item_property(item_name, enabled);
+
+set_window_property('window_name', window_state, maximize);
+
+
+
+
+
 ----------------FORMS------------------------
 
 01. How many ways are there creating a form? Advantage and Disadvantage?
@@ -26,6 +60,7 @@
 
 
 ---------------Validation & TIGGERs------------
+
 01. Should I validate form data twice? -One for item trigger -One before insert/Update?
 02. Name all tigger that we can user to validate a field.
 03. How to validate(And show MSG to fill up the form)
@@ -41,9 +76,15 @@
     END IF;
 END;
 
---------------COMMON FUNCTIONs-----------------
-Go to next field -next_item;
-Clear the form -clear_form;
+TRIGGERs:
+---------
+FORM level trigger:
+WHEN-NEW-FORM-INSTANCE     (Use:like Global varible pass form to form Ex: :uname := :global.aa)
+
+BLOCK level trigger:
+PRE-INSERT                 (Ex: select nvl(max(u_id,1000)+1 into :id from pubali.emp_info;)
+
+
 
 
 
