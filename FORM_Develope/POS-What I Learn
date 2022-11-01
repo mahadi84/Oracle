@@ -5,7 +5,6 @@
 clear_form('no_validate');
 clear_form('commit');
 
-
 commit;
 commit_form;
 forms_ddl('commit');
@@ -29,7 +28,6 @@ set_item_property(item_name, enabled, property_false)
 get_item_property(item_name, enabled);
 
 set_window_property('window_name', window_state, maximize);
-
 
 
 
