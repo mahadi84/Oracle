@@ -29,6 +29,9 @@ get_item_property(item_name, enabled);
 
 set_window_property('window_name', window_state, maximize);
 
+message('Field is empty');
+raise form_trigger_failure;
+
 
 
 
@@ -84,8 +87,7 @@ PRE-INSERT                 (Ex: select nvl(max(u_id,1000)+1 into :id from pubali
 
 ITEM Level:-----
 KEY-NEXT-ITEM             (Ex: validate if item value is NULL)
-
-
+WHEN-BUTTON-PRESSED
 
 
 
