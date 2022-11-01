@@ -2,8 +2,9 @@
 
 --------------COMMON FUNCTIONs-----------------
 
-clear_form('no_validate');
+clear_form();
 clear_form('commit');
+clear_form('no_validate');
 
 commit;
 commit_form;
