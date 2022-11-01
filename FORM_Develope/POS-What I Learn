@@ -25,6 +25,9 @@ new_form();
 
 LTRIM(RTRIM(:ITEM));
 
+set_alert_property('alert_name', TITLE, 'DELETE');
+set_alert_property('alert_name', ALERT_MESSAGE_TEXT, 'Are you sure?');
+
 set_item_property(item_name, enabled, property_false)
 get_item_property(item_name, enabled);
 
@@ -33,6 +36,7 @@ set_window_property('window_name', window_state, maximize);
 message('Field is empty');
 raise form_trigger_failure;
 
+:system.form_status='CHANGED';
 
 
 
