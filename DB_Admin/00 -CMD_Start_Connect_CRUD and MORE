@@ -40,6 +40,8 @@ CREATE user scott identified by scott1234# profile orclpdbprofile;
 ALTER user scott PROFILE test_pass;                             (To add extra profile)
 CREATE user c##jane identified by jane container=all;           (To create common user who can access both CDB and PDB)
 GRANT DBA TO User_Name;                                         (makes the user a DB Administrator)
+GRANT ALL PRIVILEGES to User_Name;
+GRANT unlimited tablespace to User_Name;
 ALTER user USERNAME account unlock;
 SELECT * username from all_users/dba_users;
 
