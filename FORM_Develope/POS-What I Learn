@@ -3,117 +3,118 @@
 --It is impossible to give a working solution to a problem I don't know.
 
 
-
-
 WHAT IS ORACLE FROMS BUILDER?
 -----------------------------
 - Programs that guide the developer in performing common tasks(buit-in sub-program and trigger)
   Example: Creating
 
-01. DATA BLOCK WIZARD (Developer corresponds to a table in the database.
-                       For each table displayed on the form, a new data block will be created).
-02. LAYOURT WIZARD  (Developer arranging the base table and columns on the form).
+01. DATA BLOCK WIZARD (Developer corresponds to a table in the database).
+02. LAYOURT WIZARD    (Developer arranging the base table's columns on the form).
 
 
->>>Why does the leading zero of a number disappear Ex: First ZERO number of mobile phone?
-Ans:---
-Simple answer is, You cannot!!
-Leading zeros has no value in a numeric data type. 
-If you want to show then you need to convert the numeric data type to character using TO_CHAR.
+--------------COMMON FUNCTIONs-----------------
+
+clear_form(NO_VALIDATE, COMMIT, NO_COMMIT, NO_VALIDATE);
+clear_block();
 
 
->>>ORA-01439: column to be modified must be empty to change datatype/constraint?
-Ans:--
-Only WAY:
-   01. Suspend constraints
-   02. Create another column with varchar2 type
-   03. Copy from number column to the new varchar2 column
-   04. Delete number column
-   05. Rename nvarchar column to the old one
-   06. Rebuild indexes
-   07. Activate constraints.
-   
-  OR you could use VIRTUAL COLUMN.
+commit;
+commit_form;
+forms_ddl('commit');
+
+next_item;
+next_record;
+
+go_item('item_name');
+go_block('block_name');
+
+show_lov('lov_name');
+show_alert('alert_name');
+
+call_form('form_name');
+open_form('form_name');
+new_form();
+
+LTRIM(RTRIM(:ITEM));
+
+set_alert_property('alert_name', TITLE, 'DELETE');
+set_alert_property('alert_name', ALERT_MESSAGE_TEXT, 'Are you sure?');
+
+set_item_property(item_name, enabled, property_false)
+get_item_property(item_name, enabled);
+
+set_window_property('window_name', window_state, maximize);
+
+message('Field is empty');
+raise form_trigger_failure;
+
+:system.form_status='CHANGED';
 
 
->>>ORA-02296: cannot enable (PUBALI.) - null values found
-02296. 00000 - "cannot enable (%s.%s) - null values found"
--It happen basically because you have null values for this column. check the table's column.
+----------------FORMS RELATED------------------------
 
-Solution:
+01. How many ways are there creating a form? Advantage and Disadvantage?
+     -Automaticaly with DataBlock (Create table first and Next,Next,Next)
+     -Fully Manual(Drag and Drop)
+     -Programatically (Create table, Procedure and Create a DataBlock next,choose and next)
+02. Shortcut key for:
+    >Layout Editor(Canvas) >Propertise Platte > Group/Ungroup
+    >LOV data show
+
+03. How to create:
+    >Dynamic LOV >Select Item >Check Box
+    >Radio Group
+
+04. What would be the FONT SIZE, FIELD HEIGHT?
+    - Default: Font Size: 9, Field Height: 16
+
+05. What is the difference between LOV and LIST item?
+    -A list item can have only ONE COLUMN, 
+    -Whereas LOV can have ONE or MORE columns. 
+     (To show LOV: F9 is used for 6i..for 9i and 10g you need to use control L)
+
+
+
+---------------Validation & TIGGERs------------
+
+01. Should I validate form data twice? -One for item trigger -One before insert/Update?
+02. Name all tigger that we can user to validate a field.
+03. How to validate(And show MSG to fill up the form)
+    >LOV Data >Check Box >Radio Group >Mobile number >Email Address
+04. How to Show validation error message with Alert
+    https://stackoverflow.com/questions/52396085/show-the-error-message-in-a-popup-alert-rather-then-on-status-bar
+    BEGIN
+    IF( Condition )THEN
+        --Show the error as popup alert message box
+        MESSAGE('This is an error.');
+        MESSAGE('');
+        RAISE FORM_TRIGGER_FAILURE;
+    END IF;
+END;
+
+TRIGGERs:
 ---------
-1) Fix the problem updating the null values to a value (or a dummy value).
-2) Use NOVALIDATE clause, like:
-alter table TABLE_TEST modify COLUMN_TEST not null NOVALIDATE;
+FORM Level:----
+WHEN-NEW-FORM-INSTANCE     (Use:like Global varible pass form to form Ex: :uname := :global.aa)
 
-Is a good practice to set a default value for this column too.
-It’s a probability that some kind of behavior (even a bug) on application is causing the null values, so, setting a default value, you avoid “new errors” on application layer.
-Otherside, if you want to show where the bug is occouring, maybe is better to not set it
+BLOCK Level:-----
+PRE-INSERT                 (Ex: select nvl(max(u_id,1000)+1 into :id from pubali.emp_info;)
 
->>>> How to delete/rename a column of a table.
-Ans: 
-alter table employee_info drop column emp_mobile;
-alter table employee_info rename column e_mobile to emp_mobile;
+ITEM Level:-----
+KEY-NEXT-ITEM             (Ex: validate if item value is NULL)
+WHEN-BUTTON-PRESSED
 
->>>> How to validate Name and Father's name can not be same.
+
+>>>> How to validate Name and Father's name can not be same From FORM ITEM?
 Ans: IF :EI.name = :EI.f_name THEN
 
->>>> How to validate duplicate data from table 
+>>>> How to validate duplicate data(Ex: Mobile No) from FORM/TABLE 
 Ans: create a procedure with sql: 
      select count(*) into v where user_name= :EI.mobile.
-
->> How to validate 18 or heigher age as DOB for employee.
-Ans: tranc(date)= return round date value in number, 
-     add_months(date/sysdate, NoOfMonth)= add month(no of day) with provided date
-
->>>> ERROR: FRM-40401: No changes to save. 
-( it is not an error at all, this is the default functionality of the Forms, 
-If there are no any changes made and you try to commit. 
-It shows the message.)
-
-Soln:--
-01. 
-CUSTOMIZE the Message:---
-Trigger:ON-MESSAGE
-declare
-msgnum number := message_code;
-begin
-IF msgnum = 40401 THEN 
-Message('my own message.'); 
-end if;
-end;
-
-02.
-HIDE the message:--
-Trigger:Pre-Form (form level trigger) OR SYSTEM message-level,
-:SYSTEM.MESSAGE_LEVEL := 5;
-
-03.
-AVOID the message:--
-Use the Forms_DDL('COMMIT');
-
-04.
-Use "standard.commit" instead of "commit".
-this bypasses any checking and does just that which you asked - commit, now!! 
-
->>>>>>>> Forms builder running very slow.
-Ans: Normally its happen when u r connected to Windows domain (wht I experienced) 
-if u disconnect ur lan and start the forms builder 10g & re-connect the lan. 
-after these two steps u 'll get much much better results.
--OPEN the form builders with ADMIN PRIVELEGE.
+     --FOR-TABLE: Normally this should be done with a unique constraint, NOT with triggers.
 
 
->>>>PLS-00049: bad bind variable 'NEW.DOB' 
-    -Table it doesn't contain a column 'NEW.DOB'
-
->>>>HOW to insert/select date into/from table throudh Oracle Developer?
-   --insert into tem values(to_date('2015-01-01', 'yy-mm-dd'));
-   --select to_char(datecol, 'YYYY-MM-DD')
-
->>>> Validate to not insert duplicate data like MOBILE NO.?
-    --Normally this should be done with a unique constraint, not with triggers.
-
->>>> Validate age must be 18?
+>>>> Validate age must be 18+?
     --Trigger in TABLE-- 
       IF ADD_MONTHS(:NEW.EMP_DOB,216) > TRUNC(SYSDATE)    THEN
       RAISE_APPLICATION_ERROR(-20002,'Employee is under 18!');
@@ -122,6 +123,17 @@ after these two steps u 'll get much much better results.
       And 216 months is 18 x 12. So DOB + 216 months is date when person turns 18. 
       And if that is > TRUNC(SYSDATE) then person is not yet 18 years old.
 
+
+
+--------------------TABLE-------------------------
+
+>>>> TABLE NAME was very difficult to choose like 
+      - product_category(meaningfull, but Exceed 15chr)
+      - pos_product_category(with software name, very meaningfull, easy to understand, but Exceed 15chr)
+      - pos_prod_cate (Not exceed 15char, but not much meaningfull)
+
+>>>> I made Most of the Fields in the table NOT NULL, is it ok?
+
 >>>> How to create UNIQUE/PRIMARY KEY/COMPOSITE KEY constraint(অবরোধ) in a COLUMN?
    --UNIQUE KEY/PRIMARY KEY- A unique constraint is a single field or combination of fields that uniquely defines a record. 
    --PRIMARY KEY- When multiple fields are used as a primary key, they are called a COMPOSITE KEY.
@@ -129,6 +141,7 @@ after these two steps u 'll get much much better results.
      In Oracle, a unique/PRIMARY KEY constraint can not contain more than 32 columns.
      A unique/PRIMARY KEY constraint can be defined in either a CREATE TABLE statement or an ALTER TABLE statement.
      -Oracle DOES NOT PERMIT you to create both a primary key and unique constraint with the THE SAME COLUMNS.
+     -CONSTRAINT Name MUST be unique in ALL TABLE
      
     PRIMARY KEY VS UNIQUE KEY
     - PRIMARY KEY, Cannot accept NULL values.
@@ -141,6 +154,8 @@ after these two steps u 'll get much much better results.
    ADD/DROP/ENABLE/DISABLE CONSTRAINT supplier_name_unique 
    UNIQUE/PRIMARY KEY(supplier_id, supplier_name, supplier_mobile);
 
+      
+
 >>>> How to force user to insert salary between 1000 to 2000 only or all charecter in uppder case?
     -A CHECK constraint allows you to specify a condition on each row in a table.
       CODE:
@@ -149,8 +164,63 @@ after these two steps u 'll get much much better results.
       CHECK (supplier_id BETWEEN 100 and 9999);
       CHECK (supplier_name = upper(supplier_name));
 
->>> How to send error message to ORACLE FROM from Database Trigger?
-    -- create datablock trigger 'ON-ERROR' and catch all oracle error code with 'DBMS_ERROR_CODE'
-    -- al_code := DBMS_ERROR_CODE;
+
+>>>> How to RENAME existing TABLE name.
+      - alter table pubali.subject rename to sub;
+
+>>>> How to delete/rename a column of a table.
+     - alter table employee_info drop column emp_mobile;
+     - alter table employee_info rename column e_mobile to emp_mobile;
+
+
+>>>> Adding and Deleting new column into a existing (empty/non-empty) table and alter default/not null value as well.
+>>>  ORA-01439: column to be modified must be empty to change datatype/constraint?
+      - alter table pubali.pos_user_info add user_full_name varchar2(50) not null;
+      - alter table pubali.pos_user_info drop column user_full_name;
+      - ALTER TABLE pubali.pos_user_info modify  user_status varchar2(3) default 'N';
+   -Solution for NON-EMPTY TABLE:
+   Only WAY:
+   01. Suspend constraints
+   02. Create another column with varchar2 type
+   03. Copy from number column to the new varchar2 column
+   04. Delete number column
+   05. Rename nvarchar column to the old one
+   06. Rebuild indexes
+   07. Activate constraints.
    
+  OR you could use VIRTUAL COLUMN.
+
+
+>>>> UNABLE to INSERT DATA into the TABLE.
+      - INSERT INTO does not work with form that is created by DATABLOCK.    
+
+>>> Why does the leading zero of a number disappear Ex: First ZERO number of mobile phone?
+    Ans:---
+    Simple answer is, You cannot!!
+    Leading zeros has no value in a numeric data type. 
+    If you want to show then you need to convert the numeric data type to character using TO_CHAR.
+
+
+>>> ORA-02296: cannot enable (PUBALI.) - null values found
+    02296. 00000 - "cannot enable (%s.%s) - null values found"
+   -It happen basically because you have null values for this column. check the table's column.
+
+    Solution:
+    ---------
+    1) Fix the problem updating the null values to a value (or a dummy value).
+    2) Use NOVALIDATE clause, like:
+    alter table TABLE_TEST modify COLUMN_TEST not null NOVALIDATE;
+
+    Is a good practice to set a default value for this column too.
+    It’s a probability that some kind of behavior (even a bug) on application is causing the null values, 
+    so, setting a default value, you avoid “new errors” on application layer.
+    Otherside, if you want to show where the bug is occouring, maybe is better to not set it
+
+
+>>>> HOW to insert/select date into/from table throudh Oracle Developer?
+     --insert into tem values(to_date('2015-01-01', 'yy-mm-dd'));
+     --select to_char(datecol, 'YYYY-MM-DD')
+
+>>>>PLS-00049: bad bind variable 'NEW.DOB' 
+    --Table it doesn't contain a column 'NEW.DOB'
 
