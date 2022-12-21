@@ -30,9 +30,9 @@ PREQUISITS:
 01. WEBLOGIC SERVER INSTALLTION PROCESS:
 ----------------------------------------
 > Open CMD prompt with admin priv.
-> Firstly, Install "Oracle WebLogic Server 12.2.1.4.0" 
+> Firstly, Install "Oracle WebLogic Server" 
            CMD: weblogic_software_folder_location>java -jar installation_file.jar
-           Example: C:\Users\mmahadi\Downloads>java -jar installation_file.jar
+           Example: C:\Users\mmahadi\Downloads>java -jar fmw_12.2.1.4.0_wls.jar
 
 > Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
            >> Install "Oracle Fusion Middleware(fmw_12.2.1.4.0_infrastructure.jar)"
