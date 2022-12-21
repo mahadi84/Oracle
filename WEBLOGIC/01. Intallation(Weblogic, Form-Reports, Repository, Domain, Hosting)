@@ -12,18 +12,18 @@ https://www.youtube.com/watch?v=tiqW_MZ-WqQ&list=PLQfBfu7k8exAjg0-lIZUYkeE1Dgpse
 
 SOFTWARE RQQUIREMENTS:
 ---------------------
-• Java SE Development Kit 8 (jre-8u211-32bit)
+01• Java SE Development Kit 8 (jre-8u211-32bit)
          Download Link: https://www.oracle.com/java/technologies/javase/javase8u211-later-archive-downloads.html
-• Weblogic Server 12c (12.2.1.4) 
-• Oracle Fusion Middleware 12c Infrastructure (12.2.1.4.0)
-• Forms and Reports 12c (12.2.1.4.0)
+02• Weblogic Server 12c (12.2.1.4) 
+03• Oracle Fusion Middleware 12c Infrastructure (12.2.1.4.0)
+04• Forms and Reports 12c (12.2.1.4.0)
         Download Link: https://edelivery.oracle.com/osdc/faces/Home.jspx
 
 PREQUISITS:
 ----------
 -Put the download software on which drive you want install
 -Go to:- My-computer-Propertise>Advance System Settings>Environment Variables
-         -Add Temp file location
+         -Add Temp file location (ex: TMP C:\Users\mmahadi\Temp)
          -Add Java Link
 
 
@@ -34,10 +34,10 @@ PREQUISITS:
            CMD: weblogic_software_folder_location>java -jar installation_file.jar
 
 > Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
-           >> Install "Oracle Fusion Middleware 12c Infrastructure 12.2.1.4.0(fmw_12.2.1.4.0_infrastructure.jar)"
+           >> Install "Oracle Fusion Middleware(fmw_12.2.1.4.0_infrastructure.jar)"
             
 > Thirdly, On the 'C:\Oracle\Middleware\Oracle_Home' folder 
-         >> Install "Oracle Forms and Reports 12.2.1.4.0 (setup_fmw_12.2.1.4.0_fr_win64.exe)"
+         >> Install "Oracle Forms and Reports(setup_fmw_12.2.1.4.0_fr_win64.exe)"
 
 
 02. REPOSITORY INSTALLATION:
