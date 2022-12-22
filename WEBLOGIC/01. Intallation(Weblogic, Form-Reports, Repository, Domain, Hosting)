@@ -60,9 +60,9 @@ PREQUISITS:
 
 03. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
 ---------------------------------------------------------
-> Go tho below link:
-  C:\Oracle\Middleware\Oracle_Home\oracle_common\common\bin
-> Click On: config.cmd
+> CMD:
+  -cd C:\Oracle\Middleware\Oracle_Home\oracle_common\common\bin
+  -...bin> config.cmd
 
 > Create Domain_Name 
 > Select on Next page:
