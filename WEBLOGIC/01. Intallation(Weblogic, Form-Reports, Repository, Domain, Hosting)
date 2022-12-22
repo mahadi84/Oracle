@@ -41,8 +41,10 @@ PREQUISITS:
                -Middleware_Software_folder_location>fmw_12.2.1.4.0_infrastructure.jar
            
             
-> Thirdly, On the 'C:\Oracle\Middleware\Oracle_Home' folder 
-         >> Install "Oracle Forms and Reports(setup_fmw_12.2.1.4.0_fr_win64.exe)"
+> Thirdly, Install Oracle Forms and Reports
+           - Double click on setup_fmw_12.2.1.4.0_fr_win64.exe file.
+           - Select Folder: 'C:\Oracle\Middleware\Oracle_Home'
+           - Select JDK Location
 
 
 02. REPOSITORY INSTALLATION:
