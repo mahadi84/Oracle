@@ -49,9 +49,10 @@ PREQUISITS:
 
 02. REPOSITORY INSTALLATION:
 ----------------------------
-> Go to below file:
-  C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
-> Click On: rcu.bat
+> CMD:
+  cd C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
+  C:\Oracle\Middleware\Oracle_Home\oracle_common\bin>rcu.bat
+
 **Select All EXCEPT "User Messaging Service"
 -->Run these command to DB console: GRANT execute on dbms_lob to DEV_MDS;
 ***Uninstall a repository is same process.
