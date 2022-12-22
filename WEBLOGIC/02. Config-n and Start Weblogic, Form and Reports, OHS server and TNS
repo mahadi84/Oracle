@@ -15,7 +15,7 @@
 
 00. HOW TO:
 ===========
-A) If server is OPEN: Administration Server Console: http://host:port/console or em
+A) If server is OPEN: Administration Server Console: http://localhost:7001/console/ or em
 B) Tnsping: C:\Users\fleck>C:\Oracle12c\Middleware\Oracle_Home\bin\tnsping.exe pdborcl
 C) Oracle Forms: http://localhost:9001/forms/frmservlet
    Oracle Reports: http://localhost:9002/reports/rwservlet
@@ -56,8 +56,8 @@ C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig
 03. CMD TO START Admin Server, Forms and Reports server and Form:
 =================================================================
   -> Go to: C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin
-            Click On: startWebLogic.cmd
             Click On: startNodeManager.cmd
+            Click On: startWebLogic.cmd
   -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin  (Run command mode with Admin priv.)
             startManagedWebLogic.cmd WLS_FORMS
   -> cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\bin  (Run command mode with Admin priv.)
