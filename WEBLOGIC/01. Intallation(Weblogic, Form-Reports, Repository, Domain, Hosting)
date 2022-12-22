@@ -31,12 +31,15 @@ PREQUISITS:
 ----------------------------------------
 > Open CMD prompt with admin priv.
 > Firstly, Install "Oracle WebLogic Server" 
-           CMD: weblogic_software_folder_location>java -jar installation_file.jar
+           CMD:  cd weblogic_software_folder_location
+                 weblogic_software_folder_location>java -jar installation_file.jar
            Example: C:\Users\mmahadi\Downloads>java -jar fmw_12.2.1.4.0_wls.jar
-           OR  C:\Users\mmahadi\Downloads>"C:\Program Files\Java\jdk1.8.0_333\bin\java" -jar fmw_12.2.1.4.0_wls.jar
+           OR  C:\Users\mmahadi\Downloads>"C:\Program Files\Java\jdk1.8.0_333\bin\java" -jar fmw_12.2.1.4.0_wls.jar (For customize JDK location)
 
-> Secondly, On the 'C:\Oracle\Middleware\Oracle_Home' folder ,
-           >> Install "Oracle Fusion Middleware(fmw_12.2.1.4.0_infrastructure.jar)"
+> Secondly, Install Oracle Fusion Middleware,
+           CMD: cd: Middleware_Software_folder_location
+               -Middleware_Software_folder_location>fmw_12.2.1.4.0_infrastructure.jar
+           
             
 > Thirdly, On the 'C:\Oracle\Middleware\Oracle_Home' folder 
          >> Install "Oracle Forms and Reports(setup_fmw_12.2.1.4.0_fr_win64.exe)"
