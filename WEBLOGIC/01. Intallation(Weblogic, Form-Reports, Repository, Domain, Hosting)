@@ -81,7 +81,7 @@ PREQUISITS:
 > Select [+]Node Manager [+]Topology [+]System Components
 > Assing Server to Machine: Move "AdminServer" Left to right 
 > System Components Section: [+Add] system comporent:ohs1 Component Type Select: OHS
-> OHS Server: Add Listen Address, Port: localhost,8888 
+> OHS Server: Add Listen Address: localhost Port: 8888 
 > Move ohs1 left to Right
 > Create
 
