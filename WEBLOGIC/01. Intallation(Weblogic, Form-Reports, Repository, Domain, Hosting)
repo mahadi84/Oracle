@@ -80,9 +80,10 @@ PREQUISITS:
 > Select "Production"
 > Select [+]Node Manager [+]Topology [+]System Components
 > Assing Server to Machine: Move "AdminServer" Left to right 
-> System Components Section: Add OHS(Oracel Hosting Server)
+> System Components Section: [+Add] system comporent:ohs1 Component Type Select: OHS
 > OHS Server: Add Listen Address, Port: localhost,8888 
 > Move ohs1 left to Right
+> Create
 
 
 
