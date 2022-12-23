@@ -35,11 +35,13 @@ PREQUISITS:
                  weblogic_software_folder_location>java -jar installation_file.jar
            Example: C:\Users\mmahadi\Downloads>java -jar fmw_12.2.1.4.0_wls.jar
            OR  C:\Users\mmahadi\Downloads>"C:\Program Files\Java\jdk1.8.0_333\bin\java" -jar fmw_12.2.1.4.0_wls.jar (For customize JDK location) 
+          **Settings are not that much serious just leave as it is.
           ***DO NOT CREATE ANY DOMAIN HERE.
 
 > Secondly, Install Oracle Fusion Middleware,
            CMD: cd: Middleware_Software_folder_location
                -Middleware_Software_folder_location>fmw_12.2.1.4.0_infrastructure.jar
+               **Settings are not that much serious just leave as it is.
            
             
 > Thirdly, Install Oracle Forms and Reports
@@ -53,10 +55,10 @@ PREQUISITS:
 > CMD:
   cd C:\Oracle\Middleware\Oracle_Home\oracle_common\bin
   C:\Oracle\Middleware\Oracle_Home\oracle_common\bin>rcu.bat
-
 **Select All EXCEPT "User Messaging Service"
+
 -->Run these command to DB console: GRANT execute on dbms_lob to DEV_MDS;
-***Uninstall a repository is same process.
+***Uninstall a old repository is same process.
 
 03. CREATE DOMAIN, HOSTING and connect to FORM AND REPORT:
 ---------------------------------------------------------
