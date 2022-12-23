@@ -41,7 +41,7 @@ STEP-A-(ADD/Edit):
 -->And Copy (forms.conf TO C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf)
        CMD: copy C:\Oracle\Middleware\Oracle_Home\forms\templates\config\forms.conf C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
 
-STEP-B(ADD/Edit)RUN weblogic server and form servser, start first otherwise this folder will NOT be CREATED):
+STEP-B(ADD/Edit)RUN weblogic server and form serser first otherwise this folder will NOT be CREATED):
 --------------------------------------------------------------------------------------------------------------
 -->OPEN file: 
        CMD: cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
