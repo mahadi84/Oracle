@@ -29,18 +29,22 @@ D) Run/Check Specific form:  http://localhost:9001/forms/frmservlet?form=C:\path
 
 ADD/Edit:01:
 -------------
--->Go to  C:\Oracle\Middleware\Oracle_Home\forms\templates\config
--->Add below line to: forms.conf
+-->CMD: 
+       -cd C:\Oracle\Middleware\Oracle_Home\forms\templates\config
+       - ..\config>forms.conf
+-->Add below line: 
       <Location /forms>
               SetHandler weblogic-handler 
               WebLogicHost localhost
               WeblogicPort 9001
       </Location>
--->And Copy forms.conf to C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
+-->And Copy (forms.conf TO C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf)
+       CMD: copy C:\Oracle\Middleware\Oracle_Home\forms\templates\config\forms.conf C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
 
 ADD/Edit 02:
 ------------
--->Go to  C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
+-->OPEN file: 
+       CMD: cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
 A:-->Add my form URL below line to: dfault.env
        FORMS_PATH=D:\Form_Oracle;
 B:--> Edit width and heigh on formsweb.cfg to 100%
