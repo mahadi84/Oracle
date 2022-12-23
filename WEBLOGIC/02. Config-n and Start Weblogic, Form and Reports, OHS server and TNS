@@ -27,7 +27,7 @@ D) Run/Check Specific form:  http://localhost:9001/forms/frmservlet?form=C:\path
 01. What to configure before start SERVER, FORM AND CONNECT TO DB?
 ===================================================================
 
-ADD/Edit:01:
+STEP-A-(ADD/Edit):
 -------------
 -->CMD: 
        -cd C:\Oracle\Middleware\Oracle_Home\forms\templates\config
@@ -41,8 +41,8 @@ ADD/Edit:01:
 -->And Copy (forms.conf TO C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf)
        CMD: copy C:\Oracle\Middleware\Oracle_Home\forms\templates\config\forms.conf C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\components\OHS\ohs1\moduleconf
 
-ADD/Edit 02:
-------------
+STEP-B(ADD/Edit)RUN weblogic server and form servser, start first otherwise this folder will NOT be CREATED):
+--------------------------------------------------------------------------------------------------------------
 -->OPEN file: 
        CMD: cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
 A:-->Add my form URL below line to: dfault.env
