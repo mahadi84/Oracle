@@ -1,16 +1,4 @@
 
-STEP:01
-==========
-Add/modify the parameters in your <devsuite_home>/forms/server/formsweb.cfg file:
-# Forms applet parameter
-width=100%
-# Forms applet parameter
-height=100%
-
-
-
-STEP:02
-===========
 On WHEN_NEW_FROM_INSTANCE trigger
 
 SET_WINDOW_PROPERTY('WINDOW1',window_state, maximize);
