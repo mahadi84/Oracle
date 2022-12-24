@@ -11,7 +11,7 @@ height=100%
 
 STEP:02
 ===========
-in pre_form trigger
-set_window_property(FORMS_MDI_WINDOW,WINDOW_STATE,MAXIMIZE);
-set_window_property('WINDOW',WINDOW_STATE,MAXIMIZE);
+On WHEN_NEW_FROM_INSTANCE trigger
 
+SET_WINDOW_PROPERTY('WINDOW1',window_state, maximize);
+SET_WINDOW_PROPERTY(forms_mdi_window,window_state, maximize);
