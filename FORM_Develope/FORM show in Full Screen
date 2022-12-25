@@ -1,5 +1,11 @@
 
+
+
 On WHEN_NEW_FROM_INSTANCE trigger
 
 SET_WINDOW_PROPERTY('WINDOW1',window_state, maximize);
 SET_WINDOW_PROPERTY(forms_mdi_window,window_state, maximize);
+
+
+
+
