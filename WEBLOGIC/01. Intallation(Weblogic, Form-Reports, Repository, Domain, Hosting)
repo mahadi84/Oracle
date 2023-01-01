@@ -32,10 +32,10 @@ PREQUISITS:
 > Open CMD prompt with admin priv.
 > Firstly, Install "Oracle WebLogic Server" 
            CMD:  cd weblogic_software_folder_location
-                 weblogic_software_folder_location>java -jar installation_file.jar FOLDER_LOCATION_WHERE_INSTALL_WEBLOGIC
-           Example:  C:\Users\mmahadi\Downloads>"C:\Program Files\Java\jdk1.8.0_333\bin\java" -jar fmw_12.2.1.4.0_wls.jar ORACLE_HOME="C:\oracle" (For customize JDK location) 
+                 weblogic_software_folder_location>java -jar installation_file.jar 
+           Example:  C:\Users\mmahadi\Downloads>"C:\Program Files\Java\jdk1.8.0_333\bin\java" -jar fmw_12.2.1.4.0_wls.jar (customize JDK location) 
           **Settings are not that much serious just leave as it is.
-          ***DO NOT CREATE ANY DOMAIN HERE.
+          ***Uncheck Intallation Process(DO NOT CREATE ANY DOMAIN HERE.)
 
 > Secondly, Install Oracle Fusion Middleware,
            CMD: cd: Middleware_Software_folder_location
