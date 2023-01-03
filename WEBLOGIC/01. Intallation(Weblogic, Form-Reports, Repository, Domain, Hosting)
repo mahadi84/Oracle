@@ -85,8 +85,8 @@ grant execute on sys.dbms_aqadm to DEV_UMS;
 > Select "Production"
 > Select [+]Node Manager [+]Topology [+]System Components
 > Assing Server to Machine: Move "AdminServer" Left to right 
-> System Components Section: [+Add] system comporent:ohs1 Component Type Select: OHS
-> OHS Server: Add Listen Address: localhost Port: 8888 
+> System Components Section: [+Add] system component:ohs1, Component Type Select: OHS
+> OHS Server: Add Listen Address: localhost, Port: 8888 
 > Move ohs1 left to Right
 > Create
 
