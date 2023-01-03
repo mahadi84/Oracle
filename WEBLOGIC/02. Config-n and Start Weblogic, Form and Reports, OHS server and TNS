@@ -45,7 +45,7 @@ STEP-B(ADD/Edit)RUN weblogic server and form serser first otherwise this folder 
 --------------------------------------------------------------------------------------------------------------
 -->OPEN file: 
        CMD: cd C:\Oracle\Middleware\Oracle_Home\user_projects\domains\pubali\config\fmwconfig\servers\WLS_FORMS\applications\formsapp_12.2.1\config
-A:-->Add my form URL below line to: dfault.env
+A:-->Add my form URL below line to: default.env
        FORMS_PATH=D:\Form_Oracle;
 B:--> Edit width and heigh on formsweb.cfg to 100%
 
